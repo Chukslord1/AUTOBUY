@@ -21,6 +21,7 @@ class Car(models.Model):
     make=models.TextField(blank=True, null=True)
     model_year=models.TextField(blank=True, null=True)
     transmission=models.TextField(blank=True, null=True)
+    pump_size=models.TextField(blank=True, null=True)
     fuel_type=models.TextField(blank=True, null=True)
     image=models.ManyToManyField(Images)
     condition=models.TextField(blank=True, null=True)

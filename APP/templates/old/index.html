@@ -1,0 +1,1289 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Autobuy Nigeria
+  </title>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <link href="{% static 'assets/img/favicon.ico' %}" rel="icon" type="image/x-icon"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'assets/libraries/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+  <!--[if lt IE 10]>
+        <link rel="stylesheet"  href="assets/css/ie-fix.css" />
+        <![endif]-->
+  <!-- Start BOOTSTRAP -->
+  <link href="{% static 'assets/libraries/tether/dist/css/tether.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/libraries/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/css/bootstrap-select.min.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/libraries/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css' %}" rel="stylesheet"/>
+  <!-- End Bootstrap -->
+  <!-- Start Template files -->
+  <link href="{% static 'assets/css/world-dealer.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/css/world-dealer-media.css' %}" rel="stylesheet"/>
+  <!-- End  Template files -->
+  <!-- Start blueimp  -->
+  <link href="{% static 'assets/css/blueimp-gallery.min.css' %}" rel="stylesheet"/>
+  <!-- End blueimp  -->
+  <!-- Start custom styles  -->
+  <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet"/>
+  <!-- End custom styles  -->
+  <script src="{% static 'assets/js/modernizr.custom.js' %}">
+  </script>
+  <!-- Start codemirror  -->
+  <link href="{% static 'assets/libraries/codemirror/lib/codemirror.css' %}" rel="stylesheet"/>
+  <!-- End codemirror  -->
+  <link href="{% static 'assets/libraries/nouislider/nouislider.css' %}" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="header container container-palette affix-menu">
+   <div class="top-bar color-primary">
+    <div class="&lt;!--container--&gt;">
+     <div class="top-bar-left">
+      <div class="top-bar-body">
+       <a class="logo" href="{% url 'APP:index' %}">
+        <img alt="" src="{% static 'assets/img/logo.png' %}"/>
+       </a>
+       <h1 class="website-title">
+        <a data-hover="Autobuy" href="{% url 'APP:index' %}">
+         Autobuy
+        </a>
+       </h1>
+      </div>
+      <div class="skew-block">
+      </div>
+     </div>
+     <div class="top-bar-right search-form-middle-phone hidden">
+      <div class="skew-block">
+      </div>
+      <div class="search-form-mini closed">
+       <a class="search" href="#">
+        <i class="fa fa-search">
+        </i>
+       </a>
+       <input placeholder="Search" type="text"/>
+       <a class="close" href="#">
+        <i class="fa fa-remove">
+        </i>
+       </a>
+      </div>
+      <a class="search-btn search-form-mini-open" href="#">
+      </a>
+     </div>
+     <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
+      <div class="&lt;!--container--&gt;">
+       <div class="block block-black block-left-up">
+         {% if user.is_authenticated %}
+        <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="{% url 'APP:submit_listing' %}">
+         Submit Listing
+        </a>
+        {% endif %}
+        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
+         Register
+        </a>
+        {% if user.is_authenticated %}
+        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
+         Profile
+        </a>
+        {% else %}
+        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
+         Login
+        </a>
+        {% endif %}
+        <button class="navbar-toggle" id="toggle-mainmenu" type="button">
+         <span class="sr-only">
+          Toggle navigation
+         </span>
+         <span class="icon-bar">
+         </span>
+         <span class="icon-bar">
+         </span>
+         <span class="icon-bar">
+         </span>
+        </button>
+        <div class="search-btn-box vert-line-l-r vert-line-orange">
+         <a class="search-btn" href="#">
+         </a>
+        </div>
+
+        <!-- /.lang menu -->
+       </div>
+      </div>
+     </div>
+     <div class="search-form-mini-phone hidden-sm">
+      <div>
+       <input id="search" placeholder="Search" type="text"/>
+       <a class="search" href="#">
+        <i class="fa fa-search" onclick="search()">
+        </i>
+       </a>
+       <a class="close" href="#">
+        <i class="fa fa-remove">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="top-bar-center">
+      <nav class="navbar mainmenu">
+       <div class="container-fluid">
+        <ul class="nav navbar-nav">
+         <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+           Categories
+           <span class="caret">
+           </span>
+          </a>
+
+
+
+
+          <ul class="dropdown-menu">
+           <li>
+            <a onclick="showOutput2()">
+             Automobiles
+            </a>
+           </li>
+           <li>
+            <a  onclick="showOutput3()">
+             Trucks
+            </a>
+           </li>
+           <li>
+            <a onclick="showOutput4()">
+          Tractor
+            </a>
+           </li>
+           <li>
+            <a onclick="showOutput5()">
+             Moped
+            </a>
+           </li>
+           <li>
+            <a onclick="showOutput6()">
+             Bus
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="nav-item dropdown dropdown-mega">
+          <a class="dropdown-toggle" href="{% url 'APP:blog_list' %}">
+           Articles
+          </a>
+        </li>
+         <li class="nav-item dropdown dropdown-mega">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+           Featured
+          </a>
+          <div class="dropdown-menu dropdown-menu-property">
+           <div class="container">
+            <div class="widget-content properties-grid">
+             <div class="row">
+               {% for item in featured %}
+              <div class="col-md-3 col-sm-6">
+               <div class="thumbnail thumbnail-property features">
+                <div class="property-image">
+                  {% for i in item.image.all %}
+                 {% if forloop.first %}
+                 <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
+                 {% endif %}
+                 {% endfor %}
+                 <div class="image-count">
+                  <i class="icon-image">
+                  </i>
+                  <span>
+                   {{item.image.all.count}}
+                  </span>
+                 </div>
+                 <div class="budget budget-used">
+                  <div class="budget-mask">
+                   <span>
+                    {{item.use_state}}
+                   </span>
+                  </div>
+                 </div>
+                 <a class="property-image-hover" href="{{item.get_absolute_url}}">
+                  <span class="property-im-m property-im-m-lt">
+                  </span>
+                  <span class="property-im-m property-im-m-lb">
+                  </span>
+                  <span class="property-im-m property-im-m-rt">
+                  </span>
+                  <span class="property-im-m property-im-m-rb">
+                  </span>
+                 </a>
+                </div>
+                <div class="caption">
+                 <h3 class="property-title">
+                  <a href="listing.html">
+                   {{item.title}}
+                  </a>
+                 </h3>
+                 <p class="property-description">
+                  {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/KS
+                 </p>
+                 <span class="property-field">
+                  {{item.model}}
+                 </span>
+                 <div class="property-ratings">
+                  <i class="icon-star-ratings-{{item.rating}}">
+                  </i>
+                 </div>
+                </div>
+               </div>
+              </div>
+              {% endfor %}
+              <a class="btn btn-custom btn-custom-primary color-primary" href="{% url 'APP:featured' %}">See all</a>
+             </div>
+            </div>
+            <!-- /. recent properties -->
+           </div>
+          </div>
+         </li>
+         <li class="nav-item dropdown dropdown-mega">
+          <a class="dropdown-toggle" href="{% url 'APP:dealers' %}">
+           Dealers
+          </a>
+        </li>
+        <li class="nav-item dropdown dropdown-mega">
+         <a class="dropdown-toggle" href="{% url 'APP:contact' %}">
+          Contact
+         </a>
+       </li>
+          </ul>
+         </li>
+        </ul>
+       </div>
+      </nav>
+      <!-- /.main menu -->
+     </div>
+     <div class="top-bar-center2 hidden-sm">
+      <div class="mail">
+       <a href="mailto:info@worlddealer.com">
+        info@worlddealer.com
+        <i class="fa fa-envelope">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="top-bar-right">
+      <div class="skew-block color-secondary">
+      </div>
+      <div class="search-form-mini closed">
+       <input placeholder="Search" id="search" name="search" type="text"/>
+       <a class="search" >
+        <i class="fa fa-search" onclick="search()">
+        </i>
+       </a>
+       <a class="close" href="#">
+        <i class="fa fa-remove">
+        </i>
+       </a>
+      </div>
+      <a class="search-btn color-secondary search-form-mini-open" href="#">
+      </a>
+     </div>
+    </div>
+   </div>
+   <!-- /.top bar-->
+   <div class="sub-top-bar overflow hidden-xs">
+    <div class="&lt;!--container--&gt;">
+     <div class="block block-black block-left-up">
+       {% if user.is_authenticated %}
+      <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="{% url 'APP:submit_listing' %}">
+       Submit Listing
+      </a>
+      {% endif %}
+      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
+       Register
+      </a>
+      {% if user.is_authenticated %}
+      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="profile">
+       Profile
+      </a>
+      {% else %}
+      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
+       Login
+      </a>
+      {% endif %}
+      <!-- /.lang menu -->
+     </div>
+    </div>
+   </div>
+   <!-- /. sub-top bar-->
+  </header>
+  <div class="widget-video-top container container-palette section-xs">
+   <div class="video-box">
+    <video autoplay loop="">
+     <source src="{% static 'assets/video/video-preview.mov' %}" type="video/mp4"/>
+    </video>
+   </div>
+  </div>
+  <!-- /.widget top slider-->
+  <!-- /.header-->
+  <main class="container container-overflow section">
+   <div class="block block-white block-right-down widget-custom-filet-2">
+     <label class="field-box">
+      <input checked="" id="auto" class="field-box-input" name="car" type="radio" value="auto"/>
+      <span>
+       <i class="icon-car-auto" onclick="showOutput2()">
+       </i>
+      </span>
+      <span class="label-title">
+       Auto
+      </span>
+     </label>
+     <label class="field-box">
+      <input  id="truck" class="field-box-input" name="car" type="radio" value="truck"/>
+      <span>
+       <i class="icon-car-kamion" onclick="showOutput3()">
+       </i>
+      </span>
+      <span class="label-title">
+       Truck
+      </span>
+     </label>
+     <label class="field-box">
+      <input id="tractor" class="field-box-input" name="car" type="radio" value="tractor"/>
+      <span>
+       <i class="icon-car-bager" onclick="showOutput4()">
+       </i>
+      </span>
+      <span class="label-title">
+       Tractor
+      </span>
+     </label>
+     <label class="field-box">
+      <input id="moped" class="field-box-input" name="car" type="radio" value="moped"/>
+      <span>
+       <i class="icon-car-moped" onclick="showOutput5()">
+       </i>
+      </span>
+      <span class="label-title">
+       Moped
+      </span>
+     </label>
+     <label class="field-box">
+      <input id="bus" class="field-box-input" name="car" type="radio" value="bus"/>
+      <span>
+       <i class="icon-car-bus" onclick="showOutput6()">
+       </i>
+      </span>
+      <span class="label-title">
+       Bus (9)
+      </span>
+     </label>
+   </div>
+   <!-- /. overflow search-block -->
+   <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function showOutput () {
+  var value=document.getElementById("make").value;
+  var value_2=document.getElementById("model").value;
+  var value_5=document.getElementById("year_min").value;
+  var value_6=document.getElementById("year_max").value;
+  var value_7=document.getElementById("price_min").value;
+  var value_8=document.getElementById("price_max").value;
+  var value_9=document.getElementById("fuel_type").value;
+  var value_10=document.getElementById("transmission").value;
+  var value_11=document.getElementById("condition").value;
+  var value_12=document.getElementById("keyword").value;
+  if (document.getElementById("new").checked == true){
+    var value_4=document.getElementById("new").value;
+  } else if (document.getElementById("used").checked == true){
+    var value_4=document.getElementById("used").value;
+  } else if (document.getElementById("import").checked == true){
+    var value_4=document.getElementById("import").value;
+  }else {
+    var value_4="";
+  }
+
+  var paid="one";
+  var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
+  window.location.href="search" + queryString;
+}
+
+function showOutput2 () {
+  var value=document.getElementById("auto").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput3 () {
+  var value=document.getElementById("truck").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput4 () {
+  var value=document.getElementById("tractor").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput5 () {
+  var value=document.getElementById("moped").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput6 () {
+  var value=document.getElementById("bus").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function search () {
+  var value=document.getElementById("search").value;
+
+  var paid="two";
+  var queryString = "?second_check=" +paid  + "&keyword=" + value;
+  window.location.href="search" + queryString;
+}
+function date () {
+  var value=document.getElementById("date").value;
+  var value2=document.URL;
+  var value3=value2.replace("?report=true&arrange=1","");
+  var value4=value3.replace("?report=true&arrange=2","");
+  var queryString = "&arrange=" +value;
+  window.location.href=value4 +"?report="+"true"+queryString;
+}
+</script>
+   <div class="box-fill box">
+    <div class="row">
+     <div class="col-sm-3">
+      <div class="widget widge-search-right">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Search
+        </h2>
+       </div>
+       <div class="widget-content">
+         <div class="form-group">
+          <label class="checkbox-inline">
+           <input id="used" name="use_state"  type="radio" value="used"/>
+           Used
+          </label>
+          <label class="checkbox-inline">
+           <input id="new" name="use_state"  type="radio" value="new"/>
+           New
+          </label>
+          <label class="checkbox-inline">
+           <input id="import" name="use_state" type="radio" value="import"/>
+           Import
+          </label>
+         </div>
+         <div class="form-group">
+          <select id="make" name="make" class="form-control selectpicker">
+           <option value="">
+            Makes
+           </option>
+           <option value="A">
+            A
+           </option>
+           <option value="B">
+            B
+           </option>
+           <option value="C">
+            C
+           </option>
+           <option value="D">
+            D
+           </option>
+           </option>
+          </select>
+         </div>
+         <div class="form-group">
+          <select id="model" name="model" class="form-control selectpicker">
+            <option value="">
+             Model
+            </option>
+            <option value="A">
+             A
+            </option>
+            <option value="B">
+             B
+            </option>
+            <option value="C">
+             C
+            </option>
+            <option value="D">
+             D
+            </option>
+          </select>
+         </div>
+         <div class="form-group">
+          <div class="scale-range" id="nonlinear-year">
+           <label>
+            Year
+           </label>
+           <div class="nonlinear">
+           </div>
+           <div class="scale-range-value">
+            <span class="nonlinear-min">
+            </span>
+            <span class="nonlinear-max">
+            </span>
+           </div>
+           <input class="value-min hidden" id="year_min" name="year_min" placeholder="" type="text" value=""/>
+           <input class="value-max hidden" placeholder="" id="year_max" name="year_max" type="text" value=""/>
+          </div>
+         </div>
+         <div class="form-group">
+          <div class="scale-range" id="nonlinear-price">
+           <label>
+            Price
+           </label>
+           <div class="nonlinear">
+           </div>
+           <div class="scale-range-value">
+            <span class="nonlinear-min">
+            </span>
+            <span class="nonlinear-max">
+            </span>
+           </div>
+           <input class="value-min hidden" id="price_min" name="price_min" placeholder="" type="text" value=""/>
+           <input class="value-max hidden" placeholder=""  id="price_max" name="price_min" type="text" value=""/>
+          </div>
+         </div>
+         <div class="form-group">
+          <select id="fuel_type" name="fuel_type" class="form-control selectpicker">
+           <option value="">
+            Fuel type
+           </option>
+           <option value="Gas">
+            Gas
+           </option>
+           <option value="Diesel">
+            Diesel
+           </option>
+           <option value="Hydrogen">
+            Hydrogen
+           </option>
+           <option value="Petrol">
+            Petrol
+           </option>
+          </select>
+         </div>
+         <div class="form-group">
+          <select id="transmission" name="transmission" class="form-control selectpicker">
+           <option value="">
+            Transmission
+           </option>
+           <option value="Automatic">
+            Automatic
+           </option>
+           <option value="Continuously variable">
+            Continuously variable
+           </option>
+           <option value="Semi-automatic">
+            Semi-automatic
+           </option>
+           <option value="dual-clutch">
+            Dual-clutch
+           </option>
+          </select>
+         </div>
+         <div class="form-group">
+          <select id="condition" class="form-control selectpicker">
+           <option value="">
+            Condition
+           </option>
+           <option value="A">
+            A
+           </option>
+           <option value="B">
+            B
+           </option>
+           <option value="C">
+            C
+           </option>
+           <option value="D">
+            D
+           </option>
+          </select>
+         </div>
+         <div class="form-group">
+          <input class="form-control" id="keyword" name="keyword" placeholder="Keywords" type="text"/>
+         </div>
+         <div class="form-group submit-box">
+          <button class="btn btn-custom btn-custom-primary color-primary" type="button"  onclick="showOutput()">
+           <i class="fa fa-search">
+           </i>
+           Search
+          </button>
+         </div>
+       </div>
+      </div>
+      <!-- /. search-form -->
+      <aside class="widget widget-ads hidden-xs">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Sponsor
+        </h2>
+       </div>
+       <div class="widget-content">
+        <a href="#">
+         <img alt="" src="{% static 'assets/img/placeholders/170x140.png' %}"/>
+        </a>
+       </div>
+      </aside>
+      <!-- /. ads -->
+      <div class="widget widgt-agents hidden-xs">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Dealers
+        </h2>
+       </div>
+       <div class="widget-content">
+         {% for i in dealers %}
+        <div class="agent-box media">
+         <div class="media-left">
+          <a class="agent-box-image image-hoveffect-zoom" href="{{i.get_absolute_url}}">
+            {% if i.image %}
+            <img alt="" src="{{i.image.url}}"/>
+            {% else %}
+           <img alt="" src="{% static 'assets/img/placeholders/125x125.png' %}"/>
+           {% endif %}
+          </a>
+         </div>
+         <div class="media-right">
+          <h3 class="title">
+           <a class="primary-hover" href="{{i.get_absolute_url}}">
+            {{i.name}}
+           </a>
+          </h3>
+          <span class="number">
+          {{i.phone}}
+          </span>
+          <span class="mail">
+           <a href="mailto:{{i.website}}">
+            {{i.website}}
+           </a>
+          </span>
+         </div>
+        </div>
+        {% endfor %}
+       </div>
+      </div>
+      <!-- /. agents-list -->
+     </div>
+     <div class="col-sm-9">
+      <div class="widget widget-recentproperties">
+       <div class="widget-header clearfix">
+        <div class="properties-filter pull-right">
+         <div class="form-group">
+          <span>
+           Order By:
+          </span>
+          <select id="date" onchange="this.options[this.selectedIndex].value && (date());" class="form-control text-color-primary" id="search" name="filter">
+            <option value="sort">
+             Default
+            </option>
+           <option value="1">
+            Date publish DESC
+           </option>
+           <option value="2">
+            Date publish ASC
+           </option>
+          </select>
+         </div>
+        </div>
+       </div>
+       <!-- /. filters -->
+       <div class="widget-content properties-grid">
+        <div class="row">
+         {% if search %}
+          {% for car in search %}
+         <div class="col-md-4 col-sm-6">
+          <div class="thumbnail thumbnail-property features">
+           <div class="property-image">
+             {% for item in car.image.all %}
+            {% if forloop.first %}
+            <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+            {% endif %}
+            {% endfor %}
+            <div class="image-count">
+             <i class="icon-image">
+             </i>
+             <span>
+              {{car.image.all.count}}
+             </span>
+            </div>
+            <div class="budget budget-used">
+             <div class="budget-mask">
+              <span>
+              {{car.condition}}
+              </span>
+             </div>
+            </div>
+            <a class="property-image-hover" href="{{car.get_absolute_url}}">
+             <span class="property-im-m property-im-m-lt">
+             </span>
+             <span class="property-im-m property-im-m-lb">
+             </span>
+             <span class="property-im-m property-im-m-rt">
+             </span>
+             <span class="property-im-m property-im-m-rb">
+             </span>
+            </a>
+           </div>
+           <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function {{car.slug}}bookmark () {
+          var value=document.getElementById("btitle").value;
+          var value_2=document.getElementById("bcategory").value;
+          var value_3=document.getElementById("bpower").value;
+          var value_4=document.getElementById("bspeed").value;
+          var value_5=document.getElementById("bmodel").value;
+          var value_6=document.getElementById("bmodel_year").value;
+          var value_7=document.getElementById("btransmission").value;
+          var value_8=document.getElementById("bfuel_type").value;
+          var value_9=document.getElementById("bimage").value;
+          var value_10=document.getElementById("bcondition").value;
+          var value_11=document.getElementById("buse_state").value;
+          var value_12=document.getElementById("bprice").value;
+
+          var paid="three";
+          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
+          window.location.href="index.html" + queryString;
+        }
+        </script>
+           <div class="caption">
+             <input type="hidden" id="btitle" value="{{car.title}}"/>
+             <input type="hidden" id="bcategory" value="{{car.category}}"/>
+             <input type="hidden" id="bpower" value="{{car.power}}"/>
+             <input type="hidden" id="bspeed" value="{{car.speed}}"/>
+             <input type="hidden" id="bmodel" value="{{car.model}}"/>
+             <input type="hidden" id="bmodel_year" value="{{car.model_year}}"/>
+             <input type="hidden" id="btransmission" value="{{car.transmission}}"/>
+             <input type="hidden" id="bfuel_type" value="{{car.fuel_type}}"/>
+             {% for i in car.image.all %}
+           {% if forloop.first %}
+             <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+             {% endif %}
+            {% endfor %}
+             <input type="hidden" id="bcondition" value="{{car.condition}}"/>
+             <input type="hidden" id="buse_state" value="{{car.use_state}}"/>
+             <input type="hidden" id="bprice" value="{{car.price}}"/>
+            <div class="anchor">
+             <a class="" onclick="{{car.slug}}bookmark()">
+              <i class="fa fa-bookmark">
+              </i>
+             </a>
+            </div>
+            <h3 class="property-title">
+             <a href="listing.html">
+            {{car.title}}
+             </a>
+            </h3>
+            <p class="property-description">
+             {{car.model}}. g. {{car.speed}}km, {{car.power}}kW/90KS
+            </p>
+            <span class="property-field">
+             {{car.speed}} km
+            </span>
+            <div class="property-ratings">
+             <i class="icon-star-ratings-{{car.rating}}">
+             </i>
+            </div>
+           </div>
+          </div>
+         </div>
+         {% endfor %}
+         {% else %}
+          {% for car in cars %}
+         <div class="col-md-4 col-sm-6">
+          <div class="thumbnail thumbnail-property features">
+           <div class="property-image">
+             {% for item in car.image.all %}
+            {% if forloop.first %}
+            <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+            {% endif %}
+            {% endfor %}
+            <div class="image-count">
+             <i class="icon-image">
+             </i>
+             <span>
+              {{car.image.all.count}}
+             </span>
+            </div>
+            <div class="budget budget-used">
+             <div class="budget-mask">
+              <span>
+              {{car.condition}}
+              </span>
+             </div>
+            </div>
+            <a class="property-image-hover" href="{{car.get_absolute_url}}">
+             <span class="property-im-m property-im-m-lt">
+             </span>
+             <span class="property-im-m property-im-m-lb">
+             </span>
+             <span class="property-im-m property-im-m-rt">
+             </span>
+             <span class="property-im-m property-im-m-rb">
+             </span>
+            </a>
+           </div>
+           <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function {{car.slug}}bookmark () {
+          var value=document.getElementById("btitle").value;
+          var value_2=document.getElementById("bcategory").value;
+          var value_3=document.getElementById("bpower").value;
+          var value_4=document.getElementById("bspeed").value;
+          var value_5=document.getElementById("bmodel").value;
+          var value_6=document.getElementById("bmodel_year").value;
+          var value_7=document.getElementById("btransmission").value;
+          var value_8=document.getElementById("bfuel_type").value;
+          var value_9=document.getElementById("bimage").value;
+          var value_10=document.getElementById("bcondition").value;
+          var value_11=document.getElementById("buse_state").value;
+          var value_12=document.getElementById("bprice").value;
+
+          var paid="three";
+          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
+          window.location.href="index.html" + queryString;
+        }
+        </script>
+           <div class="caption">
+             <input type="hidden" id="btitle" value="{{car.title}}"/>
+             <input type="hidden" id="bcategory" value="{{car.category}}"/>
+             <input type="hidden" id="bpower" value="{{car.power}}"/>
+             <input type="hidden" id="bspeed" value="{{car.speed}}"/>
+             <input type="hidden" id="bmodel" value="{{car.model}}"/>
+             <input type="hidden" id="bmodel_year" value="{{car.model_year}}"/>
+             <input type="hidden" id="btransmission" value="{{car.transmission}}"/>
+             <input type="hidden" id="bfuel_type" value="{{car.fuel_type}}"/>
+             {% for i in car.image.all %}
+           {% if forloop.first %}
+             <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+             {% endif %}
+            {% endfor %}
+             <input type="hidden" id="bcondition" value="{{car.condition}}"/>
+             <input type="hidden" id="buse_state" value="{{car.use_state}}"/>
+             <input type="hidden" id="bprice" value="{{car.price}}"/>
+            <div class="anchor">
+             <a class="" onclick="{{car.slug}}bookmark()">
+              <i class="fa fa-bookmark">
+              </i>
+             </a>
+            </div>
+            <h3 class="property-title">
+             <a href="listing.html">
+            {{car.title}}
+             </a>
+            </h3>
+            <p class="property-description">
+             {{car.model}}. g. {{car.speed}}km, {{car.power}}kW/90KS
+            </p>
+            <span class="property-field">
+             {{car.speed}} km
+            </span>
+            <div class="property-ratings">
+             <i class="icon-star-ratings-{{car.rating}}">
+             </i>
+            </div>
+           </div>
+          </div>
+         </div>
+         {% endfor %}
+         {% endif %}
+        </div>
+        <nav aria-label="Page navigation" class="text-center">
+         <ul class="pagination">
+             {% if page_obj.has_next %}
+          <li>
+           <a aria-label="Previous" href="?page={{ page_obj.previous_page_number }}">
+            <span aria-hidden="true">
+             «
+            </span>
+           </a>
+          </li>
+          {% endif %}
+          <li>
+           <a class="active" href="?page=1">
+            {{ page_obj.number }}
+           </a>
+          </li>
+          {% if page_obj.has_next %}
+          <li>
+           <a href="?page={{ page_obj.next_page_number }}">
+            2
+           </a>
+          </li>
+          {% endif %}
+          </li>
+          {% if page_obj.has_next %}
+          <li>
+           <a aria-label="Next" href="?page={{ page_obj.next_page_number }}">
+            <span aria-hidden="true">
+             »
+            </span>
+           </a>
+          </li>
+          {% endif %}
+         </ul>
+        </nav>
+       </div>
+       <!-- /. recent properties -->
+      </div>
+      <aside class="widget widget-ads visible-xs-block">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Sponsor
+        </h2>
+       </div>
+       <div class="widget-content">
+        <a href="#">
+         <img alt="" src="{% static 'assets/img/placeholders/170x140.png' %}"/>
+        </a>
+       </div>
+      </aside>
+      <!-- /. ads -->
+      <div class="widget widgt-agents visible-xs-block">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Dealers
+        </h2>
+       </div>
+       <div class="widget-content">
+         {% for i in dealers %}
+        <div class="agent-box media">
+         <div class="media-left">
+          <a class="agent-box-image image-hoveffect-zoom" href="{{i.get_absolute_url}}">
+            {% if i.image %}
+            <img alt="" src="{{i.image.url}}"/>
+            {% else %}
+           <img alt="" src="{% static 'assets/img/placeholders/125x125.png' %}"/>
+           {% endif %}
+          </a>
+         </div>
+         <div class="media-right">
+          <h3 class="title">
+           <a class="primary-hover" href="{{i.get_absolute_url}}">
+            {{i.name}}
+           </a>
+          </h3>
+          <span class="number">
+          {{i.phone}}
+          </span>
+          <span class="mail">
+           <a href="mailto:{{i.website}}">
+            {{i.website}}
+           </a>
+          </span>
+         </div>
+        </div>
+        {% endfor %}
+       </div>
+      </div>
+      <!-- /. agents-list -->
+     </div>
+    </div>
+   </div>
+  </main>
+  <section class="section container section-spaces">
+   <div class="box-fill box">
+    <div class="row">
+      {% for i in articles %}
+     <div class="col-sm-6">
+      <div class="custom-box">
+       <div class="custom-box-title vert-line-r-l vert-line-primary">
+         <a href="{{i.get_absolute_url}}">
+        <h2>
+         {{i.title}}
+        </h2>
+      </a>
+       </div>
+       <div class="custom-box-content text-justify">
+        {{i.summmary}}
+       </div>
+      </div>
+     </div>
+     {% endfor %}
+    </div>
+   </div>
+  </section>
+  <!-- /. default content -->
+  <footer class="footer container container-palette">
+   <div class="footer-content box-fill">
+    <div class="container">
+     <div class="row">
+      <div class="custom-box box-quicle-menu col-md-3 col-sm-6">
+       <div class="custom-box-title vert-line-r-l vert-line-primary">
+        <h2>
+         Quick Links
+        </h2>
+       </div>
+       <div class="custom-box-content">
+        <ul class="list">
+         <li>
+          <a href="{% url 'APP:index' %}">
+           Home
+          </a>
+         </li>
+         <li>
+          <a href="{% url 'APP:dealers' %}">
+           Dealers
+          </a>
+         </li>
+         <li>
+          <a href="{% url 'APP:blog_list' %}">
+           Blogs
+          </a>
+         </li>
+         <li>
+          <a href="{% url 'APP:featured' %}">
+           Featured
+          </a>
+         </li>
+         <li>
+          <a href="{% url 'APP:contact' %}">
+           Contact
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
+      <div class="custom-box box-contact col-md-3 col-sm-6">
+       <div class="custom-box-title vert-line-r-l vert-line-primary">
+        <h2>
+         Contact
+        </h2>
+       </div>
+       <div class="custom-box-content">
+        <p>
+         World Dealer
+         <br/>
+         Ilica 345
+         <br/>
+         HR-10000 Zagreb
+         <br/>
+         Phone: +385 (0)1 123 321
+         <br/>
+         Fax: +385 (0)1 123 322
+         <br/>
+         Email: info@my-website.com
+         <br/>
+        </p>
+       </div>
+      </div>
+      <div class="custom-box box-social col-md-3 col-sm-6">
+       <div class="custom-box-title vert-line-r-l vert-line-primary">
+        <h2>
+         Social
+        </h2>
+       </div>
+       <div class="custom-box-content">
+        <div id="fb-root">
+        </div>
+        <div class="sidebar-ads-1 widget-content">
+         <div class="fb-page" data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/facebook" data-show-facepile="true" data-show-posts="false" data-small-header="false">
+          <div class="fb-xfbml-parse-ignore">
+           <blockquote cite="https://www.facebook.com/facebook">
+            <a href="https://www.facebook.com/facebook">
+             Facebook
+            </a>
+           </blockquote>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="custom-box box-about col-md-3 col-sm-6">
+       <div class="custom-box-title vert-line-r-l vert-line-primary">
+        <h2>
+         About
+        </h2>
+       </div>
+       <div class="custom-box-content">
+        <p>
+         World Dealer MultiPurpose Script is a multi-solution product made with simplicity in mind so you can benefit as much as possible from it.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="footer-bottom">
+    <div class="container">
+     <div class="row">
+      <div class="col-sm-6 text-left">
+       All Right reserved © 2017
+      </div>
+      <div class="col-sm-6 text-right">
+       <a href="http://iwinter.com.hr" target="_blank">
+        Winter DEV
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <!-- /. footer -->
+  <div class="modal fade modal-form" id="login-form" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <div class="modal-header">
+      <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+       <span aria-hidden="true">
+        ×
+       </span>
+      </button>
+      <h4 class="modal-title">
+       Login
+      </h4>
+     </div>
+     <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+       <div class="form-group">
+         <input name="login" type="hidden" value="true"/>
+        <input class="form-control" name="email" placeholder="Mail" type="text"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control" name="password" placeholder="Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <button class="btn btn-primary btn_color" type="submit">
+         Login
+        </button>
+       </div>
+       {{message_login}}
+      </form>
+      <a href="resetpassword_reset">?forgot password</a>
+     </div>
+    </div>
+    <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade modal-form" id="registr-form" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <div class="modal-header">
+      <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+       <span aria-hidden="true">
+        ×
+       </span>
+      </button>
+      <h4 class="modal-title">
+       Register
+      </h4>
+     </div>
+     <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input name="register" type="hidden" value="true"/>
+         <input class="form-control" name="name" placeholder="full name" type="text"/>
+        </div>
+        <div class="form-group">
+         <input class="form-control" name="phone" placeholder="phone number" type="text"/>
+        </div>
+        <div class="form-group">
+         <input class="form-control" name="username" placeholder="username" type="text"/>
+        </div>
+       <div class="form-group">
+        <input class="form-control" name="email" placeholder="Mail" type="text"/>
+       </div>
+       <div class="form-group">
+        <select name="user_type" class="form-control">
+          <option>Buyer</option>
+          <option>Dealer</option>
+        </select>
+       </div>
+       <div class="form-group">
+        <input class="form-control" name="password1" placeholder="Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control" name="password2" placeholder="Confirm Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <button class="btn btn-primary btn_color" type="submit">
+         Register
+        </button>
+        {{message_register}}
+        {{message_confirm}}
+       </div>
+      </form>
+     </div>
+    </div>
+    <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <a class="btn btn-scoll-up" id="btn-scroll-up">
+  </a>
+  <script src="{% static 'assets/js/jquery-2.2.1.min.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/jquery.mobile/jquery.mobile.custom.min.js' %}">
+  </script>
+  <!-- End Jquery -->
+  <!-- Start BOOTSTRAP -->
+  <script src="{% static 'assets/libraries/tether/dist/js/tether.min.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/bootstrap/dist/js/bootstrap.min.js' %}">
+  </script>
+  <script src="{% static 'assets/js/bootstrap-select.min.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/bootstrap-colorpicker-master/dist/js/bootstrap-colorpicker.min.js' %}">
+  </script>
+  <!-- End Bootstrap -->
+  <!-- Start Template files -->
+  <script src="{% static 'assets/js/world-dealer.js' %}">
+  </script>
+  <!-- End  Template files -->
+  <!-- Start blueimp  -->
+  <script src="{% static 'assets/js/blueimp-gallery.min.js' %}" type="text/javascript">
+  </script>
+  <!-- End blueimp  -->
+  <!-- Start custom styles  -->
+  <script src="{% static 'assets/js/custom.js' %}" type="text/javascript">
+  </script>
+  <!-- End custom styles  -->
+  <script src="{% static 'assets/js/moment-with-locales.min.js' %}" type="text/javascript">
+  </script>
+  <script src="{% static 'assets/js/moment-timezone-with-data.js' %}" type="text/javascript">
+  </script>
+  <!-- Start kevalbhatt-worldmapgenerator http://kevalbhatt.github.io/WorldMapGenerator/ -->
+  <script src="{% static 'assets/js/worldmapgenerator_custom.js' %}" type="text/javascript">
+  </script>
+  <!-- End kevalbhatt-worldmapgenerator  -->
+  <!-- Start codemirror  -->
+  <script src="{% static 'assets/libraries/codemirror/lib/codemirror.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/javascript/javascript.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/addon/edit/matchbrackets.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/htmlmixed/htmlmixed.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/xml/xml.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/php/php.js' %}">
+  </script>
+  <script src="{% static 'assets/js/codemirror_init.js' %}">
+  </script>
+  <!-- End codemirror  -->
+  <script src="{% static 'assets/libraries/nouislider/nouislider.min.js' %}">
+  </script>
+  <script async="" defer="" src="{% static 'https://www.google.com/recaptcha/api.js' %}">
+  </script>
+  <script src="{% static 'assets/js/facebook.js' %}">
+  </script>
+ </body>
+</html>

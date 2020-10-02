@@ -207,7 +207,8 @@ class IndexListView(ListView):
             context['page_obj'] = page_obj
         context['cars'] = Car.objects.all()
         context['featured'] = Car.objects.filter(featured=True)[:3]
-        context['articles'] = Article.objects.all().order_by('-id')[:2]
+        context['articles'] = Article.objects.all().order_by('-id')[:3]
+        context['blogs'] = Article.objects.all().order_by('-id')[4:6]
         context['dealers'] = UserProfile.objects.filter(user_type__icontains="dealer").order_by('-id')[:3]
 
         return context
