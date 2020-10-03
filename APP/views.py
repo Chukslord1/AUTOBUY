@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -209,6 +209,7 @@ class IndexListView(ListView):
         context['featured'] = Car.objects.filter(featured=True)[:3]
         context['articles'] = Article.objects.all().order_by('-id')[:3]
         context['blogs'] = Article.objects.all().order_by('-id')[4:6]
+        context['makes'] = Make.objects.all()
         context['dealers'] = UserProfile.objects.filter(user_type__icontains="dealer").order_by('-id')[:3]
 
         return context

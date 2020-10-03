@@ -228,28 +228,45 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function showOutput () {
-  var value=document.getElementById("make").value;
-  var value_2=document.getElementById("model").value;
-  var value_5=document.getElementById("year_min").value;
-  var value_6=document.getElementById("year_max").value;
-  var value_7=document.getElementById("price_min").value;
-  var value_8=document.getElementById("price_max").value;
-  var value_9=document.getElementById("fuel_type").value;
-  var value_10=document.getElementById("transmission").value;
-  var value_11=document.getElementById("condition").value;
-  var value_12=document.getElementById("keyword").value;
-  if (document.getElementById("new").checked == true){
-    var value_4=document.getElementById("new").value;
-  } else if (document.getElementById("used").checked == true){
-    var value_4=document.getElementById("used").value;
-  } else if (document.getElementById("import").checked == true){
-    var value_4=document.getElementById("import").value;
-  }else {
+  if (document.getElementById("options1").checked == true){
+    var value_4=document.getElementById("options1").value;
+  } else if (document.getElementById("options2").checked == true){
+    var value_4=document.getElementById("options2").value;
+  } else if (document.getElementById("options3").checked == true){
+    var value_4=document.getElementById("options3").value;
+  }else if (document.getElementById("options4").checked == true){
+    var value_4=document.getElementById("options4").value;
+  }else if (document.getElementById("options5").checked == true){
+    var value_4=document.getElementById("options5").value;
+  }else if (document.getElementById("options6").checked == true){
+    var value_4=document.getElementById("options6").value;
+  }else if (document.getElementById("options7").checked == true){
+    var value_4=document.getElementById("options7").value;
+  }else if (document.getElementById("options8").checked == true){
+    var value_4=document.getElementById("options8").value;
+  }
+  else {
     var value_4="";
   }
+  if (document.getElementById("use1").checked == true){
+    var value_5=document.getElementById("use1").value;
+  } else if (document.getElementById("use2").checked == true){
+    var value_5=document.getElementById("use2").value;
+  } else if (document.getElementById("use3").checked == true){
+    var value_5=document.getElementById("use3").value;
+  }else if (document.getElementById("use4").checked == true){
+    var value_5=document.getElementById("use4").value;
+  }else {
+    var value_5="";
+  }
+  var value_3=document.getElementById("make").value;
+  var value_2=document.getElementById("model").value;
+  var value_1=document.getElementById("min_price").value;
+  var value=document.getElementById("max_price").value;
+
 
   var paid="one";
-  var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
+  var queryString = "?first_check=" +paid  + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
   window.location.href="search" + queryString;
 }
 
@@ -323,7 +340,6 @@ function date () {
       <h2 class="ui-title ui-title_lg ui-title_light text-uppercase">
        Find Your Dream Car
       </h2>
-      <form class="b-main-filter__form" methof="GET">
        <div class="b-main-filter__cat btn-group-toggle" data-toggle="buttons">
         <label class="btn b-main-filter__cat-item">
          <input id="option1" name="options" type="radio"/>
@@ -384,21 +400,25 @@ function date () {
         </li>
         <li class="b-main-filter-nav__item nav-item">
          <a aria-controls="content-newCars" aria-selected="false" class="b-main-filter-nav__link nav-link" data-toggle="tab" href="#content-newCars" id="tab-newCars" role="tab">
+           <input id="use1"  name="tab" value="new" type="radio"/>
           New Cars
          </a>
         </li>
         <li class="b-main-filter-nav__item nav-item">
          <a aria-controls="content-usedCars" aria-selected="false" class="b-main-filter-nav__link nav-link" data-toggle="tab" href="#content-usedCars" id="tab-usedCars" role="tab">
+          <input id="use2"  name="tab" value="foreign" type="radio"/>
           Foriegn Used
          </a>
         </li>
         <li class="b-main-filter-nav__item nav-item">
          <a aria-controls="content-locallyUsed" aria-selected="false" class="b-main-filter-nav__link nav-link" data-toggle="tab" href="#content-locallyUsed" id="tab-usedCars" role="tab">
+           <input id="use3"  name="tab" value="local" type="radio"/>
           Locally Used
          </a>
         </li>
         <li class="b-main-filter-nav__item nav-item">
          <a aria-controls="content-Import" aria-selected="false" class="b-main-filter-nav__link nav-link" data-toggle="tab" href="#content-Import" id="tab-usedCars" role="tab">
+           <input id="use4"  name="tab" value="pre_order" type="radio"/>
           Pre-Order
          </a>
         </li>
@@ -413,16 +433,12 @@ function date () {
               Select Make
              </div>
              <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
+              <select id="make" class="selectpicker" data-style="ui-select" data-width="100%">
+                {% for item in makes %}
                <option>
-                Audi
+                 {{item.name}}
                </option>
-               <option>
-                BMV
-               </option>
-               <option>
-                Opel
-               </option>
+               {% endfor %}
               </select>
              </div>
             </div>
@@ -431,7 +447,7 @@ function date () {
               Select a Model
              </div>
              <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
+              <select id="model" class="selectpicker" data-style="ui-select" data-width="100%">
                <option>
                 Model 1
                </option>
@@ -446,17 +462,35 @@ function date () {
             </div>
             <div class="b-main-filter__item col-md-4">
              <div class="b-main-filter__label">
-              Price Range
+              Price Min
              </div>
              <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
+              <select id="min_price" class="selectpicker" data-style="ui-select" data-width="100%">
+               <option value="5000">
+                Min ₦5000
+               </option>
+               <option value="15000">
+                Min ₦15000
+               </option>
+               <option value="25000">
+                Min ₦25000
+               </option>
+              </select>
+             </div>
+            </div>
+            <div class="b-main-filter__item col-md-4">
+             <div class="b-main-filter__label">
+              Price Max
+             </div>
+             <div class="b-main-filter__selector">
+              <select id="max_price" class="selectpicker" data-style="ui-select" data-width="100%">
+               <option value="5000">
                 Max ₦5000
                </option>
-               <option>
+               <option value="15000">
                 Max ₦15000
                </option>
-               <option>
+               <option value="25000">
                 Max ₦25000
                </option>
               </select>
@@ -465,282 +499,13 @@ function date () {
            </div>
           </div>
           <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary" type="submit">
-            Search
-           </button>
-          </div>
-         </div>
-        </div>
-        <div class="tab-pane fade" id="content-newCars">
-         <div class="row align-items-end no-gutters">
-          <div class="b-main-filter__main col-lg">
-           <div class="b-main-filter__inner row no-gutters">
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select Make
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Audi
-               </option>
-               <option>
-                BMV
-               </option>
-               <option>
-                Opel
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select a Model
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Model 1
-               </option>
-               <option>
-                Model 2
-               </option>
-               <option>
-                Model 3
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Price Range
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Max ₦5000
-               </option>
-               <option>
-                Max ₦15000
-               </option>
-               <option>
-                Max ₦25000
-               </option>
-              </select>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary" type="submit">
-            Search
-           </button>
-          </div>
-         </div>
-        </div>
-        <div class="tab-pane fade" id="content-usedCars">
-         <div class="row align-items-end no-gutters">
-          <div class="b-main-filter__main col-lg">
-           <div class="b-main-filter__inner row no-gutters">
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select Make
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Audi
-               </option>
-               <option>
-                BMV
-               </option>
-               <option>
-                Opel
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select a Model
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Model 1
-               </option>
-               <option>
-                Model 2
-               </option>
-               <option>
-                Model 3
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Price Range
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Max ₦5000
-               </option>
-               <option>
-                Max ₦15000
-               </option>
-               <option>
-                Max ₦25000
-               </option>
-              </select>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary">
-            Search
-           </button>
-          </div>
-         </div>
-        </div>
-        <div class="tab-pane fade" id="content-locallyUsed">
-         <div class="row align-items-end no-gutters">
-          <div class="b-main-filter__main col-lg">
-           <div class="b-main-filter__inner row no-gutters">
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select Make
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Audi
-               </option>
-               <option>
-                BMV
-               </option>
-               <option>
-                Opel
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select a Model
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Model 1
-               </option>
-               <option>
-                Model 2
-               </option>
-               <option>
-                Model 3
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Price Range
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Max ₦5000
-               </option>
-               <option>
-                Max ₦15000
-               </option>
-               <option>
-                Max ₦25000
-               </option>
-              </select>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary">
-            Search
-           </button>
-          </div>
-         </div>
-        </div>
-        <div class="tab-pane fade" id="content-Import">
-         <div class="row align-items-end no-gutters">
-          <div class="b-main-filter__main col-lg">
-           <div class="b-main-filter__inner row no-gutters">
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select Make
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Audi
-               </option>
-               <option>
-                BMV
-               </option>
-               <option>
-                Opel
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Select a Model
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Model 1
-               </option>
-               <option>
-                Model 2
-               </option>
-               <option>
-                Model 3
-               </option>
-              </select>
-             </div>
-            </div>
-            <div class="b-main-filter__item col-md-4">
-             <div class="b-main-filter__label">
-              Price Range
-             </div>
-             <div class="b-main-filter__selector">
-              <select class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
-                Max ₦5000
-               </option>
-               <option>
-                Max ₦15000
-               </option>
-               <option>
-                Max ₦25000
-               </option>
-              </select>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary">
+           <button class="b-main-filter__btn btn btn-secondary" onclick="showOutput()">
             Search
            </button>
           </div>
          </div>
         </div>
        </div>
-      </form>
      </div>
     </div>
     <!-- end .b-main-filter-->

@@ -141,3 +141,10 @@ class Question(models.Model):
 class Report(models.Model):
     title=models.TextField(blank=True, null=True)
     reason=models.TextField(blank=True, null=True)
+
+
+class Make(models.Model):
+    name= models.TextField()
+
+    def __str__(self):
+        return self.name
