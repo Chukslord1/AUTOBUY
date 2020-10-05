@@ -228,22 +228,22 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function showOutput () {
-  if (document.getElementById("options1").checked == true){
-    var value_4=document.getElementById("options1").value;
-  } else if (document.getElementById("options2").checked == true){
-    var value_4=document.getElementById("options2").value;
-  } else if (document.getElementById("options3").checked == true){
-    var value_4=document.getElementById("options3").value;
-  }else if (document.getElementById("options4").checked == true){
-    var value_4=document.getElementById("options4").value;
-  }else if (document.getElementById("options5").checked == true){
-    var value_4=document.getElementById("options5").value;
-  }else if (document.getElementById("options6").checked == true){
-    var value_4=document.getElementById("options6").value;
-  }else if (document.getElementById("options7").checked == true){
-    var value_4=document.getElementById("options7").value;
-  }else if (document.getElementById("options8").checked == true){
-    var value_4=document.getElementById("options8").value;
+  if (document.getElementById("option1").checked == true){
+    var value_4=document.getElementById("option1").value;
+  } else if (document.getElementById("option2").checked == true){
+    var value_4=document.getElementById("option2").value;
+  } else if (document.getElementById("option3").checked == true){
+    var value_4=document.getElementById("option3").value;
+  }else if (document.getElementById("option4").checked == true){
+    var value_4=document.getElementById("option4").value;
+  }else if (document.getElementById("option5").checked == true){
+    var value_4=document.getElementById("option5").value;
+  }else if (document.getElementById("option6").checked == true){
+    var value_4=document.getElementById("option6").value;
+  }else if (document.getElementById("option7").checked == true){
+    var value_4=document.getElementById("option7").value;
+  }else if (document.getElementById("option8").checked == true){
+    var value_4=document.getElementById("option8").value;
   }
   else {
     var value_4="";
@@ -257,7 +257,7 @@ function showOutput () {
   }else if (document.getElementById("use4").checked == true){
     var value_5=document.getElementById("use4").value;
   }else {
-    var value_5="";
+    var value_5="all";
   }
   var value_3=document.getElementById("make").value;
   var value_2=document.getElementById("model").value;
@@ -266,7 +266,7 @@ function showOutput () {
 
 
   var paid="one";
-  var queryString = "?first_check=" +paid  + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
+  var queryString = "?first_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
   window.location.href="search" + queryString;
 }
 
@@ -342,49 +342,49 @@ function date () {
       </h2>
        <div class="b-main-filter__cat btn-group-toggle" data-toggle="buttons">
         <label class="btn b-main-filter__cat-item">
-         <input id="option1" name="options" type="radio"/>
+         <input id="option1" name="options" value="suv" type="radio"/>
          <span class="ic flaticon-car-suv">
          </span>
          SUV
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option2" name="options" type="radio"/>
+         <input id="option2" name="options" value="sedan" type="radio"/>
          <span class="ic flaticon-sedan-car-model">
          </span>
          SEDAN
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option3" name="options" type="radio"/>
+         <input id="option3" name="options" value="wagon" type="radio"/>
          <span class="ic flaticon-car-black-side-view-pointing-left">
          </span>
          WAGON
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option4" name="options" type="radio"/>
+         <input id="option4" name="options" value="coupe" type="radio"/>
          <span class="ic flaticon-sedan-car-model">
          </span>
          COUPE
         </label>
         <label class="btn b-main-filter__cat-item active">
-         <input checked="checked" id="option5" name="options" type="radio"/>
+         <input checked="checked" id="option5" name="options" value="pickup" type="radio"/>
          <span class="ic flaticon-pick-up">
          </span>
          PICKUP
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option6" name="options" type="radio"/>
+         <input id="option6" name="options" value="bus" type="radio"/>
          <span class="ic flaticon-car-black-side-view-pointing-left">
          </span>
          BUS
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option7" name="options" type="radio"/>
+         <input id="option7" name="options" value="truck" type="radio"/>
          <span class="ic flaticon-car">
          </span>
          TRUCKS &amp; TRAILERS
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option8" name="options" type="radio"/>
+         <input id="option8" name="options" value="heavy" type="radio"/>
          <span class="ic flaticon-car">
          </span>
          Heavy Equipment
@@ -448,13 +448,13 @@ function date () {
              </div>
              <div class="b-main-filter__selector">
               <select id="model" class="selectpicker" data-style="ui-select" data-width="100%">
-               <option>
+               <option value="model1">
                 Model 1
                </option>
-               <option>
+               <option value="model2">
                 Model 2
                </option>
-               <option>
+               <option value="model3">
                 Model 3
                </option>
               </select>

@@ -298,7 +298,7 @@ class CarDetailView(DetailView):
 
 class SearchListView(ListView):
     model = Car
-    template_name = "page_featured.html"
+    template_name = "inventory-grid.html"
     def get_context_data(self, **kwargs):
         context = super(SearchListView, self).get_context_data(**kwargs)
         search=''
