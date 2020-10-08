@@ -400,9 +400,11 @@ class SearchListView(ListView):
             if second_check=="two":
                 search = self.model.objects.filter(Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
                 context['search'] = search
+                print(search)
             else:
                 search = self.model.objects.none()
                 context['search'] = search
+                print(search)
         elif self.request.GET.get('third_check')=="three":
             if self.request.user.is_authenticated:
                 title=self.request.GET.get('title')
@@ -431,6 +433,7 @@ class SearchListView(ListView):
             page_number = self.request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             context['page_obj'] = page_obj
+        context['makes'] = Make.objects.all()
         context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
 
