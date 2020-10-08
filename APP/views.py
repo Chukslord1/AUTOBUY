@@ -217,7 +217,7 @@ class IndexListView(ListView):
 
 class CarDetailView(DetailView):
     model = Car
-    template_name = "listing.html"
+    template_name = "vehicle-details.html"
 
     def get_object(self, queryset=None):
         global obj
@@ -804,3 +804,7 @@ def bookmark(request):
 def logout(request):
     auth.logout(request)
     return redirect("index.html")
+
+
+def reservation(request):
+    return render(request,"reservation-grid.html")
