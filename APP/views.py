@@ -308,12 +308,12 @@ class SearchListView(ListView):
             if category:
                 category= self.request.GET.get('category')
             else:
-                category=""
+                category="a"
             model= self.request.GET.get('model')
             if model:
                 model= self.request.GET.get('model')
             else:
-                model=''
+                model='model1'
             make= self.request.GET.get('make')
             if make:
                 make= self.request.GET.get('make')
@@ -342,6 +342,11 @@ class SearchListView(ListView):
                 context['search'] = search
         elif self.request.GET.get('second_check')=="two":
             second_check="two"
+            query= self.request.GET.get('search')
+            if query:
+                query= self.request.GET.get('search')
+            else:
+                query=""
             category= self.request.GET.get('category')
             if category:
                 category= self.request.GET.get('category')
@@ -381,12 +386,12 @@ class SearchListView(ListView):
             if fuel_type:
                 fuel_type= self.request.GET.get('fuel_type')
             else:
-                fuel_type=''
+                fuel_type='e'
             condition=self.request.GET.get('condition')
             if condition:
                 condition= self.request.GET.get('condition')
             else:
-                condition=''
+                condition='e'
             transmission=self.request.GET.get('transmission')
             if transmission:
                 transmission=self.request.GET.get('transmission')
@@ -396,9 +401,9 @@ class SearchListView(ListView):
             if radius:
                 radius=self.request.GET.get('radius')
             else:
-                radius=""
+                radius="300"
             if second_check=="two":
-                search = self.model.objects.filter(Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
+                search = self.model.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
                 context['search'] = search
                 print(search)
             else:
