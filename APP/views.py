@@ -822,3 +822,11 @@ def booking(request):
 
 def cars_for_sale(request):
     return render(request,"cars-for-sale.html")
+def sell_car(request):
+    return render(request,"sell-car.html")
+def sell_car_1(request):
+    return render(request,"sell-car-1.html")
+def sell_car_2(request):
+    return render(request,"sell-car-2.html")
+def sell_car_3(request):
+    return render(request,"sell-car-3.html")

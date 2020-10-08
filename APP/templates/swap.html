@@ -440,7 +440,7 @@
           </div>
          </div>
          <div class="col-lg-8">
-          <form class="b-booking-main">
+          <form class="b-booking-main" method="POST">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Select Car Type
@@ -448,7 +448,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input checked="checked" id="option1" name="options" type="radio"/>
+               <input name="car-type" checked="checked" id="option1" name="options" type="radio"/>
                <span class="ic flaticon-car-suv">
                </span>
                SUV
@@ -458,7 +458,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item active">
-               <input id="option2" name="options" type="radio"/>
+               <input id="option2" name="category" type="radio"/>
                <span class="ic flaticon-sedan-car-model">
                </span>
                SEDAN
@@ -468,7 +468,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option3" name="options" type="radio"/>
+               <input id="option3" name="category" type="radio"/>
                <span class="ic flaticon-car-black-side-view-pointing-left">
                </span>
                WAGON
@@ -478,7 +478,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option4" name="options" type="radio"/>
+               <input id="option4" name="category" type="radio"/>
                <span class="ic flaticon-coupe-car">
                </span>
                COUPE
@@ -488,7 +488,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option5" name="options" type="radio"/>
+               <input id="option5" name="category" type="radio"/>
                <span class="ic flaticon-pick-up">
                </span>
                PICK UP
@@ -498,7 +498,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option6" name="options" type="radio"/>
+               <input id="option6" name="category" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                BUS
@@ -508,7 +508,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option7" name="options" type="radio"/>
+               <input id="option7" name="category" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                TRUCKS &amp; TRAILERS
@@ -518,7 +518,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option8" name="options" type="radio"/>
+               <input id="option8" name="category" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                HEAVY EQUIPMENT
