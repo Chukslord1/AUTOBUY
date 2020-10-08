@@ -407,7 +407,7 @@ function date () {
    <div class="area-bg__inner">
     <div class="container text-center">
      <h1 class="b-title-page">
-      Inventory Grid
+      Search Inventory
      </h1>
      <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -655,9 +655,13 @@ function date () {
         {% for item in search %}
        <div class="col-lg-4 col-md-6">
         <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/1.jpg' %}"/>
-         </a>
+            {% for i in item.image.all %}
+           {% if forloop.first %}
+           <a class="b-goods__img" href="{{item.get_absolute_url}}">
+            <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
+           </a>
+           {% endif %}
+           {% endfor %}
          <div class="b-goods__main">
           <div class="row no-gutters">
            <div class="col">
@@ -676,7 +680,7 @@ function date () {
               PRICE
              </span>
              <span class="b-goods__price-number">
-              ₦{{search.price}}
+              ₦{{item.price}}
              </span>
             </div>
             <div class="b-goods__price-msrp">

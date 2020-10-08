@@ -302,51 +302,14 @@ class SearchListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SearchListView, self).get_context_data(**kwargs)
         search=''
-        if self.request.GET.get('first_check')=="one":
-            first_check="one"
-            category= self.request.GET.get('category')
-            if category:
-                category= self.request.GET.get('category')
-            else:
-                category="a"
-            model= self.request.GET.get('model')
-            if model:
-                model= self.request.GET.get('model')
-            else:
-                model='model1'
-            make= self.request.GET.get('make')
-            if make:
-                make= self.request.GET.get('make')
-            else:
-                make='a'
-            use_state=self.request.GET.get('use_state')
-            if use_state:
-                use_state=use_state
-            else:
-                use_state="e"
-            price_min=self.request.GET.get('price_min')
-            if price_min:
-                new_price_min=int(price_min)
-            else:
-                new_price_min=1000
-            price_max=self.request.GET.get('price_max')
-            if price_max:
-                new_price_max=int(price_max)
-            else:
-                new_price_max=1000000
-            if first_check=="one":
-                search = self.model.objects.filter(Q(category__icontains=category),Q(use_state__icontains=use_state),Q(category__icontains=category),Q(model__icontains=model),Q(make__icontains=make),Q(price__range=(new_price_min, new_price_max)))
-                context['search'] = search
-            else:
-                search = self.model.objects.none()
-                context['search'] = search
-        elif self.request.GET.get('second_check')=="two":
+        if self.request.GET.get('second_check')=="two":
             second_check="two"
             query= self.request.GET.get('search')
             if query:
                 query= self.request.GET.get('search')
             else:
-                query=""
+                query="a"
+            print(query)
             category= self.request.GET.get('category')
             if category:
                 category= self.request.GET.get('category')
@@ -377,11 +340,13 @@ class SearchListView(ListView):
                 new_price_min=int(price_min)
             else:
                 new_price_min=1000
+            print(new_price_min)
             price_max=self.request.GET.get('price_max')
             if price_max:
                 new_price_max=int(price_max)
             else:
                 new_price_max=1000000
+            print(new_price_max)
             fuel_type=self.request.GET.get('fuel_type')
             if fuel_type:
                 fuel_type= self.request.GET.get('fuel_type')

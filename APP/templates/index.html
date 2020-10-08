@@ -257,7 +257,7 @@ function showOutput () {
   }else if (document.getElementById("use4").checked == true){
     var value_5=document.getElementById("use4").value;
   }else {
-    var value_5="all";
+    var value_5="";
   }
   var value_3=document.getElementById("make").value;
   var value_2=document.getElementById("model").value;
@@ -265,8 +265,8 @@ function showOutput () {
   var value=document.getElementById("max_price").value;
 
 
-  var paid="one";
-  var queryString = "?first_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
+  var paid="two";
+  var queryString = "?second_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
   window.location.href="search" + queryString;
 }
 
@@ -737,7 +737,7 @@ function date () {
         <div class="b-goods">
           {% for i in item.image.all %}
          {% if forloop.first %}
-         <a class="b-goods__img" href="vehicle-details.html">
+         <a class="b-goods__img" href="{{item.get_absolute_url}}">
           <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
          </a>
          {% endif %}
