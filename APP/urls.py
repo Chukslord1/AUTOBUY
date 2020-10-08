@@ -22,6 +22,7 @@ urlpatterns = [
     path("reservation-grid.html", views.reservation, name="reservation"),
     path("booking-system.html", views.booking, name="booking"),
     path("profile", views.profile, name="profile"),
+    path("cars-for-sale.html", views.cars_for_sale, name="cars-for-sale"),
     path("bookmark", views.bookmark, name="bookmark"),
     path("change-password.html", views.password, name="password"),
     path("logout.html", views.logout, name="logout"),
