@@ -29,7 +29,7 @@
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global">
+        <form class="search-global" method="GET">
          <input autocomplete="off" class="search-global__input" name="s" placeholder="Search" type="text" value=""/>
          <button class="search-global__btn">
           <i class="icon stroke icon-Search">
@@ -252,14 +252,14 @@
        Get Quick Covering, Be Insured
       </h2>
      </div>
-     <form action="#" class="ui-form pt-5 pb-xl-4" method="post">
+     <form action="#" class="ui-form pt-5 pb-xl-4" method="POST">
       <div class="row">
        <div class="col-md-4">
         <div class="form-group">
          <label class="form-label">
           Your Name*
          </label>
-         <input class="form-control" type="text"/>
+         <input name="name" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -267,7 +267,7 @@
          <label class="form-label">
           Email Address*
          </label>
-         <input class="form-control" type="email"/>
+         <input name="email" class="form-control" type="email"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -275,7 +275,7 @@
          <label class="form-label">
           Phone No.
          </label>
-         <input class="form-control" type="text"/>
+         <input name="phone" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -283,7 +283,7 @@
          <label class="form-label">
           State
          </label>
-         <input class="form-control" type="text"/>
+         <input name="state" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -291,7 +291,7 @@
          <label class="form-label">
           Type of Job
          </label>
-         <input class="form-control" type="text"/>
+         <input  name="job" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -299,7 +299,7 @@
          <label class="form-label">
           Name of Employer
          </label>
-         <input class="form-control" type="text"/>
+         <input name="employer" class="form-control" type="text"/>
         </div>
        </div>
       </div>
