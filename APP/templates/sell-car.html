@@ -24,6 +24,33 @@
    <!-- ==========================-->
    <!-- SEARCH MODAL-->
    <!-- ==========================-->
+   <script>
+   function jump () {
+    if (document.getElementById("option1").checked == true){
+    var value_4=document.getElementById("option1").value;
+  } else if (document.getElementById("option2").checked == true){
+    var value_4=document.getElementById("option2").value;
+  } else if (document.getElementById("option3").checked == true){
+    var value_4=document.getElementById("option3").value;
+  }else if (document.getElementById("option4").checked == true){
+    var value_4=document.getElementById("option4").value;
+  }else if (document.getElementById("option5").checked == true){
+    var value_4=document.getElementById("option5").value;
+  }else if (document.getElementById("option6").checked == true){
+    var value_4=document.getElementById("option6").value;
+  }else if (document.getElementById("option7").checked == true){
+    var value_4=document.getElementById("option7").value;
+  }else if (document.getElementById("option8").checked == true){
+    var value_4=document.getElementById("option8").value;
+  }
+   else {
+    var value_4="e";
+  }
+  var value2=document.URL;
+  var queryString = "?category=" +value_4;
+  window.location.href= "{% url 'APP:sell-car-1' %}" + queryString;
+}
+   </script>
    <div class="header-search open-search">
     <div class="container">
      <div class="row">
@@ -362,7 +389,7 @@
         <div class="row">
          <div class="col-lg-4">
           <div class="b-booking-nav">
-           <a class="b-booking-nav__item" href="#">
+           <a class="b-booking-nav__item  active" href="#">
             <div class="b-booking-nav__header">
              Step 1
             </div>
@@ -377,7 +404,7 @@
              </span>
             </div>
            </a>
-           <a class="b-booking-nav__item active" href="#">
+           <a class="b-booking-nav__item" href="#">
             <div class="b-booking-nav__header">
              Step 2
             </div>
@@ -440,7 +467,7 @@
           </div>
          </div>
          <div class="col-lg-8">
-          <form class="b-booking-main">
+          <form class="b-booking-main" method="POST">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Select Car Type
@@ -448,7 +475,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input checked="checked" id="option1" name="options" type="radio"/>
+               <input checked="checked" id="option1" name="category" value="suv" type="radio"/>
                <span class="ic flaticon-car-suv">
                </span>
                SUV
@@ -458,7 +485,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item active">
-               <input id="option2" name="options" type="radio"/>
+               <input id="option2" name="category" value="sedan" type="radio"/>
                <span class="ic flaticon-sedan-car-model">
                </span>
                SEDAN
@@ -468,7 +495,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option3" name="options" type="radio"/>
+               <input id="option3" name="category" value="wagon" type="radio"/>
                <span class="ic flaticon-car-black-side-view-pointing-left">
                </span>
                WAGON
@@ -478,7 +505,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option4" name="options" type="radio"/>
+               <input id="option4" name="category" value="coupe" type="radio"/>
                <span class="ic flaticon-coupe-car">
                </span>
                COUPE
@@ -488,7 +515,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option5" name="options" type="radio"/>
+               <input id="option5" name="category" value="pickup" type="radio"/>
                <span class="ic flaticon-pick-up">
                </span>
                PICK UP
@@ -498,7 +525,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option6" name="options" type="radio"/>
+               <input id="option6" name="category" value="bus" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                BUS
@@ -508,7 +535,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option7" name="options" type="radio"/>
+               <input id="option7" name="category" value="truck" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                TRUCKS &amp; TRAILERS
@@ -518,7 +545,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option8" name="options" type="radio"/>
+               <input id="option8" name="category" value="heavy" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                HEAVY EQUIPMENT
@@ -530,8 +557,8 @@
            </div>
            <div class="b-booking-main__section pb-1">
             <div class="text-center">
-             <button class="btn btn-secondary mt-5">
-              <a href="sell-car-1.html">
+             <button class="btn btn-secondary mt-5" onclick="jump()">
+              <a onclick="jump()">
                Next
               </a>
              </button>

@@ -52,6 +52,7 @@
    <!-- ==========================-->
    <!-- MOBILE MENU-->
    <!-- ==========================-->
+
    <div data-off-canvas="mobile-slidebar left overlay">
     <ul class="navbar-nav">
      <li class="nav-item">
@@ -416,15 +417,32 @@
            </a>
           </div>
          </div>
+         <script>
+         function jump () {
+        var value=document.URL;
+        var value_1=value.replace("http://127.0.0.1:8000/sell-car-1.html","");
+        var value_2=document.getElementById("condition").value;
+        var value_3=document.getElementById("make").value;
+        var value_4=document.getElementById("model").value;
+        var value_5=document.getElementById("year").value;
+        var value_6=document.getElementById("transmission").value;
+        var value_7=document.getElementById("location").value;
+        var value_8=document.getElementById("mileage".value);
+        var value_9=document.getElementById("fuel_type").value;
+        var value_10=document.getElementById("image").value;
+        var queryString = value_1+"&image="+value_10+"&condition"+value_2+"&make"+value_3+"&model"+value_4+"&year"+value_5+"&transmission"+value_6+"&location"+value_7+"&mileage"+value_8+"&fuel_type"+value_9;
+        window.location.href= "{% url 'APP:sell-car-2' %}" + queryString;
+      }
+         </script>
          <div class="col-lg-8">
-          <form class="b-booking-main" method="POST" action="{% url 'APP:submit_property' %}" enctype="multipart/form-data">
+          <form class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Vehicle Information
             </h2>
            </div>
            <div class="Neon Neon-theme-dragdropbox">
-            <input id="filer_input2" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file"/>
+            <input id="image" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file"/>
             <div class="Neon-input-dragDrop">
              <div class="Neon-input-inner">
               <div class="Neon-input-icon">
@@ -450,7 +468,7 @@
              Select Condition
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="condition" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                --
               </option>
@@ -469,37 +487,24 @@
              </select>
             </div>
             <div class="b-main-filter__label">
-             Select Make
+              Make
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               --
-              </option>
-              <option>
-               Audi
-              </option>
-              <option>
-               BMV
-              </option>
-              <option>
-               Opel
-              </option>
-             </select>
+             <input class="form-control" id="make" type="text" name="make" />
             </div>
             <div class="b-main-filter__label">
              Select Model
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Model
+             <select id="model" class="selectpicker" data-style="ui-select" data-width="100%">
+              <option value="model1">
+               Model 1
               </option>
-              <option>
-               h2
+              <option value="model2">
+               Model 2
               </option>
-              <option>
-               Opel
+              <option value="model3">
+              Model 3
               </option>
              </select>
             </div>
@@ -507,30 +512,23 @@
              Select Year
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Year
-              </option>
-              <option>
-               1990
-              </option>
-              <option>
-               1991
-              </option>
-             </select>
+             <input class="form-control" id="year" type="text" name="year" />
             </div>
             <div class="b-main-filter__label">
              Select Transmission
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select class="selectpicker" id="transmission" data-style="ui-select" name="transmission" data-width="100%">
               <option>
                Select Gear Type
               </option>
-              <option>
+              <option  value="automatic">
                Automatic
               </option>
-              <option>
+              <option value="semi-automatic">
+               Semi-Automatic
+              </option>
+              <option value="manual">
                Manual
               </option>
              </select>
@@ -539,7 +537,7 @@
              Fuel Type
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="fuel_type" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                Select Fuel Type
               </option>
@@ -558,34 +556,18 @@
              Select State
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="location" name="location" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                Select State
               </option>
-              <option>
+              <option value="abuja">
                Abuja
               </option>
-              <option>
+              <option value="lagos">
                Lagos
               </option>
-              <option>
+              <option value="port harcourt">
                Port Harcourt
-              </option>
-             </select>
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select Area
-              </option>
-              <option>
-               Yaba
-              </option>
-              <option>
-               Ikeja
-              </option>
-              <option>
-               Jibowu
               </option>
              </select>
             </div>
@@ -598,8 +580,8 @@
             </div>
             <div class="text-center">
              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5">
-              <a href="sell-car-2.html">
+             <button class="btn btn-secondary mt-5" onclick="jump()">
+              <a onclick="jump()">
                Next
               </a>
              </button>

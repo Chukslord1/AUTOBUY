@@ -416,211 +416,43 @@
            </a>
           </div>
          </div>
+         <script>
+         function jump () {
+        var value=document.URL;
+        var value_1=value.replace("http://127.0.0.1:8000/sell-car-2.html","");
+        var value_2=document.getElementById("price").value;
+        var value_3=document.getElementById("seller_note").value;
+        var queryString = value_1+"&price="+value_2+"&seller_note="+value_3;
+        window.location.href= "{% url 'APP:sell-car-3' %}" + queryString;
+      }
+         </script>
          <div class="col-lg-8">
-          <form class="b-booking-main" method="POST"  action="{% url 'APP:submit_property' %}" enctype="multipart/form-data">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
-             Vehicle Information
+             Extra Information
             </h2>
            </div>
-           <div class="Neon Neon-theme-dragdropbox">
-            <input id="filer_input2" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file"/>
-            <div class="Neon-input-dragDrop">
-             <div class="Neon-input-inner">
-              <div class="Neon-input-icon">
-               <i class="fa fa-file-image-o">
-               </i>
-              </div>
-              <div class="Neon-input-text">
-               <h3>
-                Drag &amp; Drop or Select Vehicle Photos here
-               </h3>
-               <span style="display:inline-block; margin: 15px 0">
-                or
-               </span>
-              </div>
-              <a class="Neon-input-choose-btn blue">
-               Browse Files
-              </a>
-             </div>
-            </div>
-           </div>
-           <div class="b-booking-main__section pb-1">
-            <div class="b-main-filter__label">
-             Select Condition
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               --
-              </option>
-              <option>
-               Brand New
-              </option>
-              <option>
-               Foreign Used
-              </option>
-              <option>
-               Locally Used
-              </option>
-              <option>
-               Pre Order
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Select Make
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               --
-              </option>
-              <option>
-               Audi
-              </option>
-              <option>
-               BMV
-              </option>
-              <option>
-               Opel
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Select Model
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Model
-              </option>
-              <option>
-               h2
-              </option>
-              <option>
-               Opel
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Select Year
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Year
-              </option>
-              <option>
-               1990
-              </option>
-              <option>
-               1991
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Select Transmission
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select Gear Type
-              </option>
-              <option>
-               Automatic
-              </option>
-              <option>
-               Manual
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Fuel Type
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select Fuel Type
-              </option>
-              <option>
-               Petrol
-              </option>
-              <option>
-               Diesel
-              </option>
-              <option>
-               Electric
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Select State
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select State
-              </option>
-              <option>
-               Abuja
-              </option>
-              <option>
-               Lagos
-              </option>
-              <option>
-               Port Harcourt
-              </option>
-             </select>
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select Area
-              </option>
-              <option>
-               Yaba
-              </option>
-              <option>
-               Ikeja
-              </option>
-              <option>
-               Jibowu
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Enter Odometer Mileage
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="mileage">
-             </input>
-            </div>
             <div class="b-main-filter__label">
              Enter Price
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="₦ Price" required="required" type="mileage"/>
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="₦ Price" required="required" type="mileage"/>
+             <input class="form-control" id="price" name="price" placeholder="₦ Price" required="required" type="text"/>
             </div>
             <div class="b-main-filter__label">
              Sellers Note
             </div>
             <div class="form-group">
-             <textarea class="form-control" id="user-message" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+             <textarea class="form-control" id="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
             </div>
             <div class="text-center">
              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5">
-              <a href="sell-car-3.html">
+             <button class="btn btn-secondary mt-5" onclick="jump()">
+              <a onclick="jump()">
                Next
               </a>
              </button>
             </div>
            </div>
-          </form>
          </div>
         </div>
        </div>
