@@ -36,7 +36,10 @@ urlpatterns = [
     path("logout.html", views.logout, name="logout"),
     path("car-loan.html", views.car_loan, name="car-loan"),
     path("car-insurance.html", views.car_insurance, name="car-insurance"),
-
+    path("clearing.html", views.clearing, name="clearing"),
+    path("car-registration.html", views.car_registration, name="car-registration"),
+    path("car-delivery.html", views.car_delivery, name="car-delivery"),
+    path("user.html", views.user, name="user"),
 
 
 
