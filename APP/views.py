@@ -817,3 +817,5 @@ def car_delivery(request):
     return render(request,"car-delivery.html")
 def user(request):
     return render(request,"user.html")
+def become_dealer(request):
+    return render(request,"become-dealer.html")

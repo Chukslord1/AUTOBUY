@@ -40,6 +40,7 @@ urlpatterns = [
     path("car-registration.html", views.car_registration, name="car-registration"),
     path("car-delivery.html", views.car_delivery, name="car-delivery"),
     path("user.html", views.user, name="user"),
+    path("become-dealer.html", views.become_dealer, name="become-dealer.html"),
 
 
 
