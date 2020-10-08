@@ -318,12 +318,12 @@ class SearchListView(ListView):
             if make:
                 make= self.request.GET.get('make')
             else:
-                make=''
+                make='a'
             use_state=self.request.GET.get('use_state')
             if use_state:
                 use_state=use_state
             else:
-                use_state=""
+                use_state="e"
             price_min=self.request.GET.get('price_min')
             if price_min:
                 new_price_min=int(price_min)
