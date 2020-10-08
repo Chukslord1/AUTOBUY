@@ -447,18 +447,11 @@ function date () {
            <div class="b-filter__main row">
             <div class="b-filter__row col-xl-12 col-md-6">
              <select id="make" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Make">
-              <option>
-               Select 1
-              </option>
-              <option>
-               Select 2
-              </option>
-              <option>
-               Select 3
-              </option>
-              <option>
-               Select 4
-              </option>
+               {% for item in makes %}
+              <option value={{item.name}}>
+              {{item.name}}
+             </option>
+             {% endfor %}
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
@@ -479,33 +472,45 @@ function date () {
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
              <select id="category" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Vehicle Type">
-              <option>
-               Select 1
+              <option value="suv">
+                SUV
               </option>
-              <option>
-               Select 2
+              <option value="sedan">
+                SEDAN
               </option>
-              <option>
-               Select 3
+              <option value="wagon">
+                WAGON
               </option>
-              <option>
-               Select 4
+              <option value="coupe">
+                COUPE
+              </option>
+              <option value="pickup">
+                PICKUP
+              </option>
+              <option value="bus">
+                BUS
+              </option>
+              <option value="trucks">
+              TRUCKS &amp; TRAILERS
+              </option>
+              <option value="heavy">
+              Heavy Equipment
               </option>
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
              <select id="condition" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Condition">
-              <option>
-               Select 1
+              <option value="new">
+                New Cars
               </option>
-              <option>
-               Select 2
+              <option v alue="foreign">
+                Foriegn Used
               </option>
-              <option>
-               Select 3
+              <option value="local">
+                Locally Used
               </option>
-              <option>
-               Select 4
+              <option value="pre-order">
+              Pre-Order
               </option>
              </select>
             </div>
@@ -513,67 +518,61 @@ function date () {
              <div class="b-filter__row row">
               <div class="b-filter__item col-md-6">
                <select id="year_min" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="From">
-                <option>
-                 Select 1
+                <option value="2017">
+                 2017
                 </option>
-                <option>
-                 Select 2
+                <option value="2018">
+                2018
                 </option>
-                <option>
-                 Select 3
+                <option value="2019">
+                 2019
                 </option>
-                <option>
-                 Select 4
+                <option value="2020">
+                 2020
                 </option>
                </select>
               </div>
               <div class="b-filter__item col-md-6">
                <select id="year_max" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="To">
-                <option>
-                 Select 1
-                </option>
-                <option>
-                 Select 2
-                </option>
-                <option>
-                 Select 3
-                </option>
-                <option>
-                 Select 4
-                </option>
+                 <option value="2017">
+                  2017
+                 </option>
+                 <option value="2018">
+                 2018
+                 </option>
+                 <option value="2019">
+                  2019
+                 </option>
+                 <option value="2020">
+                  2020
+                 </option>
                </select>
               </div>
              </div>
             </div>
             <div id="transmission" class="b-filter__row col-xl-12 col-md-6">
              <select id="transmission" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Transmission">
-              <option>
-               Select 1
+              <option value="automatic">
+               Automatic
               </option>
-              <option>
-               Select 2
+              <option value="semi-automatic">
+               Semi-Automatic
               </option>
-              <option>
-               Select 3
-              </option>
-              <option>
-               Select 4
+              <option value="manual">
+               Manual
               </option>
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
              <select id="fuel_type" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Fuel Type">
-              <option>
-               Select 1
+              <option value="gas">
+               Gas
               </option>
-              <option>
-               Select 2
+              <option value="diesel">
+               Diesel
               </option>
-              <option>
-               Select 3
-              </option>
-              <option>
-               Select 4
+              <option value="petrol">
+              Petrol
               </option>
              </select>
             </div>
@@ -663,10 +662,10 @@ function date () {
           <div class="row no-gutters">
            <div class="col">
             <a class="b-goods__title" href="#">
-             Bentley Continental GT
+             {{item.title}}
             </a>
             <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
+             {{item.features}}
             </div>
            </div>
            <div class="col-auto">
@@ -677,7 +676,7 @@ function date () {
               PRICE
              </span>
              <span class="b-goods__price-number">
-              $45,800
+              ₦{{search.price}}
              </span>
             </div>
             <div class="b-goods__price-msrp">
@@ -692,7 +691,7 @@ function date () {
               <i class="ic flaticon-speedometer">
               </i>
               <span class="b-goods-descrip__info">
-               35,000 mi
+               {{item.speed}} mi
               </span>
               <div class="b-goods-descrip__full-info">
                <span class="b-goods-descrip__title">
@@ -711,14 +710,14 @@ function date () {
               <i class="ic flaticon-fuel-station-pump">
               </i>
               <span class="b-goods-descrip__info">
-               38/45
+                {{item.pump_size}}
               </span>
               <div class="b-goods-descrip__full-info">
                <span class="b-goods-descrip__title">
                 FUEL TYPE
                </span>
                <span class="b-goods-descrip__text">
-                PETROL
+                {{item.fuel_type}}
                </span>
               </div>
              </div>
@@ -730,7 +729,7 @@ function date () {
               <i class="ic flaticon-gearshift">
               </i>
               <span class="b-goods-descrip__info">
-               Semi-Auto
+              {{item.transmission}}
               </span>
               <div class="b-goods-descrip__full-info">
                <span class="b-goods-descrip__title">
