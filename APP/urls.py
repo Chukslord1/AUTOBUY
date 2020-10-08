@@ -25,6 +25,7 @@ urlpatterns = [
     path("sell-car-2.html", views.sell_car_2, name="submit_property"),
     path("sell-car-3.html", views.sell_car_3, name="sell-car-3"),
     path("booking-system.html", views.booking, name="booking"),
+    path("signup.html", views.signup, name="signup"),
     path("swap.html", views.swap, name="swap"),
     path("swap2.html", views.swap2, name="swap2"),
     path("swap3.html", views.swap2, name="swap3"),
@@ -33,6 +34,14 @@ urlpatterns = [
     path("bookmark", views.bookmark, name="bookmark"),
     path("change-password.html", views.password, name="password"),
     path("logout.html", views.logout, name="logout"),
+    path("car-loan.html", views.car_loan, name="car-loan"),
+    path("car-insurance.html", views.car_insurance, name="car-insurance"),
+
+
+
+
+
+
 
 
 ]

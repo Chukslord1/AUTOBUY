@@ -801,3 +801,11 @@ def swap2(request):
     return render(request,"swap2.html")
 def swap3(request):
     return render(request,"swap3.html")
+
+def signup(request):
+    return render(request,"signup.html")
+
+def car_loan(request):
+    return render(request,"car-loan.html")
+def car_insurance(request):
+    return render(request,"car-insurance.html")    
