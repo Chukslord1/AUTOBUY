@@ -39,6 +39,15 @@ class Car(models.Model):
     feature_expire=models.DateField(blank=True, null=True)
     features=models.TextField(blank=True, null=True)
     radius=models.TextField(blank=True, null=True)
+    reg_date=models.TextField(blank=True, null=True)
+    body_style=models.TextField(blank=True, null=True)
+    color=models.TextField(blank=True, null=True)
+    engine=models.TextField(blank=True, null=True)
+    drive_train=models.TextField(blank=True, null=True)
+    interior_color=models.TextField(blank=True, null=True)
+    no_of_seats=models.TextField(blank=True, null=True)
+    overview=models.TextField(blank=True, null=True)
+    owner_review=models.TextField(blank=True, null=True)
     slug = models.SlugField()
     paginate_by = 2
 
@@ -62,6 +71,7 @@ class Featured(models.Model):
     image=models.ManyToManyField(Images)
     condition=models.TextField(blank=True, null=True)
     use_state=models.TextField(blank=True, null=True)
+    mileage=models.TextField(blank=True, null=True)
     user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
     price=models.IntegerField(blank=True, null=True)
     phone = models.TextField(blank=True, null=True)
