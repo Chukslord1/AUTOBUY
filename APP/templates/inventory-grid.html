@@ -34,8 +34,8 @@
      <div class="col-sm-8 offset-sm-2 col-10 offset-1">
       <div class="navbar-search">
        <form class="search-global">
-        <input autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
-        <button class="search-global__btn">
+        <input id="search" autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
+        <button class="search-global__btn" onclick="showOutput()">
          <i class="icon stroke icon-Search">
          </i>
         </button>
@@ -202,6 +202,86 @@
      </div>
     </div>
    </div>
+   <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function showOutput () {
+  var value_6=document.getElementById("condition").value;
+  var value_7=document.getElementById("year_min").value;
+  var value_8=document.getElementById("year_max").value;
+  var value_4=document.getElementById("search").value;
+  var value_9=document.getElementById("transmission").value;
+  var value_10=document.getElementById("fuel_type").value;
+  var value_11=document.getElementById("radius").value;
+  var value_5=document.getElementById("category").value;
+  var value_3=document.getElementById("make").value;
+  var value_2=document.getElementById("model").value;
+  var value_1=document.getElementById("min_price").value;
+  var value=document.getElementById("max_price").value;
+
+
+  var paid="two";
+  var queryString = "?second_check=" +paid + "&search=" + value_4+ "&category=" + value_5 + "&condition=" + value_6 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value+ "&radius=" + value_11+ "&year_min=" + value_7+ "&year_max=" + value_8+ "&fuel_type=" + value_10+ "&transmission=" + value_9;
+  window.location.href="search" + queryString;
+}
+
+function showOutput2 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "suv";
+  window.location.href="cars" + queryString;
+}
+function showOutput3 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "sedan";
+  window.location.href="cars" + queryString;
+}
+function showOutput4 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "wagon";
+  window.location.href="cars" + queryString;
+}
+function showOutput5 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "coupe";
+  window.location.href="cars" + queryString;
+}
+function showOutput6 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "pickup";
+  window.location.href="cars" + queryString;
+}
+function showOutput7 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "bus";
+  window.location.href="cars" + queryString;
+}
+function showOutput8 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "trucks";
+  window.location.href="cars" + queryString;
+}
+function showOutput9 () {
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + "heavy";
+  window.location.href="cars" + queryString;
+}
+function search () {
+  var value=document.getElementById("search").value;
+
+  var paid="two";
+  var queryString = "?second_check=" +paid  + "&keyword=" + value;
+  window.location.href="search" + queryString;
+}
+function date () {
+  var value=document.getElementById("date").value;
+  var value2=document.URL;
+  var value3=value2.replace("?report=true&arrange=1","");
+  var value4=value3.replace("?report=true&arrange=2","");
+  var queryString = "&arrange=" +value;
+  window.location.href=value4 +"?report="+"true"+queryString;
+}
+</script>
+
    <div class="header-main">
     <div class="container-fluid">
      <div class="row align-items-center justify-content-between">
@@ -363,10 +443,10 @@
         </h3>
         <div class="widget-content">
          <div class="widget-inner">
-          <form class="b-filter">
+          <form class="b-filter" method="GET">
            <div class="b-filter__main row">
             <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Make">
+             <select id="make" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Make">
               <option>
                Select 1
               </option>
@@ -382,7 +462,7 @@
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Model">
+             <select id="model" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Model">
               <option>
                Select 1
               </option>
@@ -398,7 +478,7 @@
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Vehicle Type">
+             <select id="category" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Vehicle Type">
               <option>
                Select 1
               </option>
@@ -414,7 +494,7 @@
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Condition">
+             <select id="condition" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Condition">
               <option>
                Select 1
               </option>
@@ -432,7 +512,7 @@
             <div class="col-12">
              <div class="b-filter__row row">
               <div class="b-filter__item col-md-6">
-               <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="From">
+               <select id="year_min" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="From">
                 <option>
                  Select 1
                 </option>
@@ -448,7 +528,7 @@
                </select>
               </div>
               <div class="b-filter__item col-md-6">
-               <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="To">
+               <select id="year_max" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="To">
                 <option>
                  Select 1
                 </option>
@@ -465,8 +545,8 @@
               </div>
              </div>
             </div>
-            <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Transmission">
+            <div id="transmission" class="b-filter__row col-xl-12 col-md-6">
+             <select id="transmission" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Transmission">
               <option>
                Select 1
               </option>
@@ -482,7 +562,7 @@
              </select>
             </div>
             <div class="b-filter__row col-xl-12 col-md-6">
-             <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Fuel Type">
+             <select id="fuel_type" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Fuel Type">
               <option>
                Select 1
               </option>
@@ -507,10 +587,10 @@
              </div>
              <div class="b-filter__row row">
               <div class="b-filter__item col-md-6">
-               <input class="ui-select" id="input-with-keypress-0"/>
+               <input id="min_price" class="ui-select" id="input-with-keypress-0"/>
               </div>
               <div class="b-filter__item col-md-6">
-               <input class="ui-select" id="input-with-keypress-1"/>
+               <input  id="max_price" class="ui-select" id="input-with-keypress-1"/>
               </div>
              </div>
             </div>
@@ -523,7 +603,7 @@
              <div id="sliderRange">
              </div>
              <div class="b-filter__row">
-              <input class="ui-select" id="input-range"/>
+              <input id="radius" class="ui-select" id="input-range"/>
              </div>
             </div>
            </div>
@@ -573,6 +653,7 @@
       </div>
       <!-- end .b-filter-goods-->
       <div class="b-goods-group row">
+        {% for item in search %}
        <div class="col-lg-4 col-md-6">
         <div class="b-goods">
          <a class="b-goods__img" href="#">
@@ -701,1414 +782,7 @@
          </div>
         </div>
        </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/2.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Jaguar GX 480i
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/3.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             BMW C7 2019
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/4.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Ford Mustang 2019
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/5.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Peugeot 508 SP
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/6.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Audi RS4 Avant
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/7.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Bentley Continental GT
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/8.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Jaguar GX 480i
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/9.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             BMW C7 2019
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/10.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Ford Mustang 2019
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/11.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Peugeot 508 SP
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
-       <div class="col-lg-4 col-md-6">
-        <div class="b-goods">
-         <a class="b-goods__img" href="#">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/12.jpg' %}"/>
-         </a>
-         <div class="b-goods__main">
-          <div class="row no-gutters">
-           <div class="col">
-            <a class="b-goods__title" href="#">
-             Audi RS4 Avant
-            </a>
-            <div class="b-goods__info">
-             Stock#: 45098ES - 4 door, White, 2.5L, FWD, Automatic 6-Speed, 2.5L 5 cyls, Florida CA
-            </div>
-           </div>
-           <div class="col-auto">
-            <div class="b-goods__price text-primary">
-             <span class="b-goods__price-title">
-              DEALER
-              <br/>
-              PRICE
-             </span>
-             <span class="b-goods__price-number">
-              $45,800
-             </span>
-            </div>
-            <div class="b-goods__price-msrp">
-             MSRP 25,350
-            </div>
-           </div>
-          </div>
-          <div class="b-goods-descrip row no-gutters">
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-speedometer">
-              </i>
-              <span class="b-goods-descrip__info">
-               35,000 mi
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                MILEAGE
-               </span>
-               <span class="b-goods-descrip__text">
-                316,500
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-fuel-station-pump">
-              </i>
-              <span class="b-goods-descrip__info">
-               38/45
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                FUEL TYPE
-               </span>
-               <span class="b-goods-descrip__text">
-                PETROL
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-gearshift">
-              </i>
-              <span class="b-goods-descrip__info">
-               Semi-Auto
-              </span>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                TRANSMISSION
-               </span>
-               <span class="b-goods-descrip__text">
-                AUTOMATIC
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-            <div class="b-goods-descrip__inner">
-             <div class="b-goods-descrip__wrap">
-              <i class="ic flaticon-calendar">
-              </i>
-              <div class="b-goods-descrip__full-info">
-               <span class="b-goods-descrip__title">
-                YEAR
-               </span>
-               <span class="b-goods-descrip__text">
-                2016
-               </span>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="b-goods__footer">
-           <div class="row no-gutters justify-content-between">
-            <div class="col-auto">
-             <span class="b-goods__tag">
-              test drive
-             </span>
-             <span class="b-goods__tag">
-              compare
-             </span>
-             <span class="b-goods__tag">
-              share this
-             </span>
-            </div>
-            <div class="col-auto">
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-             <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-       </div>
+     {% endfor %}
       </div>
       <nav aria-label="Page navigation example" class="mt-3">
        <ul class="pagination justify-content-center">

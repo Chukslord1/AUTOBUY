@@ -304,9 +304,6 @@ class SearchListView(ListView):
         search=''
         if self.request.GET.get('first_check')=="one":
             first_check="one"
-            query = self.request.GET.get('keyword')
-            use_state= self.request.GET.get('use_state')
-            arrange=self.request.GET.get('arrange')
             category= self.request.GET.get('category')
             if category:
                 category= self.request.GET.get('category')
@@ -318,7 +315,45 @@ class SearchListView(ListView):
             else:
                 model=''
             make= self.request.GET.get('make')
+            if make:
+                make= self.request.GET.get('make')
+            else:
+                make=''
+            use_state=self.request.GET.get('use_state')
+            if use_state:
+                use_state=use_state
+            else:
+                use_state=""
+            price_min=self.request.GET.get('price_min')
+            if price_min:
+                new_price_min=int(price_min)
+            else:
+                new_price_min=1000
+            price_max=self.request.GET.get('price_max')
+            if price_max:
+                new_price_max=int(price_max)
+            else:
+                new_price_max=1000000
+            if first_check=="one":
+                search = self.model.objects.filter(Q(category__icontains=category),Q(use_state__icontains=use_state),Q(category__icontains=category),Q(model__icontains=model),Q(make__icontains=make),Q(price__range=(new_price_min, new_price_max)))
+                context['search'] = search
+            else:
+                search = self.model.objects.none()
+                context['search'] = search
+        elif self.request.GET.get('second_check')=="two":
+            second_check="two"
+            category= self.request.GET.get('category')
+            if category:
+                category= self.request.GET.get('category')
+            else:
+                category=""
+            model= self.request.GET.get('model')
             if model:
+                model= self.request.GET.get('model')
+            else:
+                model=''
+            make= self.request.GET.get('make')
+            if make:
                 make= self.request.GET.get('make')
             else:
                 make=''
@@ -357,18 +392,14 @@ class SearchListView(ListView):
                 transmission=self.request.GET.get('transmission')
             else:
                 transmission=""
-            if first_check=="one":
-                search = self.model.objects.filter(Q(title__icontains=query),Q(use_state__icontains=use_state),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(condition__icontains=condition),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
-                context['search'] = search
+            radius=self.request.GET.get('radius')
+            if radius:
+                radius=self.request.GET.get('radius')
             else:
-                search = self.model.objects.none()
-                context['search'] = search
-        elif self.request.GET.get('second_check')=="two":
-            second_check="two"
-            query = self.request.GET.get('keyword')
+                radius=""
             if second_check=="two":
-                search = self.model.objects.filter(Q(title__icontains=query))
-                context['search']=search
+                search = self.model.objects.filter(Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
+                context['search'] = search
             else:
                 search = self.model.objects.none()
                 context['search'] = search
