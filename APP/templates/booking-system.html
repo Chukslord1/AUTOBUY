@@ -436,7 +436,7 @@
           </div>
          </div>
          <div class="col-lg-8">
-          <form class="b-booking-main">
+          <form class="b-booking-main" method="POST">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Select Car Type
@@ -444,7 +444,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input checked="checked" id="option4" name="options" type="radio"/>
+               <input checked="checked" id="option4"  type="radio"/>
                <span class="ic flaticon-cabrio-car">
                </span>
                CONVERTIBLE
@@ -454,7 +454,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item active">
-               <input id="option2" name="options" type="radio"/>
+               <input name="category" id="option2" type="radio"/>
                <span class="ic flaticon-car-suv">
                </span>
                SUV
@@ -464,7 +464,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option3" name="options" type="radio"/>
+               <input name="category" id="option3"  type="radio"/>
                <span class="ic flaticon-coupe-car">
                </span>
                COUPE
@@ -474,7 +474,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option5" name="options" type="radio"/>
+               <input name="category" id="option5" type="radio"/>
                <span class="ic flaticon-sedan-car-model">
                </span>
                SEDAN
@@ -484,7 +484,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option6" name="options" type="radio"/>
+               <input  name="category" id="option6" type="radio"/>
                <span class="ic flaticon-car-black-side-view-pointing-left">
                </span>
                SUPER CAR
@@ -494,7 +494,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option7" name="options" type="radio"/>
+               <input name="category" id="option7" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                MINICAR
@@ -510,8 +510,8 @@
             </h2>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input checked="checked" class="custom-control-input" id="customCheck1" type="checkbox"/>
-              <label class="custom-control-label row" for="customCheck1">
+              <input name="package" checked="checked"  id="customCheck1" type="radio"/>
+              <label for="customCheck1">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
                  Basic Styling Pack
@@ -539,8 +539,8 @@
             </div>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="customCheck2" type="checkbox"/>
-              <label class="custom-control-label row" for="customCheck2">
+              <input name="package" id="customCheck2" type="radio"/>
+              <label for="customCheck2">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
                  Gold Styling Pack
@@ -568,8 +568,8 @@
             </div>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="customCheck3" type="checkbox"/>
-              <label class="custom-control-label row" for="customCheck3">
+              <input name="package"  id="customCheck3" type="radio"/>
+              <label  for="customCheck3">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
                  Deluxe Styling Pack
@@ -602,7 +602,7 @@
             </h2>
             <div class="b-booking-price b-booking-price_sm">
              <div class="custom-control custom-checkbox">
-              <input checked="checked" class="custom-control-input" id="customCheck4" type="checkbox"/>
+              <input name="service1" checked="checked" class="custom-control-input" id="customCheck4" type="checkbox"/>
               <label class="custom-control-label row" for="customCheck4">
                <span class="col">
                 <span class="b-booking-price__title">
@@ -629,7 +629,7 @@
             </div>
             <div class="b-booking-price b-booking-price_sm">
              <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="customCheck5" type="checkbox"/>
+              <input name="service2" class="custom-control-input" id="customCheck5" type="checkbox"/>
               <label class="custom-control-label row" for="customCheck5">
                <span class="col">
                 <span class="b-booking-price__title">
@@ -656,7 +656,7 @@
             </div>
             <div class="b-booking-price b-booking-price_sm">
              <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="customCheck6" type="checkbox"/>
+              <input name="service3" class="custom-control-input" id="customCheck6" type="checkbox"/>
               <label class="custom-control-label row" for="customCheck6">
                <span class="col">
                 <span class="b-booking-price__title">
@@ -683,7 +683,7 @@
             </div>
             <div class="b-booking-price b-booking-price_sm">
              <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" id="customCheck7" type="checkbox"/>
+              <input name="service4" class="custom-control-input" id="customCheck7" type="checkbox"/>
               <label class="custom-control-label row" for="customCheck7">
                <span class="col">
                 <span class="b-booking-price__title">
@@ -777,12 +777,13 @@
              </div>
             </div>
             <div class="row">
+
              <div class="col-md-6">
               <div class="form-group">
                <label class="form-label">
                 First Name *
                </label>
-               <input class="form-control" type="text"/>
+               <input name="first_name" class="form-control" type="text"/>
               </div>
              </div>
              <div class="col-md-6">
@@ -790,7 +791,7 @@
                <label class="form-label">
                 Last Name *
                </label>
-               <input class="form-control" type="text"/>
+               <input name="last_name" class="form-control" type="text"/>
               </div>
              </div>
              <div class="col-md-6">
@@ -798,7 +799,7 @@
                <label class="form-label">
                 Email Address*
                </label>
-               <input class="form-control" type="email"/>
+               <input name="email_address" class="form-control" type="email"/>
               </div>
              </div>
              <div class="col-md-6">
@@ -806,7 +807,7 @@
                <label class="form-label">
                 Phone *
                </label>
-               <input class="form-control" type="text"/>
+               <input name="phone" class="form-control" type="text"/>
               </div>
              </div>
             </div>
@@ -814,7 +815,7 @@
              <label class="form-label">
               Car make / Model *
              </label>
-             <input class="form-control" type="text"/>
+             <input name="car_model" class="form-control" type="text"/>
             </div>
             <div class="form-group">
              <label class="form-label">

@@ -816,3 +816,5 @@ def logout(request):
 
 def reservation(request):
     return render(request,"reservation-grid.html")
+def booking(request):
+    return render(request,"booking-system.html")
