@@ -257,7 +257,7 @@
          <a class="b-goods-f__links-item" href="#">
           <i class="ic fas fa-map-marker-alt text-primary">
           </i>
-          Florida, USA
+          {{object.address}}
          </a>
          <a class="b-goods-f__links-item" href="#">
           <i class="ic fas fa-question text-primary">
@@ -290,37 +290,37 @@
             Registration
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            2019
+            {{object.reg_date}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Brand / Model
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            BMW 3 Series
+            {{object.model}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Body Style
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            Sedan
+            {{object.category}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Color
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            Fanta Red
+            {{object.color}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Fuel Type
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            Gasoline
+            {{object.fuel_type}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Engine
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            255 hp @5000 rpm
+            {{object.engine}}
            </dd>
           </dl>
          </div>
@@ -330,37 +330,37 @@
             Condition
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            New
+            {{object.condition}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Mileage
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            20,000 mi
+            {{object.mileage}} mi
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Transmission
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            8-Speed A/T
+          {{object.transmission}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Drivetrain
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            All Wheels Drive
+            {{objects.drive_train}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             Interior Color
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            Black / Red
+            {{object.interior_color}}
            </dd>
            <dt class="b-goods-f__descr-title col-md-5">
             No. Of Seats
            </dt>
            <dd class="b-goods-f__descr-info col-md-7">
-            5
+            {{object.no_of_seats}}
            </dd>
           </dl>
          </div>
@@ -390,30 +390,14 @@
         <div class="tab-content" id="myTabContent">
          <div aria-labelledby="overview-tab" class="tab-pane fade show active" id="overview" role="tabpanel">
           <p>
-           Edipisicing eiusmod tempor incididunt labore sed dolore magna aliqa enim ipsum ad minim veniams quis nostrud citation ullam laboris nisi ut aliquip laboris nisi ut aliquip ex ea commodo. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <p>
            <strong>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            {{object.overview}}
            </strong>
-           nisi ut aliquip ex ea commodo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Exe pteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed umt perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
-          </p>
+           </p>
           <h3 class="b-goods-f__title-inner">
            Highlights of the new Audi S5 Sportback
           </h3>
           <ul class="list list-mark-2">
-           <li>
-            Enim ipsum ad minim veniams quis nostrud citation ullam laboris nisi
-           </li>
-           <li>
-            Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-           </li>
-           <li>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-           </li>
-           <li>
-            Laboris nisi ut aliquip ex ea comodo consequat duis aute irure dolor in
-           </li>
            <li>
             Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
            </li>
@@ -421,30 +405,18 @@
          </div>
          <div aria-labelledby="features-tab" class="tab-pane fade" id="features" role="tabpanel">
           <p>
-           Edipisicing eiusmod tempor incididunt labore sed dolore magna aliqa enim ipsum ad minim veniams quis nostrud citation ullam laboris nisi ut aliquip laboris nisi ut aliquip ex ea commodo. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+           {{object.feature}}
+         </p>
          </div>
          <div aria-labelledby="location-tab" class="tab-pane fade" id="location" role="tabpanel">
           <p>
-           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Exe pteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed umt perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.
-          </p>
+           {{object.location}}
+         </p>
          </div>
          <div aria-labelledby="reviews-tab" class="tab-pane fade" id="reviews" role="tabpanel">
           <ul class="list list-mark-2">
            <li>
-            Enim ipsum ad minim veniams quis nostrud citation ullam laboris nisi
-           </li>
-           <li>
-            Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-           </li>
-           <li>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-           </li>
-           <li>
-            Laboris nisi ut aliquip ex ea comodo consequat duis aute irure dolor in
-           </li>
-           <li>
-            Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            {{object.owner_review}}
            </li>
           </ul>
          </div>
@@ -456,12 +428,12 @@
           <div class="b-goods-f-price__header bg-secondary">
            Autlines Price
            <span class="b-goods-f-price__main">
-            $53,395
+            {{object.total_price}}
            </span>
           </div>
           <div class="b-goods-f-price__inner">
            <div class="b-goods-f-price__msrp">
-            MSRP: $34,500
+            MSRP: {{object.price}}
            </div>
            <div class="b-goods-f-price__note">
             Included Taxes &amp; Checkup*
@@ -479,10 +451,10 @@
            </div>
            <div class="b-seller__title">
             <div class="b-seller__name">
-             Jane William
+             {{object.user}}
             </div>
             <div class="b-seller__category">
-             Member Since April 2013
+             Member Since {{object.user.created_at}}
             </div>
            </div>
           </div>
@@ -493,8 +465,8 @@
             <span class="d-block">
              Contact Seller
             </span>
-            <a class="b-seller__phone" href="tel:12584037961">
-             1 (258) 403 7961
+            <a class="b-seller__phone" href="{{object.user.profile}}">
+             {{object.user.profile}}
             </a>
            </div>
            <ul class="b-seller-soc list-unstyled">
@@ -541,49 +513,20 @@
           </h3>
           <div class="widget-content">
            <div class="widget-inner">
-            <form>
+            <form method="POST">
+              {% csrf_token %}
              <div class="form-group">
-              <input class="form-control" placeholder="Name" type="text"/>
+              <input name="name" class="form-control" placeholder="Name" type="text"/>
              </div>
              <div class="form-group">
-              <textarea class="form-control" placeholder="Message" rows="5"></textarea>
+              <textarea name="message" class="form-control" placeholder="Message" rows="5"></textarea>
              </div>
-             <button class="btn btn-secondary w-100">
+             <button type="submit" class="btn btn-secondary w-100">
               send message now
              </button>
             </form>
            </div>
           </div>
-         </div>
-         <div class="widget-2 section-sidebar bg-gray">
-          <h3 class="widget-title-2">
-           <img alt="photo" class="ic" src="{% static 'assets/media/general/logo-sm_blue.png' %}"/>
-           <span class="widget-title__inner">
-            Finance Calculator
-           </span>
-          </h3>
-          <div class="widget-content">
-           <div class="widget-inner">
-            <form>
-             <div class="form-group">
-              <input class="form-control" placeholder="Vehicle Price ($)" type="text"/>
-             </div>
-             <div class="form-group">
-              <input class="form-control" placeholder="Interest Rate" type="text"/>
-             </div>
-             <div class="form-group">
-              <input class="form-control" placeholder="Period of Months" type="text"/>
-             </div>
-             <div class="form-group">
-              <input class="form-control" placeholder="Down Payment" type="text"/>
-             </div>
-             <button class="btn btn-secondary w-100">
-              calculate finance
-             </button>
-            </form>
-           </div>
-          </div>
-          <!-- end .widget-->
          </div>
         </aside>
        </div>
