@@ -808,4 +808,12 @@ def signup(request):
 def car_loan(request):
     return render(request,"car-loan.html")
 def car_insurance(request):
-    return render(request,"car-insurance.html")    
+    return render(request,"car-insurance.html")
+def clearing(request):
+    return render(request,"clearing.html")
+def car_registration(request):
+    return render(request,"car-registration.html")
+def car_delivery(request):
+    return render(request,"car-delivery.html")
+def user(request):
+    return render(request,"user.html")
