@@ -20,6 +20,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', views.ActivateAccount.as_view(), name='activate'),
     path("featured", views.featured, name="featured"),
     path("reservation-grid.html", views.reservation, name="reservation"),
+    path("booking-system.html", views.booking, name="booking"),
     path("profile", views.profile, name="profile"),
     path("bookmark", views.bookmark, name="bookmark"),
     path("change-password.html", views.password, name="password"),
