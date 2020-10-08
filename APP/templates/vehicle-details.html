@@ -232,25 +232,25 @@
       <div class="row">
        <div class="col-lg-8">
         <div class="ui-subtitle">
-         Sportiness at maximum power
+         {{object.subtitle}}
         </div>
         <h2 class="ui-title text-uppercase">
-         Audi S5 Sportback
+         {{object.title}}
         </h2>
         <div class="b-goods-f__slider">
          <div class="ui-slider-main js-slider-for">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/main/1.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/main/1.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/main/1.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/main/1.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/main/1.jpg' %}"/>
+           {% for i in object.image.all %}
+          {% if forloop.first %}
+          <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
+          {% endif %}
+          {% endfor %}
          </div>
          <div class="ui-slider-nav js-slider-nav">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/thumb/1.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/thumb/2.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/thumb/3.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/thumb/4.jpg' %}"/>
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/main-slider/thumb/2.jpg' %}"/>
+           {% for i in object.image.all %}
+          {% if forloop.first %}
+          <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
+          {% endif %}
+          {% endfor %}
          </div>
         </div>
         <div class="b-goods-f__links">

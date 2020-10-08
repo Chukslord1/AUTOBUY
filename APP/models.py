@@ -13,7 +13,9 @@ class Images(models.Model):
 
 
 class Car(models.Model):
+    subtitle=models.TextField(blank=True, null=True)
     title=models.TextField(blank=True, null=True)
+    address=models.TextField(blank=True, null=True)
     category=models.TextField(blank=True, null=True)
     power=models.IntegerField(blank=True, null=True)
     speed=models.IntegerField(blank=True, null=True)
@@ -28,6 +30,8 @@ class Car(models.Model):
     use_state=models.TextField(blank=True, null=True)
     user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
     price=models.IntegerField(blank=True, null=True)
+    discount_price=models.IntegerField(blank=True, null=True)
+    total_price=models.IntegerField(blank=True, null=True)
     phone = models.TextField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
