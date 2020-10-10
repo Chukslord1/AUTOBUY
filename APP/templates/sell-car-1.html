@@ -339,110 +339,63 @@
        <div class="container">
         <div class="row">
          <div class="col-lg-4">
-          <div class="b-booking-nav">
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 1
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-car-side">
-             </i>
-             <span class="b-booking-nav__title">
-              Select Car Type
-             </span>
-             <span class="b-booking-nav__info">
-              Select your vehicle type
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item active" href="#">
-            <div class="b-booking-nav__header">
-             Step 2
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cubes">
-             </i>
-             <span class="b-booking-nav__title">
-              Vehicle Information
-             </span>
-             <span class="b-booking-nav__info">
-              Enter Vehicle Information
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 3
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cog">
-             </i>
-             <span class="b-booking-nav__title">
-              Services Menu
-             </span>
-             <span class="b-booking-nav__info">
-              A la carte Services for you
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 4
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic far fa-calendar">
-             </i>
-             <span class="b-booking-nav__title">
-              Date And Time
-             </span>
-             <span class="b-booking-nav__info">
-              Click on time for booking
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 5
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-edit">
-             </i>
-             <span class="b-booking-nav__title">
-              Booking Summary
-             </span>
-             <span class="b-booking-nav__info">
-              Provide your contact infos
-             </span>
-            </div>
-           </a>
-          </div>
+           <div class="b-booking-nav">
+            <a class="b-booking-nav__item" href="#">
+             <div class="b-booking-nav__header">
+              Step 1
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-car-side">
+              </i>
+              <span class="b-booking-nav__title">
+               Select Car Type
+              </span>
+              <span class="b-booking-nav__info">
+               Select your vehicle type
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item  active" href="#">
+             <div class="b-booking-nav__header">
+              Step 2
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cubes">
+              </i>
+              <span class="b-booking-nav__title">
+               Vehicle Information
+              </span>
+              <span class="b-booking-nav__info">
+               Enter Vehicle Information
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item" href="#">
+             <div class="b-booking-nav__header">
+              Step 3
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cog">
+              </i>
+              <span class="b-booking-nav__title">
+               Boost Options
+              </span>
+              <span class="b-booking-nav__info">
+               A la carte Services for you
+              </span>
+             </div>
+            </a>
+           </div>
          </div>
-         <script>
-         function jump () {
-        var value=document.URL;
-        var value_1=value.replace("http://127.0.0.1:8000/sell-car-1.html","");
-        var value_2=document.getElementById("condition").value;
-        var value_3=document.getElementById("make").value;
-        var value_4=document.getElementById("model").value;
-        var value_5=document.getElementById("year").value;
-        var value_6=document.getElementById("transmission").value;
-        var value_7=document.getElementById("location").value;
-        var value_8=document.getElementById("mileage".value);
-        var value_9=document.getElementById("fuel_type").value;
-        var value_10=document.getElementById("image").value;
-        var queryString = value_1+"&image="+value_10+"&condition"+value_2+"&make"+value_3+"&model"+value_4+"&year"+value_5+"&transmission"+value_6+"&location"+value_7+"&mileage"+value_8+"&fuel_type"+value_9;
-        window.location.href= "{% url 'APP:sell-car-2' %}" + queryString;
-      }
-         </script>
          <div class="col-lg-8">
-          <form class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
+          <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Vehicle Information
             </h2>
            </div>
            <div class="Neon Neon-theme-dragdropbox">
-            <input id="image" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file"/>
+            <input id="image" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
             <div class="Neon-input-dragDrop">
              <div class="Neon-input-inner">
               <div class="Neon-input-icon">
@@ -462,6 +415,18 @@
               </a>
              </div>
             </div>
+           </div>
+           <div class="b-main-filter__label">
+             Title
+           </div>
+           <div class="form-group">
+            <input class="form-control" id="title" type="title" name="make" placeholder="Enter Tilte of Car You Want To Sell" />
+           </div>
+           <div class="b-main-filter__label">
+             Sub title
+           </div>
+           <div class="form-group">
+            <input class="form-control" id="subtitle" type="text" name="subtitle" />
            </div>
            <div class="b-booking-main__section pb-1">
             <div class="b-main-filter__label">
@@ -509,10 +474,16 @@
              </select>
             </div>
             <div class="b-main-filter__label">
-             Select Year
+             Year
             </div>
             <div class="form-group">
              <input class="form-control" id="year" type="text" name="year" />
+            </div>
+            <div class="b-main-filter__label">
+                Pump Size
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="pupm_size" type="text" name="pupm_size" />
             </div>
             <div class="b-main-filter__label">
              Select Transmission
@@ -553,6 +524,62 @@
              </select>
             </div>
             <div class="b-main-filter__label">
+            Body Style
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="body_style" name="body_style" placeholder="body style" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Color
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="body_style" name="color" placeholder="color" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Engine
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="engine" name="engine" placeholder="engine" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Drive Train
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="drive_train" name="drive_train" placeholder="drive train" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Interior Color
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="interior_color" name="interior_color" placeholder="interior color" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            No of Seats
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="no_of_seats" name="no_of_seats" placeholder="no_of_seats" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Overview
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="overview" name="overview" placeholder="overview" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Owner Review
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="owner_review" name="owner_review" placeholder="owner review" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
              Select State
             </div>
             <div class="form-group">
@@ -572,16 +599,48 @@
              </select>
             </div>
             <div class="b-main-filter__label">
+             Enter Price
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="price" name="price" placeholder="₦ Price" required="required" type="text"/>
+            </div>
+            <div class="b-main-filter__label">
+            Total Price
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="total_price" type="text" name="total_price" />
+            </div>
+            <div class="b-main-filter__label">
+             Sellers Note
+            </div>
+            <div class="form-group">
+             <textarea class="form-control" id="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+            </div>
+            <div class="b-main-filter__label">
              Enter Odometer Mileage
             </div>
             <div class="form-group">
              <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="mileage">
              </input>
             </div>
+            <div class="b-main-filter__label">
+             Enter Your Phone Number
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="mileage" name="mileage" placeholder="phone" required="required" type="phone">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Enter Your  Email
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="mileage" name="email" placeholder="Email" required="remail" type="email">
+             </input>
+            </div>
             <div class="text-center">
              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5" onclick="jump()">
-              <a onclick="jump()">
+             <button class="btn btn-secondary mt-5" type="submit">
+              <a >
                Next
               </a>
              </button>
