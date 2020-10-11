@@ -39,7 +39,7 @@ class Car(models.Model):
     feature_expire=models.DateField(blank=True, null=True)
     features=models.TextField(blank=True, null=True)
     radius=models.TextField(blank=True, null=True)
-    reg_date=models.TextField(blank=True, null=True)
+    reg_date=models.DateField(auto_now_add=True)
     body_style=models.TextField(blank=True, null=True)
     color=models.TextField(blank=True, null=True)
     engine=models.TextField(blank=True, null=True)
@@ -55,7 +55,7 @@ class Car(models.Model):
     paginate_by = 2
 
     def __str__(self):
-        return self.title
+        return self.slug
 
     def get_absolute_url(self):
         return reverse("APP:details", kwargs={
@@ -110,6 +110,7 @@ class UserProfile(models.Model):
     premium_expire=models.DateField(blank=True, null=True)
     premium_feature_count=models.IntegerField(blank=True, null=True,default="0")
     email_confirmed = models.BooleanField(default=False)
+    created_at=models.DateField(auto_now_add=True)
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),

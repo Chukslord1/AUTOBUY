@@ -393,14 +393,16 @@
          }
          </script>
          <div class="col-lg-8">
-          <form id="theform" class="b-booking-main" method="GET" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
+           <h2>{{message}}</h2>
+          <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
+            {% csrf_token %}
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Vehicle Information
             </h2>
            </div>
            <div class="Neon Neon-theme-dragdropbox">
-            <input id="image" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
+            <input id="image" name="image" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
             <div class="Neon-input-dragDrop">
              <div class="Neon-input-inner">
               <div class="Neon-input-icon">
@@ -425,7 +427,7 @@
              Title
            </div>
            <div class="form-group">
-            <input class="form-control" id="title" type="title" name="make" placeholder="Enter Tilte of Car You Want To Sell" />
+            <input class="form-control" id="title" type="text" name="title" placeholder="Enter Tilte of Car You Want To Sell" />
            </div>
            <div class="b-main-filter__label">
              Sub title
@@ -438,7 +440,7 @@
              Select Condition
             </div>
             <div class="form-group">
-             <select id="condition" class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="condition" name="condition" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                --
               </option>
@@ -466,7 +468,7 @@
              Select Model
             </div>
             <div class="form-group">
-             <select id="model" class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="model" class="selectpicker" name="model" data-style="ui-select" data-width="100%">
               <option value="model1">
                Model 1
               </option>
@@ -488,7 +490,7 @@
                 Pump Size
             </div>
             <div class="form-group">
-             <input class="form-control" id="pupm_size" type="text" name="pupm_size" />
+             <input class="form-control" id="pupm_size" type="text" name="pump_size" />
             </div>
             <div class="b-main-filter__label">
              Select Transmission
@@ -513,7 +515,7 @@
              Fuel Type
             </div>
             <div class="form-group">
-             <select id="fuel_type" class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="fuel_type" class="selectpicker" name="fuel_type" data-style="ui-select" data-width="100%">
               <option>
                Select Fuel Type
               </option>
@@ -616,30 +618,36 @@
              <input class="form-control" id="total_price" type="text" name="total_price" />
             </div>
             <div class="b-main-filter__label">
+             Features
+            </div>
+            <div class="form-group">
+             <textarea class="form-control" id="features" name="features" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+            </div>
+            <div class="b-main-filter__label">
              Sellers Note
             </div>
             <div class="form-group">
-             <textarea class="form-control" id="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+             <textarea class="form-control" id="seller_note" name="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
             </div>
             <div class="b-main-filter__label">
              Enter Odometer Mileage
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="mileage">
+             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="text">
              </input>
             </div>
             <div class="b-main-filter__label">
              Enter Your Phone Number
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="phone" required="required" type="phone">
+             <input class="form-control" id="phone" name="phone" placeholder="phone" required="required" type="text">
              </input>
             </div>
             <div class="b-main-filter__label">
             Enter Your  Email
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="email" placeholder="Email" required="remail" type="email">
+             <input class="form-control" id="email" name="email" placeholder="Email" required="required" type="text">
              </input>
             </div>
             <div class="text-center">

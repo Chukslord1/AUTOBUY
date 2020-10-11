@@ -447,14 +447,14 @@
          <div class="b-seller">
           <div class="b-seller__header bg-primary">
            <div class="b-seller__img">
-            <img alt="foto" class="img-scale" src="{% static 'assets/media/content/b-seller/1.jpg' %}"/>
+            <img alt="foto" class="img-scale" src="{% get_media_prefix %}{{object.user.profile.image}}"/>
            </div>
            <div class="b-seller__title">
             <div class="b-seller__name">
              {{object.user}}
             </div>
             <div class="b-seller__category">
-             Member Since {{object.user.created_at}}
+             Member Since {{object.user.profile.created_at}}
             </div>
            </div>
           </div>
@@ -465,8 +465,8 @@
             <span class="d-block">
              Contact Seller
             </span>
-            <a class="b-seller__phone" href="{{object.user.profile}}">
-             {{object.user.profile}}
+            <a class="b-seller__phone" href="{{object.phone}}">
+             {{object.phone}}
             </a>
            </div>
            <ul class="b-seller-soc list-unstyled">

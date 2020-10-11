@@ -388,26 +388,11 @@
          </div>
          <script>
          function jump () {
-           if (document.getElementById("package1").checked == true){
-           var value_4=document.getElementById("package1").value;
-         } else if (document.getElementById("package2").checked == true){
-           var value_4=document.getElementById("package2").value;
-         } else if (document.getElementById("package3").checked == true){
-           var value_4=document.getElementById("package3").value;
-         }else if (document.getElementById("package4").checked == true){
-           var value_4=document.getElementById("package4").value;
+           var value=document.getElementById("theform").submit;
          }
-          else {
-           var value_4="e";
-         }
-        var value=document.URL;
-        var value_1=value.replace("http://127.0.0.1:8000/sell-car-3.html","");
-        var queryString = value_1+"&package="+value_4+"&submit="+"true";
-        window.location.href= "{% url 'APP:sell-car-3' %}" + queryString;
-      }
          </script>
          <div class="col-lg-8">
-          <form class="b-booking-main">
+          <form id="theform" method="GET" class="b-booking-main">
            <div class="b-booking-main__section">
             <h2>{{message}}</h2>
             <h2 class="b-booking-main__title">
@@ -523,7 +508,7 @@
            <div class="text-center">
             Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
             <button class="btn btn-secondary mt-5" onclick="jump()">
-             <a onclick="jump()">
+             <a >
               Submit
              </a>
             </button>
