@@ -794,24 +794,17 @@ def sell_car(request):
 def sell_car_1(request):
     global value
     value=request.GET.get("category")
-    print(value)
-    return render(request,"sell-car-1.html")
-def sell_car_2(request):
-    return render(request,"sell-car-2.html")
-def sell_car_3(request):
-    category=request.GET.get("category")
-    print(category)
     if request.method=="GET":
         category=value
         image=request.FILES.getlist("image")
         title=request.GET.get("title")
         sub_title=request.GET.get("sub_title")
         pump_size=request.GET.get("pump_size")
-        body_style==request.GET.get("body_style")
-        color==request.GET.get("color")
+        body_styles=request.GET.get("body_style")
+        colors=request.GET.get("color")
         engine=request.GET.get("engine")
-        drive_train==request.GET.get("drive_train")
-        interior_color==request.GET.get("interior_color")
+        drive_train=request.GET.get("drive_train")
+        interior_color=request.GET.get("interior_color")
         no_of_seats=request.GET.get("no_of_seats")
         overview=request.GET.get("overview")
         owner_review=request.GET.get("owner_review")
@@ -828,7 +821,8 @@ def sell_car_3(request):
         price=request.GET.get("price")
         seller_note=request.GET.get("seller_note")
         package=request.GET.get("package")
-        car=Car.objects.create(category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,seller_note=seller_note,package=package,user=request.user,slug=title)
+        slug=title
+        car=Car.objects.create(category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,seller_note=seller_note,package=package,user=request.user,slug=slug)
         car.save()
         for x in image:
             new_image=Images.objects.create(title=title,image=x)
@@ -836,7 +830,14 @@ def sell_car_3(request):
             car.image.add(new_image)
         return redirect(request,"sell-car-3.html")
     else:
-        return render(request,"sell-car-3.html")
+        return render(request,"sell-car-1.html")
+
+def sell_car_2(request):
+    return render(request,"sell-car-2.html")
+
+def sell_car_3(request):
+
+    return render(request,"sell-car-3.html")
 def swap(request):
     return render(request,"swap.html")
 def swap2(request):

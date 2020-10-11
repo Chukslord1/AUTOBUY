@@ -387,8 +387,13 @@
             </a>
            </div>
          </div>
+         <script>
+         function submit () {
+           var value=document.getElementById("theform").submit;
+         }
+         </script>
          <div class="col-lg-8">
-          <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
+          <form id="theform" class="b-booking-main" method="GET" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Vehicle Information
@@ -639,7 +644,7 @@
             </div>
             <div class="text-center">
              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5" type="submit">
+             <button class="btn btn-secondary mt-5" onclick="submit()">
               <a >
                Next
               </a>
