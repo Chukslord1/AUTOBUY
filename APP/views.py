@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -953,12 +953,101 @@ def car_insurance(request):
         return render(request,"car-insurance.html")
 
 def clearing(request):
-    return render(request,"clearing.html")
+    if request.method=="GET":
+        name=request.GET.get("name")
+        email=request.GET.get("email")
+        phone=request.GET.get("phone")
+        make=request.GET.get("make")
+        model=request.GET.get("model")
+        year=request.GET.get("year")
+        clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
+        clear.save()
+        context={"message":"submitted successfully"}
+        return render(request,"clearing.html",context)
+    else:
+        return render(request,"clearing.html")
 def car_registration(request):
-    return render(request,"car-registration.html")
+    if request.method=="GET":
+        name=request.GET.get("name")
+        email=request.GET.get("email")
+        phone=request.GET.get("phone")
+        make=request.GET.get("make")
+        model=request.GET.get("model")
+        year=request.GET.get("year")
+        clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
+        clear.save()
+        context={"message":"submitted successfully"}
+        return render(request,"car-registration.html",context)
+    else:
+        return render(request,"car-registration.html")
+
 def car_delivery(request):
-    return render(request,"car-delivery.html")
+    if request.method=="GET":
+        name=request.GET.get("name")
+        email=request.GET.get("email")
+        phone=request.GET.get("phone")
+        make=request.GET.get("make")
+        model=request.GET.get("model")
+        year=request.GET.get("year")
+        clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
+        clear.save()
+        context={"message":"submitted successfully"}
+        return render(request,"car-delivery.html",context)
+    else:
+        return render(request,"car-delivery.html")
+
 def user(request):
-    return render(request,"user.html")
+    if request.method=="POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 == password2:
+            if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
+
+                context = {"message": "user with email already exists"}
+                return render(request,"user.html",context)
+            else:
+                user = User.objects.create(
+                    username=username, password=password1, email=email)
+                user.set_password(user.password)
+                user.is_active = False
+                request.session['user'] = str(user.username)
+                user.save()
+                profile = UserProfile.objects.create(user=user, username=username,email=email,trials=3)
+                profile.save()
+                current_site = get_current_site(request)
+                subject = 'Activate Your AfriProperty Account'
+                message = render_to_string('account_activation_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': user.pk,
+                    'token': account_activation_token.make_token(user),
+                    })
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = message
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
+                context = {'profile':profile,"message_confirm": "Please Confirm your email to complete registration."}
+                print(request.session['user'])
+                return render(request,'user.html',context)
+    else:
+        return render(request,"user.html")
+
 def become_dealer(request):
     return render(request,"become-dealer.html")

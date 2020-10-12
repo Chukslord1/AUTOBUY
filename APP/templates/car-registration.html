@@ -281,31 +281,32 @@
          <br/>
          <div id="success">
          </div>
-         <form action="#" class="b-form-contacts ui-form" id="contactForm" method="POST">
+         <form class="b-form-contacts ui-form" id="contactForm" method="POST">
+           {% csrf_token %}
           <div class="b-main-filter__label">
            Your Name
           </div>
           <div class="form-group">
-           <input class="form-control" id="user-name" name="user_name" placeholder="Your Name" required="required" type="text"/>
+           <input  class="form-control" id="user-name" name="name" placeholder="Your Name" required="required" type="text"/>
           </div>
           <div class="b-main-filter__label">
            Your Phone Number
           </div>
           <div class="form-group">
-           <input class="form-control" id="phone-number" name="phone_number" placeholder="phone number" required="required" type="phone"/>
+           <input class="form-control" id="phone-number" name="phone" placeholder="phone number" required="required" type="phone"/>
           </div>
           <div class="b-main-filter__label">
            Select Make
           </div>
           <div class="form-group">
-           <select class="selectpicker" data-style="ui-select" data-width="100%">
-            <option>
+           <select class="selectpicker" name="make" data-style="ui-select" data-width="100%">
+            <option value="audi">
              Audi
             </option>
-            <option>
+            <option value="bmw">
              BMV
             </option>
-            <option>
+            <option value="opel">
              Opel
             </option>
            </select>
@@ -314,15 +315,15 @@
            Select Model
           </div>
           <div class="form-group">
-           <select class="selectpicker" data-style="ui-select" data-width="100%">
-            <option>
-             Model
+           <select class="selectpicker" name="model" data-style="ui-select" data-width="100%">
+            <option value="model1">
+             Model 1
             </option>
-            <option>
-             h2
+            <option value="model2">
+             Model 2
             </option>
-            <option>
-             Opel
+            <option value="model3">
+             Model 3
             </option>
            </select>
           </div>
@@ -330,14 +331,14 @@
            Select Year
           </div>
           <div class="form-group">
-           <select class="selectpicker" data-style="ui-select" data-width="100%">
-            <option>
+           <select class="selectpicker" name="year"  data-style="ui-select" data-width="100%">
+            <option value="">
              Year
             </option>
-            <option>
+            <option value="">
              1990
             </option>
-            <option>
+            <option value="">
              1991
             </option>
            </select>
@@ -345,7 +346,10 @@
           <div class="b-main-filter__label">
            Your Email
           </div>
-          <button class="btn btn-primary">
+          <div class="form-group">
+           <input class="form-control" id="email" name="phone" placeholder="email" required="required" type="email"/>
+          </div>
+          <button class="btn btn-primary" type="submit">
            Submit
           </button>
          </form>

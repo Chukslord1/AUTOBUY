@@ -437,6 +437,7 @@
          </div>
          <div class="col-lg-8">
           <form class="b-booking-main" method="POST">
+            {% csrf_token %}
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Select Car Type
@@ -444,7 +445,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input checked="checked" id="option4"  type="radio"/>
+               <input checked="checked" name="category" id="option4"  type="radio"/>
                <span class="ic flaticon-cabrio-car">
                </span>
                CONVERTIBLE
@@ -713,6 +714,7 @@
             <h2 class="b-booking-main__title">
              Select Date &amp; Time
             </h2>
+            <input id="date" name"date" type="date" />
            </div>
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
