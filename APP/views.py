@@ -847,19 +847,79 @@ def sell_car_2(request):
 
 def sell_car_3(request):
     global slug
-    car=Car.objects.get(slug=slug)
-    package=request.GET.get("package")
-    car.package=package
-    context={"message":"car saved"}
-    return render(request,"sell-car-3.html",context)
+    print(slug)
+    if request.GET.get("package"):
+        car=Car.objects.get(slug=slug)
+        package=request.GET.get("package")
+        car.package=package
+        car.save()
+        return redirect("sell-car.html")
+    else:
+        return render(request,"sell-car-3.html")
 
 def swap(request):
     return render(request,"swap.html")
 def swap2(request):
-    return render(request,"swap2.html")
+    global value
+    value=request.GET.get("category")
+    if request.GET.get("category") and request.GET.get("title") is False:
+        return render(request,"swap2.html")
+    elif request.method=="POST":
+        category=value
+        print(value);
+        image=request.FILES.getlist("image")
+        title=request.POST.get("title")
+        subtitle=request.POST.get("subtitle")
+        pump_size=request.POST.get("pump_size")
+        body_style=request.POST.get("body_style")
+        color=request.POST.get("color")
+        engine=request.POST.get("engine")
+        drive_train=request.POST.get("drive_train")
+        interior_color=request.POST.get("interior_color")
+        no_of_seats=request.POST.get("no_of_seats")
+        overview=request.POST.get("overview")
+        owner_review=request.POST.get("owner_review")
+        phone=request.POST.get("phone")
+        email=request.POST.get("email")
+        condition=request.POST.get("condition")
+        make=request.POST.get("make")
+        model=request.POST.get("model")
+        features=request.POST.get("features")
+        model_year=request.POST.get("year")
+        transmission=request.POST.get("transmission")
+        fuel_type=request.POST.get("fuel_type")
+        address=request.POST.get("location")
+        mileage=request.POST.get("mileage")
+        price=request.POST.get("price")
+        total_price=request.POST.get("total_price")
+        seller_note=request.POST.get("seller_note")
+        package=request.POST.get("package")
+        global slug
+        slug=title.replace(" ","")
+        context={"message":"title already exist"}
+        if Car.objects.filter(slug=slug):
+            return render(request,"sell_car_1.html",context)
+        else:
+            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,user=request.user,slug=slug)
+            car.save()
+            for x in image:
+                new_image=Images.objects.create(title=title,image=x)
+                new_image.save()
+                car.image.add(new_image)
+            return redirect("swap2.html")
+    else:
+        return render(request,"swap2.html")
 def swap3(request):
-    return render(request,"swap3.html")
-
+    global slug
+    print(slug)
+    if request.GET.get("package"):
+        car=Car.objects.get(slug=slug)
+        package=request.GET.get("package")
+        car.package=package
+        car.save()
+        return redirect("swap.html")
+    else:
+        return render(request,"swap3.html")
 def signup(request):
     return render(request,"signup.html")
 

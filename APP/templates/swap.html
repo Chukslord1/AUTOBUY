@@ -24,12 +24,39 @@
    <!-- ==========================-->
    <!-- SEARCH MODAL-->
    <!-- ==========================-->
+   <script>
+   function jump () {
+    if (document.getElementById("option1").checked == true){
+    var value_4=document.getElementById("option1").value;
+  } else if (document.getElementById("option2").checked == true){
+    var value_4=document.getElementById("option2").value;
+  } else if (document.getElementById("option3").checked == true){
+    var value_4=document.getElementById("option3").value;
+  }else if (document.getElementById("option4").checked == true){
+    var value_4=document.getElementById("option4").value;
+  }else if (document.getElementById("option5").checked == true){
+    var value_4=document.getElementById("option5").value;
+  }else if (document.getElementById("option6").checked == true){
+    var value_4=document.getElementById("option6").value;
+  }else if (document.getElementById("option7").checked == true){
+    var value_4=document.getElementById("option7").value;
+  }else if (document.getElementById("option8").checked == true){
+    var value_4=document.getElementById("option8").value;
+  }
+   else {
+    var value_4="e";
+  }
+  var value2=document.URL;
+  var queryString = "?category=" +value_4;
+  window.location.href= "swap2.html" + queryString;
+}
+   </script>
    <div class="header-search open-search">
     <div class="container">
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global" method="GET">
+        <form class="search-global">
          <input autocomplete="off" class="search-global__input" name="s" placeholder="Search" type="text" value=""/>
          <button class="search-global__btn">
           <i class="icon stroke icon-Search">
@@ -343,7 +370,7 @@
          </a>
         </li>
         <li aria-current="page" class="breadcrumb-item active">
-         Vehicle Swap Booking
+         Car Sales Booking
         </li>
        </ol>
       </nav>
@@ -361,83 +388,53 @@
        <div class="container">
         <div class="row">
          <div class="col-lg-4">
-          <div class="b-booking-nav">
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 1
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-car-side">
-             </i>
-             <span class="b-booking-nav__title">
-              Select Car Type
-             </span>
-             <span class="b-booking-nav__info">
-              Select your vehicle type
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item active" href="#">
-            <div class="b-booking-nav__header">
-             Step 2
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cubes">
-             </i>
-             <span class="b-booking-nav__title">
-              Styling Packages
-             </span>
-             <span class="b-booking-nav__info">
-              Choose a styling package
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 3
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cog">
-             </i>
-             <span class="b-booking-nav__title">
-              Services Menu
-             </span>
-             <span class="b-booking-nav__info">
-              A la carte Services for you
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 4
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic far fa-calendar">
-             </i>
-             <span class="b-booking-nav__title">
-              Date And Time
-             </span>
-             <span class="b-booking-nav__info">
-              Click on time for booking
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 5
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-edit">
-             </i>
-             <span class="b-booking-nav__title">
-              Booking Summary
-             </span>
-             <span class="b-booking-nav__info">
-              Provide your contact infos
-             </span>
-            </div>
-           </a>
-          </div>
+           <div class="b-booking-nav">
+            <a class="b-booking-nav__item active" href="#">
+             <div class="b-booking-nav__header">
+              Step 1
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-car-side">
+              </i>
+              <span class="b-booking-nav__title">
+               Select Car Type
+              </span>
+              <span class="b-booking-nav__info">
+               Select your vehicle type
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item " href="#">
+             <div class="b-booking-nav__header">
+              Step 2
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cubes">
+              </i>
+              <span class="b-booking-nav__title">
+               Vehicle Information
+              </span>
+              <span class="b-booking-nav__info">
+               Enter Vehicle Information
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item " href="#">
+             <div class="b-booking-nav__header">
+              Step 3
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cog">
+              </i>
+              <span class="b-booking-nav__title">
+               Boost Options
+              </span>
+              <span class="b-booking-nav__info">
+               A la carte Services for you
+              </span>
+             </div>
+            </a>
+           </div>
          </div>
          <div class="col-lg-8">
           <form class="b-booking-main" method="POST">
@@ -448,7 +445,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input name="category" checked="checked" id="option1" type="radio"/>
+               <input checked="checked" id="option1" name="category" value="suv" type="radio"/>
                <span class="ic flaticon-car-suv">
                </span>
                SUV
@@ -458,7 +455,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item active">
-               <input id="option2" name="category" type="radio"/>
+               <input id="option2" name="category" value="sedan" type="radio"/>
                <span class="ic flaticon-sedan-car-model">
                </span>
                SEDAN
@@ -468,7 +465,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option3" name="category" type="radio"/>
+               <input id="option3" name="category" value="wagon" type="radio"/>
                <span class="ic flaticon-car-black-side-view-pointing-left">
                </span>
                WAGON
@@ -478,7 +475,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option4" name="category" type="radio"/>
+               <input id="option4" name="category" value="coupe" type="radio"/>
                <span class="ic flaticon-coupe-car">
                </span>
                COUPE
@@ -488,7 +485,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option5" name="category" type="radio"/>
+               <input id="option5" name="category" value="pickup" type="radio"/>
                <span class="ic flaticon-pick-up">
                </span>
                PICK UP
@@ -498,7 +495,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option6" name="category" type="radio"/>
+               <input id="option6" name="category" value="bus" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                BUS
@@ -508,7 +505,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option7" name="category" type="radio"/>
+               <input id="option7" name="category" value="truck" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                TRUCKS &amp; TRAILERS
@@ -518,7 +515,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input id="option8" name="category" type="radio"/>
+               <input id="option8" name="category" value="heavy" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                HEAVY EQUIPMENT
@@ -530,8 +527,8 @@
            </div>
            <div class="b-booking-main__section pb-1">
             <div class="text-center">
-             <button class="btn btn-secondary mt-5">
-              <a href="swap2.html">
+             <button class="btn btn-secondary mt-5" onclick="jump()">
+              <a onclick="jump()">
                Next
               </a>
              </button>

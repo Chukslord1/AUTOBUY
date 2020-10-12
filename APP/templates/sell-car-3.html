@@ -388,11 +388,24 @@
          </div>
          <script>
          function jump () {
-           var value=document.getElementById("theform").submit;
-         }
+          if (document.getElementById("package1").checked == true){
+          var value_4=document.getElementById("package1").value;
+        } else if (document.getElementById("package2").checked == true){
+          var value_4=document.getElementById("package2").value;
+        } else if (document.getElementById("package3").checked == true){
+          var value_4=document.getElementById("package3").value;
+        }else if (document.getElementById("package4").checked == true){
+          var value_4=document.getElementById("package4").value;
+        }
+         else {
+          var value_4="free";
+        }
+        var queryString = "?package=" +value_4;
+        window.location.href= "sell-car-3.html" + queryString;
+      }
          </script>
          <div class="col-lg-8">
-          <form id="theform" method="GET" class="b-booking-main">
+          <form id="theform" class="b-booking-main" action="{% url 'APP:sell-car-3' %}">
            <div class="b-booking-main__section">
             <h2>{{message}}</h2>
             <h2 class="b-booking-main__title">
@@ -401,7 +414,7 @@
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input name="package" checked="checked" value="free"  id="package1" type="radio"/>
+             <input name="package" value="free"  id="package1" type="radio" checked>
              <label  for="customCheck">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
@@ -427,7 +440,7 @@
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input name="package"  id="package2" value="basic" type="radio"/>
+             <input name="package"  id="package2" value="basic" type="radio">
              <label for="customCheck1">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
@@ -449,13 +462,11 @@
                </span>
               </span>
              </label>
-             <input class="custom-control-input" id="customCheck5" type="radio">
-             </input>
             </div>
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input name="package" id="package3" value="gold" type="radio"/>
+             <input name="package" id="package3" value="gold" type="radio">
              <label for="customCheck2">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
@@ -481,7 +492,7 @@
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input name="package"  id="package4" value="deluxe" type="radio"/>
+             <input name="package"  id="package4" value="deluxe" type="radio">
              <label  for="customCheck3">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
@@ -508,9 +519,7 @@
            <div class="text-center">
             Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
             <button class="btn btn-secondary mt-5" onclick="jump()">
-             <a >
               Submit
-             </a>
             </button>
            </div>
           </form>

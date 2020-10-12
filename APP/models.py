@@ -167,3 +167,12 @@ class Make(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Loan(models.Model):
+    name=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    state=models.TextField(blank=True, null=True)
+    job=models.TextField(blank=True, null=True)
+    employer=models.TextField(blank=True, null=True)

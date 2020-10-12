@@ -30,7 +30,7 @@
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global" method="GET">
+        <form class="search-global">
          <input autocomplete="off" class="search-global__input" name="s" placeholder="Search" type="text" value=""/>
          <button class="search-global__btn">
           <i class="icon stroke icon-Search">
@@ -52,6 +52,7 @@
    <!-- ==========================-->
    <!-- MOBILE MENU-->
    <!-- ==========================-->
+
    <div data-off-canvas="mobile-slidebar left overlay">
     <ul class="navbar-nav">
      <li class="nav-item">
@@ -338,93 +339,70 @@
        <div class="container">
         <div class="row">
          <div class="col-lg-4">
-          <div class="b-booking-nav">
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 1
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-car-side">
-             </i>
-             <span class="b-booking-nav__title">
-              Select Car Type
-             </span>
-             <span class="b-booking-nav__info">
-              Select your vehicle type
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item active" href="#">
-            <div class="b-booking-nav__header">
-             Step 2
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cubes">
-             </i>
-             <span class="b-booking-nav__title">
-              Vehicle Information
-             </span>
-             <span class="b-booking-nav__info">
-              Enter Vehicle Information
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 3
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cog">
-             </i>
-             <span class="b-booking-nav__title">
-              Services Menu
-             </span>
-             <span class="b-booking-nav__info">
-              A la carte Services for you
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 4
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic far fa-calendar">
-             </i>
-             <span class="b-booking-nav__title">
-              Date And Time
-             </span>
-             <span class="b-booking-nav__info">
-              Click on time for booking
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 5
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-edit">
-             </i>
-             <span class="b-booking-nav__title">
-              Booking Summary
-             </span>
-             <span class="b-booking-nav__info">
-              Provide your contact infos
-             </span>
-            </div>
-           </a>
-          </div>
+           <div class="b-booking-nav">
+            <a class="b-booking-nav__item" href="#">
+             <div class="b-booking-nav__header">
+              Step 1
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-car-side">
+              </i>
+              <span class="b-booking-nav__title">
+               Select Car Type
+              </span>
+              <span class="b-booking-nav__info">
+               Select your vehicle type
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item  active" href="#">
+             <div class="b-booking-nav__header">
+              Step 2
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cubes">
+              </i>
+              <span class="b-booking-nav__title">
+               Vehicle Information
+              </span>
+              <span class="b-booking-nav__info">
+               Enter Vehicle Information
+              </span>
+             </div>
+            </a>
+            <a class="b-booking-nav__item" href="#">
+             <div class="b-booking-nav__header">
+              Step 3
+             </div>
+             <div class="b-booking-nav__main">
+              <i class="ic fas fa-cog">
+              </i>
+              <span class="b-booking-nav__title">
+               Boost Options
+              </span>
+              <span class="b-booking-nav__info">
+               A la carte Services for you
+              </span>
+             </div>
+            </a>
+           </div>
          </div>
+         <script>
+         function submit () {
+           var value=document.getElementById("theform").submit;
+         }
+         </script>
          <div class="col-lg-8">
-          <form class="b-booking-main" method="position">
+           <h2>{{message}}</h2>
+          <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:sell-car-1' %}" enctype="multipart/form-data">
+            {% csrf_token %}
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
-             Enter Vehicle Information You Want To Swap
+             Vehicle Information
             </h2>
            </div>
            <div class="Neon Neon-theme-dragdropbox">
-            <input id="filer_input2" multiple="multiple" name="files" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file"/>
+            <input id="image" name="image" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
             <div class="Neon-input-dragDrop">
              <div class="Neon-input-inner">
               <div class="Neon-input-icon">
@@ -445,12 +423,24 @@
              </div>
             </div>
            </div>
+           <div class="b-main-filter__label">
+             Title
+           </div>
+           <div class="form-group">
+            <input class="form-control" id="title" type="text" name="title" placeholder="Enter Tilte of Car You Want To Sell" />
+           </div>
+           <div class="b-main-filter__label">
+             Sub title
+           </div>
+           <div class="form-group">
+            <input class="form-control" id="subtitle" type="text" name="subtitle" />
+           </div>
            <div class="b-booking-main__section pb-1">
             <div class="b-main-filter__label">
              Select Condition
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="condition" name="condition" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                --
               </option>
@@ -469,68 +459,54 @@
              </select>
             </div>
             <div class="b-main-filter__label">
-             Select Make
+              Make
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               --
-              </option>
-              <option>
-               Audi
-              </option>
-              <option>
-               BMV
-              </option>
-              <option>
-               Opel
-              </option>
-             </select>
+             <input class="form-control" id="make" type="text" name="make" />
             </div>
             <div class="b-main-filter__label">
              Select Model
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Model
+             <select id="model" class="selectpicker" name="model" data-style="ui-select" data-width="100%">
+              <option value="model1">
+               Model 1
               </option>
-              <option>
-               h2
+              <option value="model2">
+               Model 2
               </option>
-              <option>
-               Opel
+              <option value="model3">
+              Model 3
               </option>
              </select>
             </div>
             <div class="b-main-filter__label">
-             Select Year
+             Year
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Year
-              </option>
-              <option>
-               1990
-              </option>
-              <option>
-               1991
-              </option>
-             </select>
+             <input class="form-control" id="year" type="text" name="year" />
+            </div>
+            <div class="b-main-filter__label">
+                Pump Size
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="pupm_size" type="text" name="pump_size" />
             </div>
             <div class="b-main-filter__label">
              Select Transmission
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select class="selectpicker" id="transmission" data-style="ui-select" name="transmission" data-width="100%">
               <option>
                Select Gear Type
               </option>
-              <option>
+              <option  value="automatic">
                Automatic
               </option>
-              <option>
+              <option value="semi-automatic">
+               Semi-Automatic
+              </option>
+              <option value="manual">
                Manual
               </option>
              </select>
@@ -539,7 +515,7 @@
              Fuel Type
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="fuel_type" class="selectpicker" name="fuel_type" data-style="ui-select" data-width="100%">
               <option>
                Select Fuel Type
               </option>
@@ -555,66 +531,129 @@
              </select>
             </div>
             <div class="b-main-filter__label">
+            Body Style
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="body_style" name="body_style" placeholder="body style" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Color
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="body_style" name="color" placeholder="color" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Engine
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="engine" name="engine" placeholder="engine" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Drive Train
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="drive_train" name="drive_train" placeholder="drive train" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Interior Color
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="interior_color" name="interior_color" placeholder="interior color" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            No of Seats
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="no_of_seats" name="no_of_seats" placeholder="no_of_seats" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Overview
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="overview" name="overview" placeholder="overview" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Owner Review
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="owner_review" name="owner_review" placeholder="owner review" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
              Select State
             </div>
             <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
+             <select id="location" name="location" class="selectpicker" data-style="ui-select" data-width="100%">
               <option>
                Select State
               </option>
-              <option>
+              <option value="abuja">
                Abuja
               </option>
-              <option>
+              <option value="lagos">
                Lagos
               </option>
-              <option>
+              <option value="port harcourt">
                Port Harcourt
               </option>
              </select>
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select Area
-              </option>
-              <option>
-               Yaba
-              </option>
-              <option>
-               Ikeja
-              </option>
-              <option>
-               Jibowu
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Enter Odometer Mileage
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="mileage">
-             </input>
             </div>
             <div class="b-main-filter__label">
              Enter Price
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="₦ Price" required="required" type="mileage"/>
+             <input class="form-control" id="price" name="price" placeholder="₦ Price" required="required" type="text"/>
+            </div>
+            <div class="b-main-filter__label">
+            Total Price
             </div>
             <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="₦ Price" required="required" type="mileage"/>
+             <input class="form-control" id="total_price" type="text" name="total_price" />
+            </div>
+            <div class="b-main-filter__label">
+             Features
+            </div>
+            <div class="form-group">
+             <textarea class="form-control" id="features" name="features" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
             </div>
             <div class="b-main-filter__label">
              Sellers Note
             </div>
             <div class="form-group">
-             <textarea class="form-control" id="user-message" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+             <textarea class="form-control" id="seller_note" name="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
+            </div>
+            <div class="b-main-filter__label">
+             Enter Odometer Mileage
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+             Enter Your Phone Number
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="phone" name="phone" placeholder="phone" required="required" type="text">
+             </input>
+            </div>
+            <div class="b-main-filter__label">
+            Enter Your  Email
+            </div>
+            <div class="form-group">
+             <input class="form-control" id="email" name="email" placeholder="Email" required="required" type="text">
+             </input>
             </div>
             <div class="text-center">
              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5">
-              <a href="swap2.html">
+             <button class="btn btn-secondary mt-5" onclick="submit()">
+              <a >
                Next
               </a>
              </button>
