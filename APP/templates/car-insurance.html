@@ -241,6 +241,19 @@
      </div>
     </div>
    </div>
+   <script>
+   function jump () {
+     var name=document.getElementById("name").value;
+     var email=document.getElementById("email").value;
+     var phone=document.getElementById("phone").value;
+     var state=document.getElementById("state").value;
+     var job=document.getElementById("job").value;
+     var employer=document.getElementById("employer").value;
+
+     var queryString = "?name=" +name + "&email="+ email + "&phone=" + phone + "&state="+ state +"&job=" + job + "&employer="+ employer;
+     window.location.href= "car-loan.html" + queryString;
+   }
+   </script>
    <!-- end .b-title-page-->
    <section class="section-default">
     <div class="container">
@@ -252,14 +265,15 @@
        Get Quick Covering, Be Insured
       </h2>
      </div>
-     <form action="#" class="ui-form pt-5 pb-xl-4" method="POST">
+     <form class="ui-form pt-5 pb-xl-4" method="POST">
+       {% csrf_token %}
       <div class="row">
        <div class="col-md-4">
         <div class="form-group">
          <label class="form-label">
           Your Name*
          </label>
-         <input name="name" class="form-control" type="text"/>
+         <input id="name" name="name" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -267,7 +281,7 @@
          <label class="form-label">
           Email Address*
          </label>
-         <input name="email" class="form-control" type="email"/>
+         <input id="email" name="email" class="form-control" type="email"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -283,7 +297,7 @@
          <label class="form-label">
           State
          </label>
-         <input name="state" class="form-control" type="text"/>
+         <input id="state" name="state" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -291,7 +305,7 @@
          <label class="form-label">
           Type of Job
          </label>
-         <input  name="job" class="form-control" type="text"/>
+         <input id="job" name="job" class="form-control" type="text"/>
         </div>
        </div>
        <div class="col-md-4">
@@ -299,13 +313,13 @@
          <label class="form-label">
           Name of Employer
          </label>
-         <input name="employer" class="form-control" type="text"/>
+         <input id="employer" name="employer" class="form-control" type="text"/>
         </div>
        </div>
       </div>
       <div class="row">
        <div class="col-md-4 offset-md-4">
-        <button class="btn btn-secondary w-100 mt-2">
+        <button class="btn btn-secondary w-100 mt-2" onclick="jump()">
          Apply Now
         </button>
        </div>

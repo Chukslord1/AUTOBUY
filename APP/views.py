@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -924,9 +924,34 @@ def signup(request):
     return render(request,"signup.html")
 
 def car_loan(request):
-    return render(request,"car-loan.html")
+    if request.method=="GET":
+        name=request.GET.get("name")
+        email=request.GET.get("email")
+        phone=request.GET.get("phone")
+        state=request.GET.get("state")
+        job=request.GET.get("job")
+        employer=request.GET.get("employer")
+        loan=Loan.objects.create(name=name,email=email,phone=phone,state=state,job=job,employer=employer)
+        loan.save()
+        context={"message":"submitted successfully"}
+        return render(request,"car-loan.html",context)
+    else:
+        return render(request,"car-loan.html")
 def car_insurance(request):
-    return render(request,"car-insurance.html")
+    if request.method=="GET":
+        name=request.GET.get("name")
+        email=request.GET.get("email")
+        phone=request.GET.get("phone")
+        state=request.GET.get("state")
+        job=request.GET.get("job")
+        employer=request.GET.get("employer")
+        insure=Insurance.objects.create(name=name,email=email,phone=phone,state=state,job=job,employer=employer)
+        insure.save()
+        context={"message":"submitted successfully"}
+        return render(request,"car-insurance.html",context)
+    else:
+        return render(request,"car-insurance.html")
+
 def clearing(request):
     return render(request,"clearing.html")
 def car_registration(request):

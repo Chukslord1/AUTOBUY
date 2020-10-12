@@ -176,3 +176,19 @@ class Loan(models.Model):
     state=models.TextField(blank=True, null=True)
     job=models.TextField(blank=True, null=True)
     employer=models.TextField(blank=True, null=True)
+
+class Insurance(models.Model):
+    name=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    state=models.TextField(blank=True, null=True)
+    job=models.TextField(blank=True, null=True)
+    employer=models.TextField(blank=True, null=True)
+
+class Clearing(models.Model):
+    name=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    make=models.TextField(blank=True, null=True)
+    model=models.TextField(blank=True, null=True)
+    year=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
