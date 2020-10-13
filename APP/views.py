@@ -581,7 +581,7 @@ def submit_listing(request):
 
 class ArticleListView(ListView):
     model = Article
-    template_name = "page_blog.html"
+    template_name = "blog-main.html"
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
         check_login=self.request.user
@@ -593,11 +593,13 @@ class ArticleListView(ListView):
         context['page_obj'] = page_obj
         context["featured"]=Car.objects.filter(featured=True)[:3]
         context["dealers"]=UserProfile.objects.filter(user_type__icontains="dealer")[:3]
+        context["article"]=Article.objects.all()[:10]
+        context["blog"]=Article.objects.all()[10:]
         return context
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = "page_image-gallery.html"
+    template_name = "blog-post.html"
 
     def get_object(self, queryset=None):
         global obj
@@ -1002,20 +1004,21 @@ def user(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-
+        user_type = request.POST['user_type']
         if password1 == password2:
             if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
 
                 context = {"message": "user with email already exists"}
                 return render(request,"user.html",context)
             else:
+                print(email)
                 user = User.objects.create(
                     username=username, password=password1, email=email)
                 user.set_password(user.password)
                 user.is_active = False
                 request.session['user'] = str(user.username)
                 user.save()
-                profile = UserProfile.objects.create(user=user, username=username,email=email,trials=3)
+                profile = UserProfile.objects.create(user=user, name=username,trials=3,user_type=user_type)
                 profile.save()
                 current_site = get_current_site(request)
                 subject = 'Activate Your AfriProperty Account'
@@ -1049,5 +1052,26 @@ def user(request):
     else:
         return render(request,"user.html")
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            print("hello1")
+            return redirect("APP:index")
+        else:
+            print("hello2")
+            context={"message": "invalid login details"}
+            return render(request, 'user_login.html',context)
+    else:
+        print("hello3")
+        return render(request,"user_login.html")
+
 def become_dealer(request):
-    return render(request,"become-dealer.html")
+    return redirect("user.html")
+
+def dashboard(request):
+    context={"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.all(),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
+    return render(request,"dashboard.html",context)

@@ -110,6 +110,7 @@ class UserProfile(models.Model):
     premium_expire=models.DateField(blank=True, null=True)
     premium_feature_count=models.IntegerField(blank=True, null=True,default="0")
     email_confirmed = models.BooleanField(default=False)
+    trials=models.IntegerField()
     created_at=models.DateField(auto_now_add=True)
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
@@ -127,6 +128,7 @@ class UserProfile(models.Model):
 
 class Article(models.Model):
     title=models.TextField(blank=True, null=True)
+    tag=models.TextField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     date=models.DateField(auto_now_add=True)
     summmary=models.TextField(blank=True, null=True)

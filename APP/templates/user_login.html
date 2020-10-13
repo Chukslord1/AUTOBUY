@@ -167,21 +167,13 @@ button.social-signin.google {
 <div id="login-box">
 <center>
   <h1>
-   Sign up
+   Login
   </h1>
   <form method="POST">
     {% csrf_token %}
   <input name="username" placeholder="Username" type="text"/>
-  <input name="email" placeholder="E-mail" type="text"/>
-  <input name="password1" placeholder="Password" type="password"/>
-  <input name="password2" placeholder="Retype password" type="password"/>
-  Buyer
-  <input name="user_type" value="Buyer" type="radio"/>
-  Dealer
-  <input name="user_type" value="Dealer" type="radio"/>
+  <input name="password" placeholder="Retype password" type="password"/>
   <input type="submit" />
   </form>
-  OR
-  <a href="user_login.html">Login</a>
 </center>
 </div>

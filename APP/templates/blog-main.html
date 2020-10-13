@@ -354,200 +354,46 @@
     <div class="container">
      <main class="b-post-group">
       <div class="js-scroll-content">
+        {% for item in article %}
        <section class="b-post b-post-2 row">
         <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/1.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/1.jpg' %}"/>
+         <a class="js-zoom-images" href="{{item.get_absolute_url}}">
+          <img alt="{{item.image}}" class="img-scale" src="{% get_media_prefix %}{{item.image}}"/>
          </a>
         </div>
         <div class="entry-main col-lg-6">
          <div class="entry-header">
           <h2 class="entry-title">
            <a href="blog-post.html">
-            New In All Ways; Boasts Of Reliability And Stability
+          {{item.title}}
            </a>
           </h2>
          </div>
          <div class="entry-meta">
           <div class="entry-label">
-           New cars
+          {{item.tag}}
           </div>
           <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
+           {{item.date}}
           </time>
           <span class="entry-meta__item">
            by
            <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
+            {{item.author}}
            </a>
           </span>
          </div>
          <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
+          {{item.summmary}}
          <div class="entry-footer">
-          <a class="btn text-primary" href="#">
+          <a class="btn text-primary" href="{{item.get_absolute_url}}">
            Read More
           </a>
          </div>
         </div>
        </section>
        <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/2.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/2.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            Powerful And Unstoppable Icon Of A New Era
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           auto finance
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/3.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/3.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            New Audi Photos Hinting Major Surprise For Drivers
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           New cars
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/4.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/4.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            Powerful And Unstoppable Icon Of A New Era
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           buy sell cars
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/5.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/5.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            The Best, Fastest And Most Powerful Road Car
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           latest models
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
+       {% endfor %}
        <!-- end .b-post-->
       </div>
       <div class="js-scroll-next text-right">
@@ -558,6 +404,7 @@
        </button>
       </div>
       <div class="js-scroll-content">
+        {% for item in blog %}
        <section class="b-post b-post-2 row">
         <div class="entry-media col-lg-6">
          <a class="js-zoom-images" href="assets/media/content/b-post/500x400/1.jpg">
@@ -596,162 +443,8 @@
          </div>
         </div>
        </section>
+       {% endfor %}
        <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/2.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/2.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            Powerful And Unstoppable Icon Of A New Era
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           auto finance
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/3.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/3.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            New Audi Photos Hinting Major Surprise For Drivers
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           New cars
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/4.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/4.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            Powerful And Unstoppable Icon Of A New Era
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           buy sell cars
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
-       <!-- end .b-post-->
-       <section class="b-post b-post-2 row">
-        <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="assets/media/content/b-post/500x400/5.jpg">
-          <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-post/500x400/5.jpg' %}"/>
-         </a>
-        </div>
-        <div class="entry-main col-lg-6">
-         <div class="entry-header">
-          <h2 class="entry-title">
-           <a href="blog-post.html">
-            The Best, Fastest And Most Powerful Road Car
-           </a>
-          </h2>
-         </div>
-         <div class="entry-meta">
-          <div class="entry-label">
-           latest models
-          </div>
-          <time class="entry-meta__item" datetime="2019-01-31">
-           April 3, 2019
-          </time>
-          <span class="entry-meta__item">
-           by
-           <a class="entry-meta__link text-primary" href="blog-main.html">
-            Autlines
-           </a>
-          </span>
-         </div>
-         <div class="entry-content">
-          Aorem ipsum dolor sit amet, consectetur adipisicing elit sed et dolore magna aliqua. Ut enim ad minim veniam, quis nostru aliquip ex ea commodo consequat. Duis aute irure dolorin rep dolore fugiat nulla pariatur excepteur sinty.
-         </div>
-         <div class="entry-footer">
-          <a class="btn text-primary" href="#">
-           Read More
-          </a>
-         </div>
-        </div>
-       </section>
        <!-- end .b-post-->
       </div>
      </main>

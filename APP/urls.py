@@ -11,8 +11,8 @@ urlpatterns = [
     path("car/<slug>", views.CarDetailView.as_view(), name="details"),
     path("search", views.SearchListView.as_view(), name="search"),
     path("cars", views.CategoryListView.as_view(), name="cars"),
-    path("blogs", views.ArticleListView.as_view(), name="blog_list"),
-    path("blog/<slug>", views.ArticleDetailView.as_view(), name="blog"),
+    path("blog-main.html", views.ArticleListView.as_view(), name="blog_list"),
+    path("blog-post.html/<slug>", views.ArticleDetailView.as_view(), name="blog"),
     path("dealers", views.DealerListView.as_view(), name="dealers"),
     path("dealer/<slug>", views.DealerDetailView.as_view(), name="dealer"),
     path("submit-listing", views.submit_listing, name="submit_listing"),
@@ -40,7 +40,9 @@ urlpatterns = [
     path("car-registration.html", views.car_registration, name="car-registration"),
     path("car-delivery.html", views.car_delivery, name="car-delivery"),
     path("user.html", views.user, name="user"),
+    path("user_login.html", views.user_login, name="user_login"),
     path("become-dealer.html", views.become_dealer, name="become-dealer.html"),
+    path("dashboard.html", views.dashboard, name="dashboard")
 
 
 

@@ -204,10 +204,17 @@
            </li>
           </li>
          </ul>
+         {% if user.is_authenticated %}
+         <a class="header-main__link" href="dashboard.html">
+          <i class="ic icon-user">
+          </i>
+         </a>
+         {% else %}
          <a class="header-main__link" href="user.html">
           <i class="ic icon-user">
           </i>
          </a>
+         {% endif %}
          <span class="header-main__link btn_header_search">
           <i class="ic icon-magnifier">
           </i>
