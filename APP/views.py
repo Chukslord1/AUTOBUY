@@ -790,7 +790,11 @@ def booking(request):
     return render(request,"booking-system.html")
 
 def cars_for_sale(request):
-    return render(request,"cars-for-sale.html")
+    paginator= Paginator(Car.objects.all(),10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context={"page_obj":page_obj}
+    return render(request,"cars-for-sale.html",context)
 def sell_car(request):
     return render(request,"sell-car.html")
 def sell_car_1(request):
