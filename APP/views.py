@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing,Booking,NewsLetter
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -221,6 +221,8 @@ class CarDetailView(DetailView):
     model = Car
     template_name = "vehicle-details.html"
 
+    def post(self,request,*args, **kwargs):
+        return super(CarDetailView, self).get(request, *args, **kwargs)
     def get_object(self, queryset=None):
         global obj
         obj = super(CarDetailView, self).get_object(queryset=queryset)
@@ -278,6 +280,28 @@ class CarDetailView(DetailView):
                     book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
                     transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
                     book.save()
+        elif self.request.method=="POST":
+            name=request.POST.get("name")
+            email=request.POST.get("email")
+            message=request.POST.get("message")
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Car Request"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = "A request for a Car Valuation"
+            body = message
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            context["message"]:"Successfully Submitted  Request"
         elif self.request.GET.get('report')=="true":
             item=Car.objects.get(title=obj.title)
             title=item.title
@@ -285,7 +309,7 @@ class CarDetailView(DetailView):
             report=Report.objects.create(title=title,reason=reason)
             report.save()
         context['cars'] = Car.objects.all()
-        context['other'] = Car.objects.filter(category=obj.category).order_by("-id")
+        context['other'] = Car.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         objects.filter(category=obj.category).order_by("-id")
         paginator= Paginator(Car.objects.filter(category=obj.category).order_by("-id"),10)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -338,12 +362,15 @@ class SearchListView(ListView):
             else:
                 new_year_max=2020
             price_min=self.request.GET.get('price_min')
+            price_min=price_min.replace("$","")
+            price_min=price_min.replace(",","")
             if price_min:
                 new_price_min=int(price_min)
             else:
                 new_price_min=1000
-            print(new_price_min)
             price_max=self.request.GET.get('price_max')
+            price_max=price_max.replace("$","")
+            price_max=price_max.replace(",","")
             if price_max:
                 new_price_max=int(price_max)
             else:
@@ -399,7 +426,7 @@ class SearchListView(ListView):
                 else:
                     book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
                     transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
-                    book.save()
+                    book.save
         if search:
             paginator= Paginator(search,10)
             page_number = self.request.GET.get('page')
@@ -787,13 +814,141 @@ def reservation(request):
     return render(request,"reservation-grid.html")
 
 def booking(request):
+    if request.method=="POST":
+        category=request.POST.get("category")
+        package=request.POST.get("package")
+        service1=request.POST.get("service1")
+        service2=request.POST.get("service2")
+        service3=request.POST.get("service3")
+        service4=request.POST.get("service4")
+        if service1:
+            pass
+        else:
+            service1=""
+        if service2:
+            pass
+        else:
+            service2=""
+        if service3:
+            pass
+        else:
+            service3=""
+        if service4:
+            pass
+        else:
+            service4=""
+        service=service1+service2+service3+services4
+        date=request.POST.get("date")
+        time=request.POST.get("time")
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        model=request.POST.get("car_model")
+        message=request.POST.get("message")
+        book=Booking.object.create(first_name=first_name,last_name=last_name,email=email,phone=phone,make_or_model=model,message=message,category=category,package=package,service=service,date=date,time=time)
+        book.save()
+        context={"message":"Submitted Successfully"}
+        return render(request,"booking-system.html",context)
+    elif request.method=="GET":
+        email=request.GET.get("email")
+        if NewsLetter.objects.get(email=email):
+            context={"news":"email already subscribed"}
+            return render(request,"booking-system.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            context={"news":"Submitted Successfully"}
+            return render(request,"booking-system.html",context)
     return render(request,"booking-system.html")
 
 def cars_for_sale(request):
-    paginator= Paginator(Car.objects.all(),10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context={"page_obj":page_obj}
+    search=''
+    if request.GET.get('second_check')=="two":
+        second_check="two"
+        query= self.request.GET.get('search')
+        if query:
+            query= self.request.GET.get('search')
+        else:
+            query="a"
+        print(query)
+        category= self.request.GET.get('category')
+        if category:
+            category= self.request.GET.get('category')
+        else:
+            category=""
+        model= self.request.GET.get('model')
+        if model:
+            model= self.request.GET.get('model')
+        else:
+            model=''
+        make= self.request.GET.get('make')
+        if make:
+            make= self.request.GET.get('make')
+        else:
+            make=''
+        year_min=self.request.GET.get('year_min')
+        if year_min:
+            new_year_min=int(year_min)
+        else:
+            new_year_min=1950
+        year_max=self.request.GET.get('year_max')
+        if year_max:
+            new_year_max=int(year_max)
+        else:
+            new_year_max=2020
+        price_min=self.request.GET.get('price_min')
+        price_min=price_min.replace("$","")
+        price_min=price_min.replace(",","")
+        if price_min:
+            new_price_min=int(price_min)
+        else:
+            new_price_min=1000
+        price_max=self.request.GET.get('price_max')
+        price_max=price_max.replace("$","")
+        price_max=price_max.replace(",","")
+        if price_max:
+            new_price_max=int(price_max)
+        else:
+            new_price_max=1000000
+        print(new_price_max)
+        fuel_type=self.request.GET.get('fuel_type')
+        if fuel_type:
+            fuel_type= self.request.GET.get('fuel_type')
+        else:
+            fuel_type='e'
+        condition=self.request.GET.get('condition')
+        if condition:
+            condition= self.request.GET.get('condition')
+        else:
+            condition='e'
+        transmission=self.request.GET.get('transmission')
+        if transmission:
+            transmission=self.request.GET.get('transmission')
+        else:
+            transmission=""
+        radius=self.request.GET.get('radius')
+        if radius:
+            radius=self.request.GET.get('radius')
+        else:
+            radius="300"
+        if second_check=="two":
+            search = Car.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
+            context={"search":search}
+        else:
+            search = Car.objects.none()
+            context={'search':search}
+            print(search)
+    if search:
+        paginator= Paginator(search,10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context={"page_obj":page_obj}
+    else:
+        paginator= Paginator(Car.objects.all(),10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context={"page_obj":page_obj}
     return render(request,"cars-for-sale.html",context)
 def sell_car(request):
     return render(request,"sell-car.html")

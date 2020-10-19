@@ -178,6 +178,8 @@ class Loan(models.Model):
     state=models.TextField(blank=True, null=True)
     job=models.TextField(blank=True, null=True)
     employer=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.name
 
 class Insurance(models.Model):
     name=models.TextField(blank=True, null=True)
@@ -186,6 +188,8 @@ class Insurance(models.Model):
     state=models.TextField(blank=True, null=True)
     job=models.TextField(blank=True, null=True)
     employer=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.name
 
 class Clearing(models.Model):
     name=models.TextField(blank=True, null=True)
@@ -194,3 +198,25 @@ class Clearing(models.Model):
     model=models.TextField(blank=True, null=True)
     year=models.TextField(blank=True, null=True)
     email=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+class Booking(models.Model):
+    category=models.TextField(blank=True, null=True)
+    package=models.TextField(blank=True, null=True)
+    service=models.TextField(blank=True, null=True)
+    date=models.TextField(blank=True, null=True)
+    time=models.TextField(blank=True, null=True)
+    first_name=models.TextField(blank=True, null=True)
+    last_name=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    make_or_model=models.TextField(blank=True, null=True)
+    message=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+class NewsLetter(models.Model):
+    email=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.email

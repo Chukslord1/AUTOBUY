@@ -65,8 +65,8 @@ function showOutput () {
   var value_5=document.getElementById("category").value;
   var value_3=document.getElementById("make").value;
   var value_2=document.getElementById("model").value;
-  var value_1=document.getElementById("min_price").value;
-  var value=document.getElementById("max_price").value;
+  var value_1=document.getElementById("input-with-keypress-0").value;
+  var value=document.getElementById("input-with-keypress-1").value;
 
 
   var paid="two";
@@ -429,7 +429,86 @@ function date () {
       <!-- end .breadcrumb-->
      </div>
     </div>
-   </div>
+  </div>
+  <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function showOutput () {
+ var value_6=document.getElementById("condition").value;
+ var value_7=document.getElementById("year_min").value;
+ var value_8=document.getElementById("year_max").value;
+ var value_4=document.getElementById("search").value;
+ var value_9=document.getElementById("transmission").value;
+ var value_10=document.getElementById("fuel_type").value;
+ var value_11=document.getElementById("radius").value;
+ var value_5=document.getElementById("category").value;
+ var value_3=document.getElementById("make").value;
+ var value_2=document.getElementById("model").value;
+ var value_1=document.getElementById("input-with-keypress-0").value;
+ var value=document.getElementById("input-with-keypress-1").value;
+
+
+ var paid="two";
+ var queryString = "?second_check=" +paid + "&search=" + value_4+ "&category=" + value_5 + "&condition=" + value_6 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value+ "&radius=" + value_11+ "&year_min=" + value_7+ "&year_max=" + value_8+ "&fuel_type=" + value_10+ "&transmission=" + value_9;
+ window.location.href="search" + queryString;
+}
+
+function showOutput2 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "suv";
+ window.location.href="cars" + queryString;
+}
+function showOutput3 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "sedan";
+ window.location.href="cars" + queryString;
+}
+function showOutput4 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "wagon";
+ window.location.href="cars" + queryString;
+}
+function showOutput5 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "coupe";
+ window.location.href="cars" + queryString;
+}
+function showOutput6 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "pickup";
+ window.location.href="cars" + queryString;
+}
+function showOutput7 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "bus";
+ window.location.href="cars" + queryString;
+}
+function showOutput8 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "trucks";
+ window.location.href="cars" + queryString;
+}
+function showOutput9 () {
+ var paid="true";
+ var queryString = "?search=" +paid  + "&category=" + "heavy";
+ window.location.href="cars" + queryString;
+}
+function search () {
+ var value=document.getElementById("search").value;
+
+ var paid="two";
+ var queryString = "?second_check=" +paid  + "&keyword=" + value;
+ window.location.href="search" + queryString;
+}
+function date () {
+ var value=document.getElementById("date").value;
+ var value2=document.URL;
+ var value3=value2.replace("?report=true&arrange=1","");
+ var value4=value3.replace("?report=true&arrange=2","");
+ var queryString = "&arrange=" +value;
+ window.location.href=value4 +"?report="+"true"+queryString;
+}
+</script>
    <!-- end .b-title-page-->
    <div class="l-main-content">
     <div class="ui-decor ui-decor_mirror ui-decor_sm-h bg-primary">
@@ -437,49 +516,20 @@ function date () {
     <div class="container">
      <div class="row">
       <div class="col-xl-3">
-       <aside class="l-sidebar l-sidebar_top_minus">
-        <div class="widget section-sidebar bg-gray">
-         <h3 class="widget-title row justify-content-between align-items-center no-gutters">
-          <span class="widget-title__inner col">
-           Search Options
-          </span>
-          <i class="ic flaticon-car-repair col-auto">
-          </i>
-         </h3>
-         <div class="widget-content">
-          <div class="widget-inner">
-           <form class="b-filter">
-            <div class="b-filter__main row">
-             <div class="b-filter__row col-xl-12 col-md-6">
-              <select id="region" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Region">
-               <option name="abuja">
-                Abuja
-               </option>
-               <option name="lagos">
-                Lagos
-               </option>
-               <option name="delta">
-                Delta
-               </option>
-              </select>
-             </div>
-             <div class="b-filter__row col-xl-12 col-md-6">
-              <select id="condition" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Condition">
-               <option value="new">
-                Brand New
-               </option>
-               <option value="foreign">
-                Foreign Used
-               </option>
-               <option value="local">
-                Locally Used
-               </option>
-               <option value="pre-order">
-                Pre-Order
-               </option>
-              </select>
-             </div>
-             <div class="b-filter__row col-xl-12 col-md-6">
+        <aside class="l-sidebar l-sidebar_top_minus">
+         <div class="widget section-sidebar bg-gray">
+          <h3 class="widget-title row justify-content-between align-items-center no-gutters">
+           <span class="widget-title__inner col">
+            Search Options
+           </span>
+           <i class="ic flaticon-car-repair col-auto">
+           </i>
+          </h3>
+          <div class="widget-content">
+           <div class="widget-inner">
+            <form class="b-filter" method="GET">
+             <div class="b-filter__main row">
+              <div class="b-filter__row col-xl-12 col-md-6">
                <select id="make" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="Select Make">
                  {% for item in makes %}
                 <option value={{item.name}}>
@@ -620,10 +670,10 @@ function date () {
                </div>
                <div class="b-filter__row row">
                 <div class="b-filter__item col-md-6">
-                 <input id="min_price" class="ui-select" id="input-with-keypress-0"/>
+                 <input class="ui-select" id="input-with-keypress-0"/>
                 </div>
                 <div class="b-filter__item col-md-6">
-                 <input  id="max_price" class="ui-select" id="input-with-keypress-1"/>
+                 <input  class="ui-select" id="input-with-keypress-1"/>
                 </div>
                </div>
               </div>
@@ -644,11 +694,11 @@ function date () {
               reset filters
              </button>
             </form>
+           </div>
           </div>
          </div>
-        </div>
-        <!-- end .b-filter-->
-       </aside>
+         <!-- end .b-filter-->
+        </aside>
       </div>
       <div class="col-xl-9">
        <div class="b-filter-goods">
@@ -709,144 +759,133 @@ function date () {
        <div class="b-goods-group row">
          {% if search %}
          {% for item in search %}
-        <div class="col-12">
-         <div class="b-goods b-goods_list">
-          <a class="b-goods__img" href="#">
-           <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/1.jpg' %}"/>
-           <span class="b-goods__label b-goods__label_blue">
-            NEW
-           </span>
-          </a>
-          <div class="b-goods__main">
-           <div class="row no-gutters">
-            <div class="col">
-             <a class="b-goods__title" href="vehicle-details.html">
-              {{item.title}}
-             </a>
-             <div class="b-goods__info">
-              {{item.address}}
-             </div>
-            </div>
-            <div class="col-auto">
-             <div class="b-goods__price text-primary">
-              <span class="b-goods__price-title">
-               DEALER
-               <br/>
-               PRICE
-              </span>
-              <span class="b-goods__price-number">
-               {{item.price}}
-              </span>
-             </div>
-             <div class="b-goods__price-msrp">
-              MSRP 25,350
-             </div>
-            </div>
-           </div>
-           <div class="b-goods-descrip row no-gutters">
-            <div class="b-goods-descrip__item col">
-             <div class="b-goods-descrip__inner">
-              <div class="b-goods-descrip__wrap">
-               <i class="ic flaticon-speedometer">
-               </i>
-               <span class="b-goods-descrip__info">
-                {{item.mileage}} mi
-               </span>
-               <div class="b-goods-descrip__full-info">
-                <span class="b-goods-descrip__title">
-                 MILEAGE
-                </span>
-                <span class="b-goods-descrip__text">
-                 {{item.speed}}
-                </span>
-               </div>
+         <div class="col-12">
+          <div class="b-goods b-goods_list">
+           <a class="b-goods__img" href="{{item.get_absolute_url}}">
+             {% for i in item.image.all %}
+            {% if forloop.first %}
+            <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
+            {% endif %}
+            {% endfor %}
+            <span class="b-goods__label b-goods__label_blue">
+             NEW
+            </span>
+           </a>
+           <div class="b-goods__main">
+            <div class="row no-gutters">
+             <div class="col">
+              <a class="b-goods__title" href="{{item.get_absolute_url}}">
+               {{item.title}}
+              </a>
+              <div class="b-goods__info">
+               {{item.address}}
               </div>
-             </div>
-            </div>
-            <div class="b-goods-descrip__item col">
-             <div class="b-goods-descrip__inner">
-              <div class="b-goods-descrip__wrap">
-               <i class="ic flaticon-fuel-station-pump">
-               </i>
-               <span class="b-goods-descrip__info">
-                {{item.pump_size}}
-               </span>
-               <div class="b-goods-descrip__full-info">
-                <span class="b-goods-descrip__title">
-                 FUEL TYPE
-                </span>
-                <span class="b-goods-descrip__text">
-                 {{item.fuel_type}}
-                </span>
-               </div>
-              </div>
-             </div>
-            </div>
-            <div class="b-goods-descrip__item col">
-             <div class="b-goods-descrip__inner">
-              <div class="b-goods-descrip__wrap">
-               <i class="ic flaticon-gearshift">
-               </i>
-               <span class="b-goods-descrip__info">
-                {{item.transmitter}}
-               </span>
-               <div class="b-goods-descrip__full-info">
-                <span class="b-goods-descrip__title">
-                 TRANSMISSION
-                </span>
-                <span class="b-goods-descrip__text">
-                {{item.transmission}}
-                </span>
-               </div>
-              </div>
-             </div>
-            </div>
-            <div class="b-goods-descrip__item b-goods-descrip__item_list col">
-             <div class="b-goods-descrip__inner">
-              <div class="b-goods-descrip__wrap">
-               <i class="ic flaticon-calendar">
-               </i>
-               <div class="b-goods-descrip__full-info">
-                <span class="b-goods-descrip__title">
-                 YEAR
-                </span>
-                <span class="b-goods-descrip__text">
-                 {{item.model_year}}
-                </span>
-               </div>
-              </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods__footer">
-            <div class="row no-gutters justify-content-between">
-             <div class="col-auto">
-              <span class="b-goods__tag">
-               test drive
-              </span>
-              <span class="b-goods__tag">
-               compare
-              </span>
-              <span class="b-goods__tag">
-               share this
-              </span>
              </div>
              <div class="col-auto">
-              <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-              <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
+              <div class="b-goods__price text-primary">
+               <span class="b-goods__price-title">
+                DEALER
+                <br/>
+                PRICE
+               </span>
+               <span class="b-goods__price-number">
+                {{item.price}}
+               </span>
+              </div>
+              <div class="b-goods__price-msrp">
+               MSRP 25,350
+              </div>
+             </div>
+            </div>
+            <div class="b-goods-descrip row no-gutters">
+             <div class="b-goods-descrip__item col">
+              <div class="b-goods-descrip__inner">
+               <div class="b-goods-descrip__wrap">
+                <i class="ic flaticon-speedometer">
+                </i>
+                <span class="b-goods-descrip__info">
+                 {{item.mileage}} mi
+                </span>
+                <div class="b-goods-descrip__full-info">
+                 <span class="b-goods-descrip__title">
+                  MILEAGE
+                 </span>
+                 <span class="b-goods-descrip__text">
+                  {{item.speed}}
+                 </span>
+                </div>
+               </div>
+              </div>
+             </div>
+             <div class="b-goods-descrip__item col">
+              <div class="b-goods-descrip__inner">
+               <div class="b-goods-descrip__wrap">
+                <i class="ic flaticon-fuel-station-pump">
+                </i>
+                <span class="b-goods-descrip__info">
+                 {{item.pump_size}}
+                </span>
+                <div class="b-goods-descrip__full-info">
+                 <span class="b-goods-descrip__title">
+                  FUEL TYPE
+                 </span>
+                 <span class="b-goods-descrip__text">
+                  {{item.fuel_type}}
+                 </span>
+                </div>
+               </div>
+              </div>
+             </div>
+             <div class="b-goods-descrip__item col">
+              <div class="b-goods-descrip__inner">
+               <div class="b-goods-descrip__wrap">
+                <i class="ic flaticon-gearshift">
+                </i>
+                <span class="b-goods-descrip__info">
+                 {{item.transmitter}}
+                </span>
+                <div class="b-goods-descrip__full-info">
+                 <span class="b-goods-descrip__title">
+                  TRANSMISSION
+                 </span>
+                 <span class="b-goods-descrip__text">
+                 {{item.transmission}}
+                 </span>
+                </div>
+               </div>
+              </div>
+             </div>
+             <div class="b-goods-descrip__item b-goods-descrip__item_list col">
+              <div class="b-goods-descrip__inner">
+               <div class="b-goods-descrip__wrap">
+                <i class="ic flaticon-calendar">
+                </i>
+                <div class="b-goods-descrip__full-info">
+                 <span class="b-goods-descrip__title">
+                  YEAR
+                 </span>
+                 <span class="b-goods-descrip__text">
+                  {{item.model_year}}
+                 </span>
+                </div>
+               </div>
+              </div>
              </div>
             </div>
            </div>
           </div>
          </div>
-        </div>
         {% endfor %}
         {% else %}
          {% for item in page_obj %}
         <div class="col-12">
          <div class="b-goods b-goods_list">
-          <a class="b-goods__img" href="#">
-           <img alt="photo" class="img-scale" src="{% static 'assets/media/content/b-goods/270x180/1.jpg' %}"/>
+          <a class="b-goods__img" href="{{item.get_absolute_url}}">
+            {% for i in item.image.all %}
+           {% if forloop.first %}
+           <img alt="photo" class="img-scale" src="{% get_media_prefix %}{{i.image}}"/>
+           {% endif %}
+           {% endfor %}
            <span class="b-goods__label b-goods__label_blue">
             NEW
            </span>
@@ -854,7 +893,7 @@ function date () {
           <div class="b-goods__main">
            <div class="row no-gutters">
             <div class="col">
-             <a class="b-goods__title" href="vehicle-details.html">
+             <a class="b-goods__title" href="{{item.get_absolute_url}}">
               {{item.title}}
              </a>
              <div class="b-goods__info">
@@ -949,25 +988,6 @@ function date () {
                 </span>
                </div>
               </div>
-             </div>
-            </div>
-           </div>
-           <div class="b-goods__footer">
-            <div class="row no-gutters justify-content-between">
-             <div class="col-auto">
-              <span class="b-goods__tag">
-               test drive
-              </span>
-              <span class="b-goods__tag">
-               compare
-              </span>
-              <span class="b-goods__tag">
-               share this
-              </span>
-             </div>
-             <div class="col-auto">
-              <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check.jpg' %}"/>
-              <img alt="photo" class="b-goods__bnr" src="{% static 'assets/media/content/b-goods/check-2.jpg' %}"/>
              </div>
             </div>
            </div>

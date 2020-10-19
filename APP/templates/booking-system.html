@@ -235,6 +235,13 @@
         </button>
         <!-- Mobile Trigger End-->
        </div>
+       <script>
+       $(document).ready(function() {
+    $('#replace').keyup(function() {
+       $('#example').html($(this).val());
+    });
+});
+       </script>
        <div class="col-xl d-none d-xl-block">
         <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
          <ul class="yamm main-menu navbar-nav">
@@ -445,7 +452,7 @@
             <div class="b-booking-main__cat btn-group-toggle row flex-wrap justify-content-between" data-toggle="buttons">
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input checked="checked" name="category" id="option4"  type="radio"/>
+               <input checked="checked" name="category" id="option4" value="convertible" type="radio"/>
                <span class="ic flaticon-cabrio-car">
                </span>
                CONVERTIBLE
@@ -455,7 +462,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item active">
-               <input name="category" id="option2" type="radio"/>
+               <input name="category" id="option2" value="suv" type="radio"/>
                <span class="ic flaticon-car-suv">
                </span>
                SUV
@@ -465,7 +472,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input name="category" id="option3"  type="radio"/>
+               <input name="category" id="option3" value="coupe"  type="radio"/>
                <span class="ic flaticon-coupe-car">
                </span>
                COUPE
@@ -475,7 +482,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input name="category" id="option5" type="radio"/>
+               <input name="category" id="option5" value="sedan" type="radio"/>
                <span class="ic flaticon-sedan-car-model">
                </span>
                SEDAN
@@ -485,7 +492,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input  name="category" id="option6" type="radio"/>
+               <input  name="category" id="option6" value="super" type="radio"/>
                <span class="ic flaticon-car-black-side-view-pointing-left">
                </span>
                SUPER CAR
@@ -495,7 +502,7 @@
              </div>
              <div class="col-sm-4">
               <label class="btn b-booking-main__cat-item">
-               <input name="category" id="option7" type="radio"/>
+               <input name="category" id="option7" value="mini" type="radio"/>
                <span class="ic flaticon-car">
                </span>
                MINICAR
@@ -511,7 +518,7 @@
             </h2>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input name="package" checked="checked"  id="customCheck1" type="radio"/>
+              <input name="package" checked="checked"  id="customCheck1" value="basic" type="radio"/>
               <label for="customCheck1">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
@@ -540,7 +547,7 @@
             </div>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input name="package" id="customCheck2" type="radio"/>
+              <input name="package" id="customCheck2" value="gold" type="radio"/>
               <label for="customCheck2">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
@@ -569,7 +576,7 @@
             </div>
             <div class="b-booking-price">
              <div class="custom-control custom-checkbox">
-              <input name="package"  id="customCheck3" type="radio"/>
+              <input name="package"  id="customCheck3" value="deluxe" type="radio"/>
               <label  for="customCheck3">
                <span class="b-booking-price__inner col-sm">
                 <span class="b-booking-price__title">
@@ -714,7 +721,8 @@
             <h2 class="b-booking-main__title">
              Select Date &amp; Time
             </h2>
-            <input id="date" name"date" type="date" />
+            <input id="replace" name"date" type="date" />
+            <input id="date" name"time" type="time" />
            </div>
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
@@ -725,7 +733,7 @@
               <div class="b-booking-total">
                <div class="b-booking-total__main">
                 <div class="b-booking-total__title">
-                 Fri, 12.04.2019
+                  <a id="example"></a>
                 </div>
                 <div class="b-booking-total__info">
                  Appointment Date
@@ -801,7 +809,7 @@
                <label class="form-label">
                 Email Address*
                </label>
-               <input name="email_address" class="form-control" type="email"/>
+               <input name="email" class="form-control" type="email"/>
               </div>
              </div>
              <div class="col-md-6">
@@ -830,6 +838,7 @@
              <button class="btn btn-secondary mt-5">
               Confirm Booking
              </button>
+             {{message}}
             </div>
            </div>
           </form>
@@ -862,11 +871,17 @@
         <h3 class="footer-section__title footer-section__title_sm">
          Subscribe Newsletter
         </h3>
-        <form class="footer-form">
+        <script>
+        function show(){
+          document.getElementById("news").submit()
+        }
+        </script>
+        {{news}}
+        <form id="news" class="footer-form" method="GET">
          <div class="form-group">
-          <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-          <i class="ic far fa-envelope-open">
-          </i>
+          <input class="footer-form__input form-control" name="email" placeholder="your email" type="email"/>
+          <button class="ic far fa-envelope-open" onclick="show()">
+        </button>
          </div>
         </form>
        </section>
