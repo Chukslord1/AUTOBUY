@@ -1,12 +1,11 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="zxx">
  <head>
   <meta charset="utf-8"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
   <title>
-   Autobuy | Nigeria's Automobile Marketplace
+   Autobuy / Nigeria's Automobile Marketplace
   </title>
   <meta content="" name="description"/>
   <meta content="" name="keywords"/>
@@ -14,7 +13,6 @@
   <meta content="telephone=no" name="format-detection"/>
   <meta content="true" name="HandheldFriendly"/>
   <link href="{% static 'assets/css/master.css' %}" rel="stylesheet"/>
-  <link href="{% static 'assets/css/neon.css' %}" rel="stylesheet"/>
   <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon"/>
   <!--[if lt IE 9 ]>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script><meta content="no" http-equiv="imagetoolbar">
@@ -30,16 +28,16 @@
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global" method="GET">
-         <input autocomplete="off" class="search-global__input" name="s" placeholder="Search" type="text" value=""/>
-         <button class="search-global__btn">
-          <i class="icon stroke icon-Search">
-          </i>
-         </button>
-         <div class="search-global__note">
-          Begin typing your search above and press return to search.
-         </div>
-        </form>
+         <form class="search-global">
+          <input id="search" autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
+          <button class="search-global__btn" onclick="showOutput1()">
+           <i class="icon stroke icon-Search">
+           </i>
+          </button>
+          <div class="search-global__note">
+           Begin typing your search above and press return to search.
+          </div>
+         </form>
        </div>
       </div>
      </div>
@@ -53,82 +51,104 @@
    <!-- MOBILE MENU-->
    <!-- ==========================-->
    <div data-off-canvas="mobile-slidebar left overlay">
-    <ul class="navbar-nav">
-     <li class="nav-item">
-      <a class="nav-link" href="cars-for-sale.html">
-       Cars For Sale
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="sell-car.html">
-       Sell
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="swap.html">
-       Swap
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link">
-       Finance
-      </a>
-      <ul class="mobile-sub-menu">
-       <li>
-        <a href="car-loan.html">
-         Car Loan
-        </a>
-       </li>
-       <li>
-        <a href="car-insurance.html">
-         Car Insurance
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link">
-       Other Services
-      </a>
-      <ul class="mobile-sub-menu">
-       <li>
-        <a href="clearing.html">
-         Clearing
-        </a>
-       </li>
-       <li>
-        <a href="car-registration.html">
-         Car Registration
-        </a>
-       </li>
-       <li>
-        <a href="car-delivery.html">
-         Car Delivery
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="become-dealer.html">
-       Become A Dealer
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="sell-car.html">
-       Sell
-      </a>
-     </li>
-    </ul>
+     <ul class="navbar-nav">
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
+        Cars For Sale
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:sell-car' %}">
+        Sell
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:swap' %}">
+        Swap
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Finance
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="{% url 'APP:car-loan' %}">
+          Car Loan
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-insurance' %}">
+          Car Insurance
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Other Services
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="c{% url 'APP:clearing' %}">
+          Clearing
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-registration' %}">
+          Car Registration
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-delivery' %}">
+          Car Delivery
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Reservations
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="{% url 'APP:reservation' %}">
+          Reservation Car
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:booking' %}">
+          Reservation Service
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:blog_list' %}">
+        News
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:become-dealer' %}">
+        Become A Dealer
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:sell-car' %}">
+        Sell
+       </a>
+      </li>
+     </ul>
    </div>
    <header class="header">
     <div class="header-main">
      <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
        <div class="col-auto">
-        <a class="navbar-brand navbar-brand_light scroll" href="index.html">
+        <a class="navbar-brand navbar-brand_light scroll" href="{% url 'APP:index' %}">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
         </a>
-        <a class="navbar-brand navbar-brand_dark scroll" href="index.html">
+        <a class="navbar-brand navbar-brand_dark scroll" href="{% url 'APP:index' %}">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
         </a>
        </div>
@@ -155,180 +175,154 @@
        <div class="col-xl d-none d-xl-block">
         <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
          <ul class="yamm main-menu navbar-nav">
-          <li class="nav-item">
-           <a class="nav-link" href="cars-for-sale.html">
-            Cars For Sale
-           </a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="sell-car.html">
-            Sell
-           </a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="swap.html">
-            Swap
-           </a>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Finance
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="car-loan.html">
-             Car Loan
-            </a>
-            <a class="dropdown-item" href="car-insurance.html">
-             Car Insurance
-            </a>
-           </div>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Other Services
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="clearing.html">
-             Clearing
-            </a>
-            <a class="dropdown-item" href="car-registration.html">
-             Car Registration
-            </a>
-            <a class="dropdown-item" href="car-delivery.html">
-             Car Delivery
-            </a>
-           </div>
            <li class="nav-item">
-            <a class="nav-link" href="become-dealer.html">
-             Become a dealer
+            <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
+             Cars For Sale
             </a>
            </li>
-          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:sell-car' %}">
+             Sell
+            </a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:swap' %}">
+             Swap
+            </a>
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">
+             Finance
+            </a>
+            <div class="dropdown-menu">
+             <a class="dropdown-item" href="{% url 'APP:car-loan' %}">
+              Car Loan
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-insurance' %}">
+              Car Insurance
+             </a>
+            </div>
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">
+             Other Services
+            </a>
+            <div class="dropdown-menu">
+             <a class="dropdown-item" href="{% url 'APP:clearing' %}">
+              Clearing
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-registration' %}">
+              Car Registration
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
+              Car Delivery
+             </a>
+            </div>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              Reservation
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:reservation' %}">
+               Reservation car
+              </a>
+              <a class="dropdown-item" href="{% url 'APP:booking' %}">
+               Reservation service
+              </a>
+             </div>
+            </li>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              News
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:blog_list' %}">
+               Blog List
+              </a>
+             </div>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link" href="{% url 'APP:become-dealer' %}">
+              Become a dealer
+             </a>
+            </li>
          </ul>
-         <a class="header-main__link" href="user.html">
+         {% if user.is_authenticated %}
+         <a class="header-main__link" href="{% url 'APP:dashboard' %}">
           <i class="ic icon-user">
           </i>
          </a>
+       </ul>
+       {% else %}
+       <a class="header-main__link" href="{% url 'APP:user' %}">
+        <i class="ic icon-user">
+        </i>
+       </a>
+         {% endif %}
          <span class="header-main__link btn_header_search">
           <i class="ic icon-magnifier">
           </i>
          </span>
-         <button class="header-main__btn btn btn-secondary">
-          <a href="sell-car.html">
-           Sell
-          </a>
-         </button>
         </nav>
        </div>
       </div>
      </div>
     </div>
    </header>
-   <!-- end .header-->
-   <header class="header">
-    <div class="header-main">
-     <div class="container-fluid">
-      <div class="row align-items-center justify-content-between">
-       <div class="col-auto">
-        <a class="navbar-brand navbar-brand_light scroll" href="index.html">
-         <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
-        </a>
-        <a class="navbar-brand navbar-brand_dark scroll" href="index.html">
-         <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
-        </a>
-       </div>
-       <div class="col-auto d-xl-none">
-        <!-- Mobile Trigger Start-->
-        <button class="menu-mobile-button js-toggle-mobile-slidebar toggle-menu-button">
-         <i class="toggle-menu-button-icon">
-          <span>
-          </span>
-          <span>
-          </span>
-          <span>
-          </span>
-          <span>
-          </span>
-          <span>
-          </span>
-          <span>
-          </span>
-         </i>
-        </button>
-        <!-- Mobile Trigger End-->
-       </div>
-       <div class="col-xl d-none d-xl-block">
-        <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
-         <ul class="yamm main-menu navbar-nav">
-          <li class="nav-item">
-           <a class="nav-link" href="cars-for-sale.html">
-            Cars For Sale
-           </a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="sell-car.html">
-            Sell
-           </a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="swap.html">
-            Swap
-           </a>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Finance
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="car-loan.html">
-             Car Loan
-            </a>
-            <a class="dropdown-item" href="car-insurance.html">
-             Car Insurance
-            </a>
-           </div>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Other Services
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="clearing.html">
-             Clearing
-            </a>
-            <a class="dropdown-item" href="car-registration.html">
-             Car Registration
-            </a>
-            <a class="dropdown-item" href="car-delivery.html">
-             Car Delivery
-            </a>
-           </div>
-           <li class="nav-item">
-            <a class="nav-link" href="become-dealer.html">
-             Become a dealer
-            </a>
-           </li>
-          </li>
-         </ul>
-         <a class="header-main__link" href="user.html">
-          <i class="ic icon-user">
-          </i>
-         </a>
-         <span class="header-main__link btn_header_search">
-          <i class="ic icon-magnifier">
-          </i>
-         </span>
-         <button class="header-main__btn btn btn-secondary">
-          <a href="signup.html">
-           Sign Up
-          </a>
-         </button>
-        </nav>
-       </div>
-      </div>
-     </div>
-    </div>
-   </header>
+   <script>
+   function showOutput1 () {
+     var value_4=document.getElementById("search").value;
+     var queryString = "?second_check="+ "two";
+     window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
+   }
+   function showOutput () {
+     if (document.getElementById("option1").checked == true){
+       var value_4=document.getElementById("option1").value;
+     } else if (document.getElementById("option2").checked == true){
+       var value_4=document.getElementById("option2").value;
+     } else if (document.getElementById("option3").checked == true){
+       var value_4=document.getElementById("option3").value;
+     }else if (document.getElementById("option4").checked == true){
+       var value_4=document.getElementById("option4").value;
+     }else if (document.getElementById("option5").checked == true){
+       var value_4=document.getElementById("option5").value;
+     }else if (document.getElementById("option6").checked == true){
+       var value_4=document.getElementById("option6").value;
+     }else if (document.getElementById("option7").checked == true){
+       var value_4=document.getElementById("option7").value;
+     }else if (document.getElementById("option8").checked == true){
+       var value_4=document.getElementById("option8").value;
+     }
+     else {
+       var value_4="";
+     }
+     if (document.getElementById("use1").checked == true){
+       var value_5=document.getElementById("use1").value;
+     } else if (document.getElementById("use2").checked == true){
+       var value_5=document.getElementById("use2").value;
+     } else if (document.getElementById("use3").checked == true){
+       var value_5=document.getElementById("use3").value;
+     }else if (document.getElementById("use4").checked == true){
+       var value_5=document.getElementById("use4").value;
+     }else {
+       var value_5="";
+     }
+     var value_3=document.getElementById("make").value;
+     var value_2=document.getElementById("model").value;
+     var value_1=document.getElementById("min_price").value;
+     var value=document.getElementById("max_price").value;
+
+
+     var paid="two";
+     var queryString = "?second_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
+     window.location.href="search" + queryString;
+   }
+   function showOutput1 () {
+     var value_4=document.getElementById("search").value;
+     var queryString = "?second_check="+ "two";
+     window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
+   }
+   </script>
    <div class="l-main-content">
     <div class="ui-decor ui-decor_mirror bg-primary">
     </div>
@@ -338,95 +332,77 @@
        <div class="container">
         <div class="row">
          <div class="col-lg-4">
-          <div class="b-booking-nav">
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 1
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-car-side">
-             </i>
-             <span class="b-booking-nav__title">
-              Select Car Type
-             </span>
-             <span class="b-booking-nav__info">
-              Select your vehicle type
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item active" href="#">
-            <div class="b-booking-nav__header">
-             Step 2
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cubes">
-             </i>
-             <span class="b-booking-nav__title">
-              Vehicle Information
-             </span>
-             <span class="b-booking-nav__info">
-              Enter Vehicle Information
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 3
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-cog">
-             </i>
-             <span class="b-booking-nav__title">
-              Boost Options
-             </span>
-             <span class="b-booking-nav__info">
-              A la carte Services for you
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 4
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic far fa-calendar">
-             </i>
-             <span class="b-booking-nav__title">
-              Date And Time
-             </span>
-             <span class="b-booking-nav__info">
-              Click on time for booking
-             </span>
-            </div>
-           </a>
-           <a class="b-booking-nav__item" href="#">
-            <div class="b-booking-nav__header">
-             Step 5
-            </div>
-            <div class="b-booking-nav__main">
-             <i class="ic fas fa-edit">
-             </i>
-             <span class="b-booking-nav__title">
-              Booking Summary
-             </span>
-             <span class="b-booking-nav__info">
-              Provide your contact infos
-             </span>
-            </div>
-           </a>
-          </div>
+
          </div>
+         <script>
+         function jump () {
+          if (document.getElementById("package1").checked == true){
+          var value_4=document.getElementById("package1").value;
+        } else if (document.getElementById("package2").checked == true){
+          var value_4=document.getElementById("package2").value;
+        } else if (document.getElementById("package3").checked == true){
+          var value_4=document.getElementById("package3").value;
+        }else if (document.getElementById("package4").checked == true){
+          var value_4=document.getElementById("package4").value;
+        }
+         else {
+          var value_4="free";
+        }
+        var queryString = "?package=" +value_4;
+        window.location.href= "swap3.html" + queryString;
+      }
+      function payWithPaystack(){
+ if (document.getElementById("package1").checked == true){
+  var value_4=0;
+} else if (document.getElementById("package2").checked == true){
+  var value_4=35;
+} else if (document.getElementById("package3").checked == true){
+  var value_4=35;
+}else if (document.getElementById("package4").checked == true){
+  var value_4=3;
+}
+else {
+  var value_4=0;
+}
+var handler = PaystackPop.setup({
+key: 'pk_test_2e6c36e35df589cd45c15eca59189df5e3fcc1af',
+email: "chukslord1@gmail.com",
+amount: value_4,
+ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+metadata: {
+   custom_fields: [
+      {
+          display_name: "chukslord1",
+          variable_name: "Afriproperty Basic Subscription Package",
+          value: "+2348012345678"
+      }
+   ]
+},
+callback: function(response){
+    alert('success. transaction ref is ' + response.reference);
+    var queryString = "?package=" +value_4;
+    window.location.href= "swap3.html" + queryString;
+  },
+onClose: function(){
+    alert('window closed');
+}
+});
+handler.openIframe();
+}
+         </script>
          <div class="col-lg-8">
-          <form class="b-booking-main"  method="POST">
+          <form id="theform" class="b-booking-main" action="{% url 'APP:swap3' %}" method="POST">
+            {% csrf_token %}
            <div class="b-booking-main__section">
+            <h2>{{message}}</h2>
             <h2 class="b-booking-main__title">
              Select Boost Option
             </h2>
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input checked="checked" class="custom-control-input" id="customCheck" type="checkbox"/>
-             <label class="custom-control-label row" for="customCheck">
+             <input name="package" value="free"  id="package1" type="radio" checked>
+             <label  for="customCheck">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
                 No Boost
@@ -439,11 +415,8 @@
                </span>
               </span>
               <span class="col-sm-auto">
-               <span class="b-booking-price__price text-primary">
-                <span class="b-booking-price__price-up">
-                 ₦
-                </span>
-                35
+               <span style="float:right" class="b-booking-price__price text-primary">
+                ₦35
                 <span class="b-booking-price__price-up">
                  95
                 </span>
@@ -454,8 +427,8 @@
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input class="custom-control-input" id="customCheck1" type="checkbox"/>
-             <label class="custom-control-label row" for="customCheck1">
+             <input name="package"  id="package2" value="basic" type="radio">
+             <label for="customCheck1">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
                 Basic Boost
@@ -468,25 +441,20 @@
                </span>
               </span>
               <span class="col-sm-auto">
-               <span class="b-booking-price__price text-primary">
-                <span class="b-booking-price__price-up">
-                 ₦
-                </span>
-                35
+               <span style="float:right" class="b-booking-price__price text-primary">
+                ₦35
                 <span class="b-booking-price__price-up">
                  95
                 </span>
                </span>
               </span>
              </label>
-             <input class="custom-control-input" id="customCheck5" type="checkbox">
-             </input>
             </div>
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input class="custom-control-input" id="customCheck2" type="checkbox"/>
-             <label class="custom-control-label row" for="customCheck2">
+             <input name="package" id="package3" value="gold" type="radio">
+             <label for="customCheck2">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
                 Gold Boost
@@ -499,11 +467,8 @@
                </span>
               </span>
               <span class="col-sm-auto">
-               <span class="b-booking-price__price text-primary">
-                <span class="b-booking-price__price-up">
-                 ₦
-                </span>
-                45
+               <span style="float:right" class="b-booking-price__price text-primary">
+                ₦45
                 <span class="b-booking-price__price-up">
                  95
                 </span>
@@ -514,8 +479,8 @@
            </div>
            <div class="b-booking-price">
             <div class="custom-control custom-checkbox">
-             <input class="custom-control-input" id="customCheck3" type="checkbox"/>
-             <label class="custom-control-label row" for="customCheck3">
+             <input name="package"  id="package4" value="deluxe" type="radio">
+             <label  for="customCheck3">
               <span class="b-booking-price__inner col-sm">
                <span class="b-booking-price__title">
                 Deluxe Boost
@@ -527,12 +492,9 @@
                 Minor Dent Removing, Window Tinting, Full Color Change Car Polishing, New Wheels
                </span>
               </span>
-              <span class="col-sm-auto">
+              <span style="float:right" class="col-sm-auto">
                <span class="b-booking-price__price text-primary">
-                <span class="b-booking-price__price-up">
-                 ₦
-                </span>
-                55
+                ₦55
                 <span class="b-booking-price__price-up">
                  95
                 </span>
@@ -541,12 +503,11 @@
              </label>
             </div>
            </div>
+           <script src="https://js.paystack.co/v1/inline.js"></script>
            <div class="text-center">
             Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-            <button class="btn btn-secondary mt-5">
-             <a href="#">
+            <button class="btn btn-secondary mt-5" onclick="payWithPaystack()">
               Submit
-             </a>
             </button>
            </div>
           </form>
@@ -571,23 +532,30 @@
   <div class="row">
    <div class="col-lg-3 col-md-6">
     <div class="footer-section">
-     <a class="footer__logo" href="index.html">
+     <a class="footer__logo" href="{% url 'APP:index' %}">
       <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
      </a>
      <div class="footer-info">
       Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
-                    from vehicle delivery available in the 36 states to premium automobile services in the major cities.
+                 from vehicle delivery available in the 36 states to premium automobile services in the major cities.
      </div>
     </div>
     <section class="footer-section">
      <h3 class="footer-section__title footer-section__title_sm">
       Subscribe Newsletter
      </h3>
-     <form class="footer-form">
+     <script>
+     function news(){
+       document.getElementById("news").submit();
+     }
+     </script>
+     {{message}}
+     <form id="news" class="footer-form" method="GET">
       <div class="form-group">
-       <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-       <i class="ic far fa-envelope-open">
-       </i>
+        <input name="sub" type="hidden" value="true"/>
+       <input name="email" class="footer-form__input form-control" placeholder="your email" type="email"/>
+       <button  onclick="news()" class="ic far fa-envelope-open">
+       </button>
       </div>
      </form>
     </section>
@@ -639,52 +607,42 @@
      </h3>
      <ul class="footer-list list-unstyled">
       <li>
-       <a href="index.hmtl">
+       <a href="{% url 'APP:index' %}">
         Home
        </a>
       </li>
       <li>
-       <a href="cars-for-sale.html">
+       <a href="{% url 'APP:cars-for-sale' %}">
         Cars For Sale
        </a>
       </li>
       <li>
-       <a href="about.html">
+       <a href="{% url 'APP:about' %}">
         About us
        </a>
       </li>
       <li>
-       <a href="news.html">
+       <a href="{% url 'APP:blog_list' %}">
         News
        </a>
       </li>
       <li>
-       <a href="clearing.html">
+       <a href="{% url 'APP:clearing' %}">
         Vehicle Clearing
        </a>
       </li>
       <li>
-       <a href="car-registration.html">
+       <a href="{% url 'APP:car-registration' %}">
         Vehicle Registration
        </a>
       </li>
       <li>
-       <a href="car-delivery.html">
+       <a href="{% url 'APP:car-delivery' %}">
         Vehicle Delivery
        </a>
       </li>
       <li>
-       <a href="privary-policy.html">
-        Privacy Policy
-       </a>
-      </li>
-      <li>
-       <a href="terms-and-conditions.html#">
-        Terms and Conitions
-       </a>
-      </li>
-      <li>
-       <a href="contact.html">
+       <a href="{% url 'APP:contact' %}">
         Contact Us
        </a>
       </li>
@@ -743,9 +701,6 @@
        </a>
       </li>
      </ul>
-     <a class="btn btn-white" href="#">
-      Take a test drive
-     </a>
     </section>
    </div>
   </div>
@@ -757,6 +712,7 @@
  </div>
 </footer>
 <!-- .footer-->
+</div>
 <!-- end layout-theme-->
 <!-- ++++++++++++-->
 <!-- MAIN SCRIPTS-->
@@ -815,3 +771,5 @@
 <!-- User customization-->
 <script src="{% static 'assets/js/custom.js' %}">
 </script>
+</body>
+</html>

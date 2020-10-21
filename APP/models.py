@@ -51,6 +51,8 @@ class Car(models.Model):
     no_of_seats=models.TextField(blank=True, null=True)
     overview=models.TextField(blank=True, null=True)
     owner_review=models.TextField(blank=True, null=True)
+    type=models.TextField(blank=True, null=True)
+    state=models.BooleanField(blank=True, null=True, default=True)
     slug = models.SlugField()
     paginate_by = 2
 
@@ -97,6 +99,7 @@ class Bookmark(models.Model):
     use_state=models.TextField(blank=True, null=True)
     creator=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
     price=models.IntegerField(blank=True, null=True)
+    slug= models.SlugField()
 
     def __str__(self):
         return self.title
@@ -206,6 +209,16 @@ class Clearing(models.Model):
     def __str__(self):
         return self.name
 
+class Delivery(models.Model):
+    name=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    make=models.TextField(blank=True, null=True)
+    model=models.TextField(blank=True, null=True)
+    year=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
 class Booking(models.Model):
     category=models.TextField(blank=True, null=True)
     package=models.TextField(blank=True, null=True)
@@ -225,3 +238,15 @@ class NewsLetter(models.Model):
     email=models.TextField(blank=True, null=True)
     def __str__(self):
         return self.email
+
+class Quote(models.Model):
+    name=models.TextField(blank=True, null=True)
+    email=models.TextField(blank=True, null=True)
+    phone=models.TextField(blank=True, null=True)
+    make=models.TextField(blank=True, null=True)
+    year=models.TextField(blank=True, null=True)
+    service=models.TextField(blank=True, null=True)
+    info=models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

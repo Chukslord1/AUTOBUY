@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing,Booking,NewsLetter
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing,Booking,NewsLetter,Quote,Delivery
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -70,13 +70,11 @@ class IndexListView(ListView):
         search = Car.objects.none()
         if self.request.GET.get('sub')=="true":
             email=self.request.GET.get('email')
-            name=self.request.GET.get('name')
-            phone=self.request.GET.get('phone')
-            check_email=Newsletter.objects.filter(email=email)
+            check_email=NewsLetter.objects.filter(email=email)
             if check_email.exists():
                 context['message']=' This Email is Subscribed Already'
             else:
-                news=Newsletter.objects.create(email=email,phone=phone,name=name)
+                news=NewsLetter.objects.create(email=email)
                 news.save()
                 context['message']='Subscribed Successfully'
                 fromaddr = "housing-send@advancescholar.com"
@@ -207,8 +205,8 @@ class IndexListView(ListView):
             page_number = self.request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             context['page_obj'] = page_obj
-        context['cars'] = Car.objects.all()
-        context['featured'] = Car.objects.filter(featured=True)[:3]
+        context['cars'] = Car.objects.filter(state=True)[:30]
+        context['featured'] = Car.objects.filter(featured=True,state=True)[:3]
         context['articles'] = Article.objects.all().order_by('-id')[:3]
         context['blogs'] = Article.objects.all().order_by('-id')[4:6]
         context['makes'] = Make.objects.all()
@@ -269,11 +267,13 @@ class CarDetailView(DetailView):
                     model_year=favorite.model_year
                     image=favorite.image
                     image_url=self.request.GET.get("image")
+                    image_url=image_url.replace("media","")
                     transmission=favorite.transmission
                     fuel_type=favorite.fuel_type
                     condition=favorite.condition
                     use_state=favorite.use_state
-                    book_check=Bookmark.objects.filter(title=title,creator=self.request.user)
+                    slug=item
+                    book_check=Bookmark.objects.filter(title=title,creator=self.request.user,slug=slug)
                     if book_check:
                         pass
                     else:
@@ -308,6 +308,34 @@ class CarDetailView(DetailView):
             reason=self.request.GET.get('reason')
             report=Report.objects.create(title=title,reason=reason)
             report.save()
+        if self.request.GET.get('sub')=="true":
+            email=self.request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                context['message']=' This Email is Subscribed Already'
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                context['message']='Subscribed Successfully'
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
         context['cars'] = Car.objects.all()
         context['other'] = Car.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         objects.filter(category=obj.category).order_by("-id")
         paginator= Paginator(Car.objects.filter(category=obj.category).order_by("-id"),10)
@@ -477,6 +505,34 @@ class CategoryListView(ListView):
                     transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
                     book.save()
                     context['search']
+        if self.request.GET.get('sub')=="true":
+            email=self.request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                context['message']=' This Email is Subscribed Already'
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                context['message']='Subscribed Successfully'
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
         if search:
             paginator= Paginator(search,10)
             page_number = self.request.GET.get('page')
@@ -611,6 +667,34 @@ class ArticleListView(ListView):
     template_name = "blog-main.html"
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
+        if self.request.GET.get('sub')=="true":
+            email=self.request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                context['message']=' This Email is Subscribed Already'
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                context['message']='Subscribed Successfully'
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
         context['blogs'] = Article.objects.all()
         blog=Article.objects.all()
@@ -640,6 +724,34 @@ class ArticleDetailView(DetailView):
             comment=self.request.GET.get("comment")
             new_comment=Comment.objects.create(name=name,email=email,comment=comment,blog=obj.title)
             new_comment.save()
+        if self.request.GET.get('sub')=="true":
+            email=self.request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                context['message']=' This Email is Subscribed Already'
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                context['message']='Subscribed Successfully'
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
 
         context['latest'] = Car.objects.all().order_by('-id')[:3]
@@ -866,45 +978,45 @@ def cars_for_sale(request):
     search=''
     if request.GET.get('second_check')=="two":
         second_check="two"
-        query= self.request.GET.get('search')
+        query= request.GET.get('search')
         if query:
-            query= self.request.GET.get('search')
+            query= request.GET.get('search')
         else:
             query="a"
         print(query)
-        category= self.request.GET.get('category')
+        category= request.GET.get('category')
         if category:
-            category= self.request.GET.get('category')
+            category= request.GET.get('category')
         else:
             category=""
-        model= self.request.GET.get('model')
+        model= request.GET.get('model')
         if model:
-            model= self.request.GET.get('model')
+            model= request.GET.get('model')
         else:
             model=''
-        make= self.request.GET.get('make')
+        make= request.GET.get('make')
         if make:
-            make= self.request.GET.get('make')
+            make= request.GET.get('make')
         else:
             make=''
-        year_min=self.request.GET.get('year_min')
+        year_min=request.GET.get('year_min')
         if year_min:
             new_year_min=int(year_min)
         else:
             new_year_min=1950
-        year_max=self.request.GET.get('year_max')
+        year_max=request.GET.get('year_max')
         if year_max:
             new_year_max=int(year_max)
         else:
             new_year_max=2020
-        price_min=self.request.GET.get('price_min')
+        price_min=request.GET.get('price_min')
         price_min=price_min.replace("$","")
         price_min=price_min.replace(",","")
         if price_min:
             new_price_min=int(price_min)
         else:
             new_price_min=1000
-        price_max=self.request.GET.get('price_max')
+        price_max=request.GET.get('price_max')
         price_max=price_max.replace("$","")
         price_max=price_max.replace(",","")
         if price_max:
@@ -912,31 +1024,31 @@ def cars_for_sale(request):
         else:
             new_price_max=1000000
         print(new_price_max)
-        fuel_type=self.request.GET.get('fuel_type')
+        fuel_type=request.GET.get('fuel_type')
         if fuel_type:
             fuel_type= self.request.GET.get('fuel_type')
         else:
             fuel_type='e'
-        condition=self.request.GET.get('condition')
+        condition=request.GET.get('condition')
         if condition:
             condition= self.request.GET.get('condition')
         else:
             condition='e'
-        transmission=self.request.GET.get('transmission')
+        transmission=request.GET.get('transmission')
         if transmission:
-            transmission=self.request.GET.get('transmission')
+            transmission=request.GET.get('transmission')
         else:
             transmission=""
-        radius=self.request.GET.get('radius')
+        radius=request.GET.get('radius')
         if radius:
-            radius=self.request.GET.get('radius')
+            radius=request.GET.get('radius')
         else:
             radius="300"
         arrange=request.GET.get("arrange")
         if arrange:
             pass
         else:
-            arrange=""
+            arrange="reg_date"
         if second_check=="two":
             search = Car.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max))).order_by(arrange)
             context={"search":search}
@@ -944,6 +1056,43 @@ def cars_for_sale(request):
             search = Car.objects.none()
             context={'search':search}
             print(search)
+    if request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already"}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already"}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"cars-for-sale.html",context)
     if search:
         paginator= Paginator(search,10)
         page_number = request.GET.get('page')
@@ -954,8 +1103,8 @@ def cars_for_sale(request):
         if arrange:
             pass
         else:
-            arrange=""
-        paginator= Paginator(Car.objects.all().order_by(arrange),10)
+            arrange="reg_date"
+        paginator= Paginator(Car.objects.filter(state=True,type="sell").order_by(arrange),10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context={"page_obj":page_obj}
@@ -1001,15 +1150,52 @@ def sell_car_1(request):
         slug=title.replace(" ","")
         context={"message":"title already exist"}
         if Car.objects.filter(slug=slug):
-            return render(request,"sell_car_1.html",context)
+            return render(request,"sell-car-1.html",context)
         else:
-            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,user=request.user,slug=slug)
+            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
             car.save()
             for x in image:
                 new_image=Images.objects.create(title=title,image=x)
                 new_image.save()
                 car.image.add(new_image)
             return redirect("sell-car-3.html")
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"sell-car-1.html",context)
     else:
         return render(request,"sell-car-1.html")
 
@@ -1018,13 +1204,50 @@ def sell_car_2(request):
 
 def sell_car_3(request):
     global slug
-    print(slug)
     if request.GET.get("package"):
         car=Car.objects.get(slug=slug)
         package=request.GET.get("package")
         car.package=package
+        car.state=True
         car.save()
         return redirect("sell-car.html")
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"sell-car-3.html",context)
     else:
         return render(request,"sell-car-3.html")
 
@@ -1069,15 +1292,52 @@ def swap2(request):
         slug=title.replace(" ","")
         context={"message":"title already exist"}
         if Car.objects.filter(slug=slug):
-            return render(request,"sell_car_1.html",context)
+            return render(request,"swap2.html",context)
         else:
-            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,user=request.user,slug=slug)
+            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,user=request.user,type="swap",slug=slug)
             car.save()
             for x in image:
                 new_image=Images.objects.create(title=title,image=x)
                 new_image.save()
                 car.image.add(new_image)
-            return redirect("swap2.html")
+            return redirect("swap3.html")
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"swap2.html",context)
     else:
         return render(request,"swap2.html")
 def swap3(request):
@@ -1087,39 +1347,152 @@ def swap3(request):
         car=Car.objects.get(slug=slug)
         package=request.GET.get("package")
         car.package=package
+        car.state=True
         car.save()
-        return redirect("swap.html")
+        context={"message":"Added Successfully"}
+        return redirect("swap3.html")
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"swap3.html",context)
     else:
         return render(request,"swap3.html")
 def signup(request):
     return render(request,"signup.html")
 
 def car_loan(request):
-    if request.method=="GET":
-        name=request.GET.get("name")
-        email=request.GET.get("email")
-        phone=request.GET.get("phone")
-        state=request.GET.get("state")
-        job=request.GET.get("job")
-        employer=request.GET.get("employer")
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        state=request.POST.get("state")
+        job=request.POST.get("job")
+        employer=request.POST.get("employer")
         loan=Loan.objects.create(name=name,email=email,phone=phone,state=state,job=job,employer=employer)
         loan.save()
         context={"message":"submitted successfully"}
         return render(request,"car-loan.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"car-loan.html",context)
     else:
         return render(request,"car-loan.html")
 def car_insurance(request):
-    if request.method=="GET":
-        name=request.GET.get("name")
-        email=request.GET.get("email")
-        phone=request.GET.get("phone")
-        state=request.GET.get("state")
-        job=request.GET.get("job")
-        employer=request.GET.get("employer")
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        state=request.POST.get("state")
+        job=request.POST.get("job")
+        employer=request.POST.get("employer")
         insure=Insurance.objects.create(name=name,email=email,phone=phone,state=state,job=job,employer=employer)
         insure.save()
         context={"message":"submitted successfully"}
         return render(request,"car-insurance.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"car-insurance.html",context)
     else:
         return render(request,"car-insurance.html")
 
@@ -1135,20 +1508,94 @@ def clearing(request):
         clear.save()
         context={"message":"submitted successfully"}
         return render(request,"clearing.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"clearing.html",context)
     else:
         return render(request,"clearing.html")
 def car_registration(request):
-    if request.method=="GET":
-        name=request.GET.get("name")
-        email=request.GET.get("email")
-        phone=request.GET.get("phone")
-        make=request.GET.get("make")
-        model=request.GET.get("model")
-        year=request.GET.get("year")
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        make=request.POST.get("make")
+        model=request.POST.get("model")
+        year=request.POST.get("year")
         clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         clear.save()
         context={"message":"submitted successfully"}
         return render(request,"car-registration.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"cars-registration.html",context)
     else:
         return render(request,"car-registration.html")
 
@@ -1160,10 +1607,47 @@ def car_delivery(request):
         make=request.GET.get("make")
         model=request.GET.get("model")
         year=request.GET.get("year")
-        clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
-        clear.save()
+        delivery=Delivery.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
+        delivery.save()
         context={"message":"submitted successfully"}
         return render(request,"car-delivery.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"car-delivery.html",context)
     else:
         return render(request,"car-delivery.html")
 
@@ -1243,4 +1727,173 @@ def become_dealer(request):
 
 def dashboard(request):
     context={"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.all(),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
+    if request.GET.get("remove")=="true":
+        title=request.GET.get("title")
+        item=Bookmark.objects.get(title=title)
+        item.delete()
+        return render(request,"dashboard.html",context)
+    elif request.GET.get("delete")=="true":
+        title=request.GET.get("title")
+        item=Car.objects.get(title=title)
+        item.delete()
+        return render(request,"dashboard.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"dashboard.html",context)
     return render(request,"dashboard.html",context)
+
+
+def about(request):
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        make=request.POST.get("make")
+        year=request.POST.get("year")
+        service=request.POST.get("service")
+        info=request.POST.get("info")
+        quote=Quote.objects.create(name=name,email=email,phone=phone,make=make,year=year,service=service,info=info)
+        quote.save()
+        context={"message":"Submitted Successfully","image":Images.objects.all()[0:10]}
+        return render(request,"about.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"about.html",context)
+    else:
+        context={"image":Images.objects.all()[0:10]}
+        return render(request,"about.html",context)
+
+
+def contact(request):
+    if request.method=='POST':
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        message=request.POST.get("message")
+        fromaddr = "housing-send@advancescholar.com"
+        toaddr = "housing@advancescholar.com"
+        subject=request.POST.get('subject')
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = name + "-" + subject
+
+
+        body = message +"-"+"email" + email
+        msg.attach(MIMEText(body, 'plain'))
+
+        server = smtplib.SMTP('mail.advancescholar.com',  26)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        context={"message":"Sent successfully"}
+        return render(request, "contacts.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"contacts.html",context)
+    else:
+        return render(request, "contacts.html")

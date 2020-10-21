@@ -28,7 +28,7 @@ urlpatterns = [
     path("signup.html", views.signup, name="signup"),
     path("swap.html", views.swap, name="swap"),
     path("swap2.html", views.swap2, name="swap2"),
-    path("swap3.html", views.swap2, name="swap3"),
+    path("swap3.html", views.swap3, name="swap3"),
     path("profile", views.profile, name="profile"),
     path("cars-for-sale.html", views.cars_for_sale, name="cars-for-sale"),
     path("bookmark", views.bookmark, name="bookmark"),
@@ -41,8 +41,12 @@ urlpatterns = [
     path("car-delivery.html", views.car_delivery, name="car-delivery"),
     path("user.html", views.user, name="user"),
     path("user_login.html", views.user_login, name="user_login"),
-    path("become-dealer.html", views.become_dealer, name="become-dealer.html"),
-    path("dashboard.html", views.dashboard, name="dashboard")
+    path("become-dealer.html", views.become_dealer, name="become-dealer"),
+    path("dashboard.html", views.dashboard, name="dashboard"),
+    path("about.html", views.about, name="about"),
+    path("contact.html", views.contact, name="contact"),
+
+
 
 
 

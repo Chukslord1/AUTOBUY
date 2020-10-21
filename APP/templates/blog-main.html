@@ -1,12 +1,11 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="zxx">
  <head>
   <meta charset="utf-8"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
   <title>
-   Autlines / Blog
+   Autobuy / Nigeria's Automobile Marketplace
   </title>
   <meta content="" name="description"/>
   <meta content="" name="keywords"/>
@@ -20,13 +19,7 @@
 <![endif]-->
  </head>
  <body class="page">
-  <!-- Loader-->
-  <div id="page-preloader">
-   <span class="spinner border-t_second_b border-t_prim_a">
-   </span>
-  </div>
-  <!-- Loader end-->
-  <div class="l-theme animated-css" data-canvas="container" data-header="sticky" data-header-top="200">
+  <div class="l-theme animated-css" data-canvas="container" data-header="sticky" data-header-top="150">
    <!-- ==========================-->
    <!-- SEARCH MODAL-->
    <!-- ==========================-->
@@ -35,16 +28,16 @@
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global">
-         <input autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
-         <button class="search-global__btn">
-          <i class="icon stroke icon-Search">
-          </i>
-         </button>
-         <div class="search-global__note">
-          Begin typing your search above and press return to search.
-         </div>
-        </form>
+         <form class="search-global">
+          <input id="search" autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
+          <button class="search-global__btn" onclick="showOutput1()">
+           <i class="icon stroke icon-Search">
+           </i>
+          </button>
+          <div class="search-global__note">
+           Begin typing your search above and press return to search.
+          </div>
+         </form>
        </div>
       </div>
      </div>
@@ -58,160 +51,104 @@
    <!-- MOBILE MENU-->
    <!-- ==========================-->
    <div data-off-canvas="mobile-slidebar left overlay">
-    <ul class="navbar-nav">
-     <li class="nav-item active">
-      <a class="nav-link" href="home.html">
-       Home
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="about.html">
-       About
-      </a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link">
-       Inventory
-      </a>
-      <ul class="mobile-sub-menu">
-       <li>
-        <a href="inventory-grid.html">
-         Inventory grid
-        </a>
-       </li>
-       <li>
-        <a href="inventory-listings.html">
-         Inventory listings
-        </a>
-       </li>
-       <li>
-        <a href="vehicle-details.html">
-         Vehicle details
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link">
-       Reservation
-      </a>
-      <ul class="mobile-sub-menu">
-       <li>
-        <a href="reservation-grid.html">
-         Reservation car
-        </a>
-       </li>
-       <li>
-        <a href="booking-system.html">
-         Reservation service
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link">
-       News
-      </a>
-      <ul class="mobile-sub-menu">
-       <li>
-        <a href="blog-main.html">
-         Blog main
-        </a>
-       </li>
-       <li>
-        <a href="blog-grid.html">
-         Blog grid
-        </a>
-       </li>
-       <li>
-        <a href="blog-post.html">
-         Blog post
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="contacts.html">
-       Contact
-      </a>
-     </li>
-    </ul>
+     <ul class="navbar-nav">
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
+        Cars For Sale
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:sell-car' %}">
+        Sell
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:swap' %}">
+        Swap
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Finance
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="{% url 'APP:car-loan' %}">
+          Car Loan
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-insurance' %}">
+          Car Insurance
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Other Services
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="c{% url 'APP:clearing' %}">
+          Clearing
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-registration' %}">
+          Car Registration
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:car-delivery' %}">
+          Car Delivery
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link">
+        Reservations
+       </a>
+       <ul class="mobile-sub-menu">
+        <li>
+         <a href="{% url 'APP:reservation' %}">
+          Reservation Car
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'APP:booking' %}">
+          Reservation Service
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:blog_list' %}">
+        News
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:become-dealer' %}">
+        Become A Dealer
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:sell-car' %}">
+        Sell
+       </a>
+      </li>
+     </ul>
    </div>
    <header class="header">
-    <div class="top-bar">
-     <div class="container-fluid">
-      <div class="row justify-content-between align-items-center">
-       <div class="col-auto">
-        <div class="top-bar__item">
-         <i class="ic fas fa-map-marker-alt text-primary">
-         </i>
-         Call Us 24/7!
-         <a class="top-bar__link" href="tel:+17553028549">
-          +1 755 302 8549
-         </a>
-        </div>
-        <div class="top-bar__item">
-         <i class="ic fas fa-envelope text-primary">
-         </i>
-         Email
-         <a class="top-bar__link" href="mailto:support@autlines.com">
-          support@autlines.com
-         </a>
-        </div>
-        <div class="top-bar__item">
-         <i class="ic fas fa-clock text-primary">
-         </i>
-         Opening Hours
-         <span class="top-bar__link">
-          Mon  to Fri : 9:00am to 6:00pm
-         </span>
-        </div>
-       </div>
-       <div class="col-auto">
-        <ul class="header-soc list-unstyled">
-         <li class="header-soc__item">
-          <a class="header-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-twitter">
-           </i>
-          </a>
-         </li>
-         <li class="header-soc__item">
-          <a class="header-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-behance">
-           </i>
-          </a>
-         </li>
-         <li class="header-soc__item">
-          <a class="header-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-facebook-f">
-           </i>
-          </a>
-         </li>
-         <li class="header-soc__item">
-          <a class="header-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-instagram">
-           </i>
-          </a>
-         </li>
-         <li class="header-soc__item">
-          <a class="header-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-youtube">
-           </i>
-          </a>
-         </li>
-        </ul>
-       </div>
-      </div>
-     </div>
-    </div>
     <div class="header-main">
      <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
        <div class="col-auto">
-        <a class="navbar-brand navbar-brand_light scroll" href="home.html">
+        <a class="navbar-brand navbar-brand_light scroll" href="{% url 'APP:index' %}">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
         </a>
-        <a class="navbar-brand navbar-brand_dark scroll" href="home.html">
+        <a class="navbar-brand navbar-brand_dark scroll" href="{% url 'APP:index' %}">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
         </a>
        </div>
@@ -238,92 +175,154 @@
        <div class="col-xl d-none d-xl-block">
         <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
          <ul class="yamm main-menu navbar-nav">
-          <li class="nav-item active">
-           <a class="nav-link dropdown-toggle" href="home.html">
-            Home
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="home.html">
-             Home 1
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
+             Cars For Sale
             </a>
-            <a class="dropdown-item" href="home-2.html">
-             Home 2
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:sell-car' %}">
+             Sell
             </a>
-           </div>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="about.html">
-            About
-           </a>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Inventory
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="inventory-grid.html">
-             Inventory grid
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:swap' %}">
+             Swap
             </a>
-            <a class="dropdown-item" href="inventory-listings.html">
-             Inventory listings
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">
+             Finance
             </a>
-            <a class="dropdown-item" href="vehicle-details.html">
-             Vehicle details
+            <div class="dropdown-menu">
+             <a class="dropdown-item" href="{% url 'APP:car-loan' %}">
+              Car Loan
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-insurance' %}">
+              Car Insurance
+             </a>
+            </div>
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">
+             Other Services
             </a>
-           </div>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            Reservation
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="reservation-grid.html">
-             Reservation car
-            </a>
-            <a class="dropdown-item" href="booking-system.html">
-             Reservation service
-            </a>
-           </div>
-          </li>
-          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#">
-            News
-           </a>
-           <div class="dropdown-menu">
-            <a class="dropdown-item" href="blog-main.html">
-             Blog main
-            </a>
-            <a class="dropdown-item" href="blog-grid.html">
-             Blog grid
-            </a>
-            <a class="dropdown-item" href="blog-post.html">
-             Blog post
-            </a>
-           </div>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="contacts.html">
-            Contact
-           </a>
-          </li>
+            <div class="dropdown-menu">
+             <a class="dropdown-item" href="{% url 'APP:clearing' %}">
+              Clearing
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-registration' %}">
+              Car Registration
+             </a>
+             <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
+              Car Delivery
+             </a>
+            </div>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              Reservation
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:reservation' %}">
+               Reservation car
+              </a>
+              <a class="dropdown-item" href="{% url 'APP:booking' %}">
+               Reservation service
+              </a>
+             </div>
+            </li>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              News
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:blog_list' %}">
+               Blog List
+              </a>
+             </div>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link" href="{% url 'APP:become-dealer' %}">
+              Become a dealer
+             </a>
+            </li>
          </ul>
-         <a class="header-main__link" href="home.html">
+         {% if user.is_authenticated %}
+         <a class="header-main__link" href="{% url 'APP:dashboard' %}">
           <i class="ic icon-user">
           </i>
          </a>
+       </ul>
+       {% else %}
+       <a class="header-main__link" href="{% url 'APP:user' %}">
+        <i class="ic icon-user">
+        </i>
+       </a>
+         {% endif %}
          <span class="header-main__link btn_header_search">
           <i class="ic icon-magnifier">
           </i>
          </span>
-         <button class="header-main__btn btn btn-secondary">
-          Take a test drive
-         </button>
         </nav>
        </div>
       </div>
      </div>
     </div>
    </header>
+   <script>
+   function showOutput1 () {
+     var value_4=document.getElementById("search").value;
+     var queryString = "?second_check="+ "two";
+     window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
+   }
+   function showOutput () {
+     if (document.getElementById("option1").checked == true){
+       var value_4=document.getElementById("option1").value;
+     } else if (document.getElementById("option2").checked == true){
+       var value_4=document.getElementById("option2").value;
+     } else if (document.getElementById("option3").checked == true){
+       var value_4=document.getElementById("option3").value;
+     }else if (document.getElementById("option4").checked == true){
+       var value_4=document.getElementById("option4").value;
+     }else if (document.getElementById("option5").checked == true){
+       var value_4=document.getElementById("option5").value;
+     }else if (document.getElementById("option6").checked == true){
+       var value_4=document.getElementById("option6").value;
+     }else if (document.getElementById("option7").checked == true){
+       var value_4=document.getElementById("option7").value;
+     }else if (document.getElementById("option8").checked == true){
+       var value_4=document.getElementById("option8").value;
+     }
+     else {
+       var value_4="";
+     }
+     if (document.getElementById("use1").checked == true){
+       var value_5=document.getElementById("use1").value;
+     } else if (document.getElementById("use2").checked == true){
+       var value_5=document.getElementById("use2").value;
+     } else if (document.getElementById("use3").checked == true){
+       var value_5=document.getElementById("use3").value;
+     }else if (document.getElementById("use4").checked == true){
+       var value_5=document.getElementById("use4").value;
+     }else {
+       var value_5="";
+     }
+     var value_3=document.getElementById("make").value;
+     var value_2=document.getElementById("model").value;
+     var value_1=document.getElementById("min_price").value;
+     var value=document.getElementById("max_price").value;
+
+
+     var paid="two";
+     var queryString = "?second_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
+     window.location.href="search" + queryString;
+   }
+   function showOutput1 () {
+     var value_4=document.getElementById("search").value;
+     var queryString = "?second_check="+ "two";
+     window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
+   }
+   </script>
    <!-- end .header-->
    <div class="section-title-page area-bg area-bg_dark area-bg_op_60">
     <div class="area-bg__inner">
@@ -357,7 +356,7 @@
         {% for item in article %}
        <section class="b-post b-post-2 row">
         <div class="entry-media col-lg-6">
-         <a class="js-zoom-images" href="{{item.get_absolute_url}}">
+         <a href="{{item.get_absolute_url}}">
           <img alt="{{item.image}}" class="img-scale" src="{% get_media_prefix %}{{item.image}}"/>
          </a>
         </div>
@@ -464,18 +463,26 @@
          <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
         </a>
         <div class="footer-info">
-         Ceipisicing elit sed do eiusmod tempor laboe dolore magna aliqa Ut enim ad minim veniam quis nostrud exercitation ullam co laboris nis aliquip comsecd sed ipsum.
+         Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
+                    from vehicle delivery available in the 36 states to premium automobile services in the major cities.
         </div>
        </div>
        <section class="footer-section">
         <h3 class="footer-section__title footer-section__title_sm">
          Subscribe Newsletter
         </h3>
-        <form class="footer-form">
+        <script>
+        function news(){
+          document.getElementById("news").submit();
+        }
+        </script>
+        {{message}}
+        <form id="news" class="footer-form" method="GET">
          <div class="form-group">
-          <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-          <i class="ic far fa-envelope-open">
-          </i>
+           <input name="sub" type="hidden" value="true"/>
+          <input name="email" class="footer-form__input form-control" placeholder="your email" type="email"/>
+          <button  onclick="news()" class="ic far fa-envelope-open">
+          </button>
          </div>
         </form>
        </section>
@@ -483,7 +490,7 @@
       <div class="col-lg-3 col-md-6">
        <section class="footer-section pl-4">
         <h3 class="footer-section__title">
-         Dealer Information
+         Our Hours
         </h3>
         <div class="footer-hours">
          <div class="footer-hours__title">
@@ -509,13 +516,13 @@
         </div>
         <div class="footer-hours">
          <div class="footer-hours__title">
-          Parts Shop Hours
+          Online Shop Hours
          </div>
          <div class="footer-hours__info">
-          Mon - Fri:  09:00 am to 06:00 pm
+          24 Hours
          </div>
          <div class="footer-hours__info">
-          Sat: 10:00am to 05:00 pm
+          7 days a week
          </div>
         </div>
        </section>
@@ -523,47 +530,57 @@
       <div class="col-lg-3 col-md-6">
        <section class="footer-section footer-section_link pl-4">
         <h3 class="footer-section__title">
-         About Autlines
+         About autobuy
         </h3>
         <ul class="footer-list list-unstyled">
          <li>
-          <a href="#">
+          <a href="index.hmtl">
            Home
           </a>
          </li>
          <li>
-          <a href="#">
-           Services
+          <a href="cars-for-sale.html">
+           Cars For Sale
           </a>
          </li>
          <li>
-          <a href="#">
+          <a href="about.html">
            About us
           </a>
          </li>
          <li>
-          <a href="#">
-           Inventory
+          <a href="news.html">
+           News
           </a>
          </li>
          <li>
-          <a href="#">
-           Parts Shop
+          <a href="clearing.html">
+           Vehicle Clearing
           </a>
          </li>
          <li>
-          <a href="#">
-           Contact us
+          <a href="car-registration.html">
+           Vehicle Registration
           </a>
          </li>
          <li>
-          <a href="#">
-           Buy or Sell Cars
+          <a href="car-delivery.html">
+           Vehicle Delivery
           </a>
          </li>
          <li>
-          <a href="#">
-           Featured Vehicles
+          <a href="privary-policy.html">
+           Privacy Policy
+          </a>
+         </li>
+         <li>
+          <a href="terms-and-conditions.html#">
+           Terms and Conitions
+          </a>
+         </li>
+         <li>
+          <a href="contact.html">
+           Contact Us
           </a>
          </li>
         </ul>
@@ -578,37 +595,30 @@
          <div class="footer-contacts__item">
           <i class="ic icon-location-pin">
           </i>
-          Fairview Ave, El Monte, CA 91732
+          Abuja: 4, A Close, 1st Ave. Gwarinpa
+         </div>
+         <div class="footer-contacts__item">
+          <i class="ic icon-location-pin">
+          </i>
+          Lagos: 562, Lagos Abeokuta Express, Road, Ijaye Ojokoro
          </div>
          <div class="footer-contacts__item">
           <i class="ic icon-envelope">
           </i>
           <a href="mailto:support@domain.com">
-           support@domain.com
+           hello@autobuy.ng
           </a>
          </div>
          <div class="footer-contacts__item">
           <i class="ic icon-earphones-alt">
           </i>
           Phone:
-          <a class="footer-contacts__phone" href="tel:+17553028549">
-           +1 755 302 8549
+          <a class="footer-contacts__phone" href="tel:+2348116441634">
+           +234 811 644 1634
           </a>
          </div>
         </div>
         <ul class="footer-soc list-unstyled">
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-twitter">
-           </i>
-          </a>
-         </li>
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-behance">
-           </i>
-          </a>
-         </li>
          <li class="footer-soc__item">
           <a class="footer-soc__link" href="#" target="_blank">
            <i class="ic fab fa-facebook-f">
@@ -623,21 +633,18 @@
          </li>
          <li class="footer-soc__item">
           <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-youtube">
+           <i class="ic fab fa-linkedin">
            </i>
           </a>
          </li>
         </ul>
-        <a class="btn btn-white" href="#">
-         Take a test drive
-        </a>
        </section>
       </div>
      </div>
     </div>
     <div class="footer-copyright">
      <div class="container">
-      (c) 2019 AUTLINES - Auto Dealer Template. All rights reserved.
+      (c) 2020 autobuy - Nigeria's Automobile Marketplace. All rights reserved.
      </div>
     </div>
    </footer>
@@ -686,6 +693,17 @@
   </script>
   <!-- Scale images-->
   <script src="{% static 'assets/plugins/ofi.min.js' %}">
+  </script>
+  <!-- Main slider-->
+  <script src="{% static 'assets/plugins/slider-pro/jquery.sliderPro.min.js' %}">
+  </script>
+  <!-- Sliders-->
+  <script src="{% static 'assets/plugins/slick/slick.js' %}">
+  </script>
+  <!-- Slider number-->
+  <script src="{% static 'assets/plugins/noUiSlider/wNumb.js' %}">
+  </script>
+  <script src="{% static 'assets/plugins/noUiSlider/nouislider.min.js' %}">
   </script>
   <!-- User customization-->
   <script src="{% static 'assets/js/custom.js' %}">

@@ -632,9 +632,18 @@
          <div class="document__date">
           {{item.price}}
          </div>
-         <button class="btn-primary">
+         <script>
+         function submit{{item.slug}} () {
+           var value=document.getElementById("myForm{{item.slug}}").submit();
+         }
+         </script>
+         <form id="myForm{{item.slug}}" method="GET">
+          <input  type="hidden" name="delete" value="true"/>
+         <input id="title" type="hidden" name="title" value="{{item.title}}"/>
+         <button class="btn-primary" onclick="submit{{item.slug}}()">
           Remove
          </button>
+       </form>
         </div>
        </div>
        {% endfor %}
@@ -650,11 +659,16 @@
       </div>
       <div class="card">
         {% for item in favorites %}
+        <script>
+        function submit2{{item.slug}} () {
+          var value=document.getElementById("theForm{{item.slug}}").submit();
+        }
+        </script>
        <div class="documents">
         <div class="document">
          <div class="document__img">
           <a href="#">
-           <img src="{% static './assets/media/general/1767018200.jpg' %}"/>
+           <img alt="photo" class="img-scale" src="{{item.image.url}}"/>
           </a>
          </div>
          <div class="document__title">
@@ -665,9 +679,13 @@
          <div class="document__date">
           {{item.price}}
          </div>
-         <button class="btn-primary">
+         <form id="theForm{{item.slug}}" method="GET">
+          <input  type="hidden" name="remove" value="true"/>
+         <input id="title" type="hidden" name="title" value="{{item.title}}"/>
+         <button class="btn-primary" onclick="submit2{{item.slug}}()">
           Remove
          </button>
+       </form>
         </div>
        </div>
        {% endfor %}
