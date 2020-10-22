@@ -260,9 +260,17 @@
             window.location.href="?report=true";
           }
           function book(){
-            window.location.href="?third_check=three";
+            var book= document.getElementById("slug").value;
+            var image= document.getElementById("image").value;
+            window.location.href="?third_check=three"+"&item="+book+"&image="+image;
           }
           </script>
+          <input type="hidden" id="slug" name="item" value={{object.slug}} />
+          {% for item in object.image.all %}
+            {% if forloop.first %}
+            <input name="image" id="image" type="hidden" value="{% get_media_prefix %}{{item.image}}" />
+            {% endif %}
+            {% endfor %}
          <a class="b-goods-f__links-item" onclick="book()">
           <i class="ic fas fa-star text-primary">
           </i>
@@ -476,10 +484,15 @@
             Message Seller
            </span>
           </h3>
+          <script>
+          function jump(){
+            document.getElementById("myForm").submit();
+          }
+          </script>
           <div class="widget-content">
            <div class="widget-inner">
              {{message}}
-            <form method="POST">
+            <form  id="myForm" method="POST">
               {% csrf_token %}
              <div class="form-group">
               <input name="name" class="form-control" placeholder="Name" type="text"/>
@@ -488,7 +501,7 @@
              <div class="form-group">
               <textarea name="message" class="form-control" placeholder="Message" rows="5"></textarea>
              </div>
-             <button type="submit" class="btn btn-secondary w-100">
+             <button class="btn btn-secondary w-100" onclick="jump()">
               send message now
              </button>
             </form>

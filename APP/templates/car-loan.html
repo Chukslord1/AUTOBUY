@@ -244,15 +244,7 @@
 
    <script>
    function jump () {
-     var name=document.getElementById("name").value;
-     var email=document.getElementById("email").value;
-     var phone=document.getElementById("phone").value;
-     var state=document.getElementById("state").value;
-     var job=document.getElementById("job").value;
-     var employer=document.getElementById("employer").value;
-
-     var queryString = "?name=" +name + "&email="+ email + "&phone=" + phone + "&state="+ state +"&job=" + job + "&employer="+ employer;
-     window.location.href= "car-loan.html" + queryString;
+     document.getElementById("myForm").submit();
    }
    </script>
    <!-- end .b-title-page-->
@@ -266,7 +258,7 @@
        Get Quick Car Financing
       </h2>
      </div>
-     <form class="ui-form pt-5 pb-xl-4" method="POST">
+     <form id="myForm" action="{% url 'APP:car-loan' %}" method="POST">
        {% csrf_token %}
       <div class="row">
        <div class="col-md-4">

@@ -98,6 +98,8 @@ class Bookmark(models.Model):
     creator=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
     price=models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.title
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
@@ -162,6 +164,9 @@ class Question(models.Model):
 class Report(models.Model):
     title=models.TextField(blank=True, null=True)
     reason=models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Make(models.Model):

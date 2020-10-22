@@ -259,31 +259,31 @@ class CarDetailView(DetailView):
             if self.request.user.is_authenticated:
                 item=self.request.GET.get('item')
                 favorite=Car.objects.get(slug=item)
-                title=favorite.title
-                power=favorite.power
-                speed=favorite.speed
-                category=favorite.category
-                model=favorite.model
-                price=favorite.price
-                model_year=favorite.model_year
-                image=favorite.image
-                image_url=image.replace('/media/','')
-                transmission=favorite.transmission
-                fuel_type=favorite.fuel_type
-                condition=favorite.condition
-                use_state=favorite.use_state
-                book_check=Bookmark.objects.filter(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
-                transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
-                if book_check:
-                    pass
-                else:
-                    book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
-                    transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
-                    book.save()
+                if favorite:
+                    title=favorite.title
+                    power=favorite.power
+                    speed=favorite.speed
+                    category=favorite.category
+                    model=favorite.model
+                    price=favorite.price
+                    model_year=favorite.model_year
+                    image=favorite.image
+                    image_url=self.request.GET.get("image")
+                    transmission=favorite.transmission
+                    fuel_type=favorite.fuel_type
+                    condition=favorite.condition
+                    use_state=favorite.use_state
+                    book_check=Bookmark.objects.filter(title=title,creator=self.request.user)
+                    if book_check:
+                        pass
+                    else:
+                        book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
+                        transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
+                        book.save()
         elif self.request.method=="POST":
-            name=request.POST.get("name")
-            email=request.POST.get("email")
-            message=request.POST.get("message")
+            name=self.request.POST.get("name")
+            email=self.request.POST.get("email")
+            message=self.request.POST.get("message")
             fromaddr = "housing-send@advancescholar.com"
             toaddr = email
             subject="Car Request"
@@ -852,7 +852,7 @@ def booking(request):
         return render(request,"booking-system.html",context)
     elif request.method=="GET":
         email=request.GET.get("email")
-        if NewsLetter.objects.get(email=email):
+        if NewsLetter.objects.filter(email=email):
             context={"news":"email already subscribed"}
             return render(request,"booking-system.html",context)
         else:

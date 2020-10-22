@@ -99,9 +99,9 @@ function CharsStart() {
     });
 }
 
-
-
-
+    
+    
+    
 
 
 
@@ -276,7 +276,7 @@ function CharsStart() {
           step: 100,
           format: wNumb({
             decimals: 0,
-            prefix: '₦',
+            prefix: '$',
             thousand: ','
           }),
           range: {
@@ -368,3 +368,4 @@ if ($('.player').length) {
   }
 
 });
+
