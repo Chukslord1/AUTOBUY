@@ -302,7 +302,7 @@ class CarDetailView(DetailView):
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             context["message"]:"Successfully Submitted  Request"
-        elif self.request.GET.get('report')=="true":
+        elif self.request.GET.get('report')=="True":
             item=Car.objects.get(title=obj.title)
             title=item.title
             reason=self.request.GET.get('reason')
@@ -362,16 +362,16 @@ class SearchListView(ListView):
             else:
                 new_year_max=2020
             price_min=self.request.GET.get('price_min')
-            price_min=price_min.replace("$","")
-            price_min=price_min.replace(",","")
             if price_min:
+                price_min=price_min.replace("$","")
+                price_min=price_min.replace(",","")
                 new_price_min=int(price_min)
             else:
                 new_price_min=1000
             price_max=self.request.GET.get('price_max')
-            price_max=price_max.replace("$","")
-            price_max=price_max.replace(",","")
             if price_max:
+                price_max=price_max.replace("$","")
+                price_max=price_max.replace(",","")
                 new_price_max=int(price_max)
             else:
                 new_price_max=1000000
@@ -932,8 +932,13 @@ def cars_for_sale(request):
             radius=self.request.GET.get('radius')
         else:
             radius="300"
+        arrange=request.GET.get("arrange")
+        if arrange:
+            pass
+        else:
+            arrange=""
         if second_check=="two":
-            search = Car.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
+            search = Car.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max))).order_by(arrange)
             context={"search":search}
         else:
             search = Car.objects.none()
@@ -945,7 +950,12 @@ def cars_for_sale(request):
         page_obj = paginator.get_page(page_number)
         context={"page_obj":page_obj}
     else:
-        paginator= Paginator(Car.objects.all(),10)
+        arrange=request.GET.get("arrange")
+        if arrange:
+            pass
+        else:
+            arrange=""
+        paginator= Paginator(Car.objects.all().order_by(arrange),10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context={"page_obj":page_obj}

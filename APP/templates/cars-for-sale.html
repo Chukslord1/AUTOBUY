@@ -712,36 +712,42 @@ function date () {
            of total 56
           </div>
          </div>
+         <script>
+         function pricelow () {
+           var value=document.getElementById("pricelow").value;
+           var value2=document.URL;
+           var value3=value2.replace("?arrange=-date","");
+           var value4=value3.replace("?arrange=date","");
+           var value5=value4.replace("?arrange=price","");
+           var value6=value5.replace("?arrange=-price","");
+           var value7=value6.replace("?arrange=mileage","");
+           var value8=value7.replace("?arrange=-mileage","");
+           var value9=value8.replace("?arrange=most_relevant","");
+           var queryString = "?arrange=" +value;
+           window.location.href= value9 + queryString;
+         }
+         </script>
          <div class="col-md-auto">
           <div class="b-filter-goods__wrap">
            <div class="b-filter-goods__select">
-            <select class="selectpicker" data-max-options="1" data-style="ui-select" data-width="210px" multiple="multiple" title="Sort By">
-             <option>
-              Most Relevant
-             </option>
-             <option>
+            <select class="selectpicker" data-max-options="1" name="arrange" id="pricelow" onchange="this.options[this.selectedIndex].value && (pricelow());" data-style="ui-select" data-width="210px" multiple="multiple" title="Sort By">
+             <option value="-date">
               Days Listed (Oldest)
              </option>
-             <option>
+             <option value="date">
               Days Listed (Newest)
              </option>
-             <option>
+             <option value="price">
               Price (Lowest)
              </option>
-             <option>
+             <option value="-price">
               Price (Highest)
              </option>
-             <option>
+             <option value="mileage">
               Mileage (Lowest)
              </option>
-             <option>
+             <option value="-mileage">
               MIleage (Highest)
-             </option>
-             <option>
-              Year (Oldest)
-             </option>
-             <option>
-              Year (Newest)
              </option>
             </select>
            </div>

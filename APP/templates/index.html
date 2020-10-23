@@ -29,16 +29,16 @@
      <div class="row">
       <div class="col-sm-8 offset-sm-2 col-10 offset-1">
        <div class="navbar-search">
-        <form class="search-global">
-         <input autocomplete="off" class="search-global__input" name="s" placeholder="Search" type="text" value=""/>
-         <button class="search-global__btn">
-          <i class="icon stroke icon-Search">
-          </i>
-         </button>
-         <div class="search-global__note">
-          Begin typing your search above and press return to search.
-         </div>
-        </form>
+         <form class="search-global">
+          <input id="search" autocomplete="off" class="search-global__input" name="s" placeholder="Type to search" type="text" value=""/>
+          <button class="search-global__btn" onclick="showOutput1()">
+           <i class="icon stroke icon-Search">
+           </i>
+          </button>
+          <div class="search-global__note">
+           Begin typing your search above and press return to search.
+          </div>
+         </form>
        </div>
       </div>
      </div>
@@ -257,6 +257,11 @@
    <script>
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
+function showOutput1 () {
+  var value_4=document.getElementById("search").value;
+  var queryString = "?second_check="+ "two";
+  window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
+}
 function showOutput () {
   if (document.getElementById("option1").checked == true){
     var value_4=document.getElementById("option1").value;
@@ -344,7 +349,7 @@ function search () {
   var value=document.getElementById("search").value;
 
   var paid="two";
-  var queryString = "?second_check=" +paid  + "&keyword=" + value;
+  var queryString = "?second_check=" +paid  + "&search=" + value;
   window.location.href="search" + queryString;
 }
 function date () {
@@ -1320,11 +1325,17 @@ function date () {
         <h3 class="footer-section__title footer-section__title_sm">
          Subscribe Newsletter
         </h3>
-        <form class="footer-form">
+        <script>
+        function news(){
+          document.getElementById("news").submit();
+        }
+        </script>
+        <form id="news" class="footer-form" method="POST">
+          {% csrf_token %}
          <div class="form-group">
           <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-          <i class="ic far fa-envelope-open">
-          </i>
+          <button  onclick="news()" class="ic far fa-envelope-open">
+          </button>
          </div>
         </form>
        </section>
@@ -1480,9 +1491,6 @@ function date () {
           </a>
          </li>
         </ul>
-        <a class="btn btn-white" href="#">
-         Take a test drive
-        </a>
        </section>
       </div>
      </div>
