@@ -549,18 +549,26 @@
          <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
         </a>
         <div class="footer-info">
-         Ceipisicing elit sed do eiusmod tempor laboe dolore magna aliqa Ut enim ad minim veniam quis nostrud exercitation ullam co laboris nis aliquip comsecd sed ipsum.
+         Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
+                    from vehicle delivery available in the 36 states to premium automobile services in the major cities.
         </div>
        </div>
        <section class="footer-section">
         <h3 class="footer-section__title footer-section__title_sm">
          Subscribe Newsletter
         </h3>
-        <form class="footer-form">
+        <script>
+        function news(){
+          document.getElementById("news").submit();
+        }
+        </script>
+        {{message}}
+        <form id="news" class="footer-form" method="GET">
          <div class="form-group">
-          <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-          <i class="ic far fa-envelope-open">
-          </i>
+           <input name="sub" type="hidden" value="true"/>
+          <input name="email" class="footer-form__input form-control" placeholder="your email" type="email"/>
+          <button  onclick="news()" class="ic far fa-envelope-open">
+          </button>
          </div>
         </form>
        </section>
@@ -568,7 +576,7 @@
       <div class="col-lg-3 col-md-6">
        <section class="footer-section pl-4">
         <h3 class="footer-section__title">
-         Dealer Information
+         Our Hours
         </h3>
         <div class="footer-hours">
          <div class="footer-hours__title">
@@ -594,13 +602,13 @@
         </div>
         <div class="footer-hours">
          <div class="footer-hours__title">
-          Parts Shop Hours
+          Online Shop Hours
          </div>
          <div class="footer-hours__info">
-          Mon - Fri:  09:00 am to 06:00 pm
+          24 Hours
          </div>
          <div class="footer-hours__info">
-          Sat: 10:00am to 05:00 pm
+          7 days a week
          </div>
         </div>
        </section>
@@ -608,47 +616,57 @@
       <div class="col-lg-3 col-md-6">
        <section class="footer-section footer-section_link pl-4">
         <h3 class="footer-section__title">
-         About Autlines
+         About autobuy
         </h3>
         <ul class="footer-list list-unstyled">
          <li>
-          <a href="#">
+          <a href="index.hmtl">
            Home
           </a>
          </li>
          <li>
-          <a href="#">
-           Services
+          <a href="cars-for-sale.html">
+           Cars For Sale
           </a>
          </li>
          <li>
-          <a href="#">
+          <a href="about.html">
            About us
           </a>
          </li>
          <li>
-          <a href="#">
-           Inventory
+          <a href="news.html">
+           News
           </a>
          </li>
          <li>
-          <a href="#">
-           Parts Shop
+          <a href="clearing.html">
+           Vehicle Clearing
           </a>
          </li>
          <li>
-          <a href="#">
-           Contact us
+          <a href="car-registration.html">
+           Vehicle Registration
           </a>
          </li>
          <li>
-          <a href="#">
-           Buy or Sell Cars
+          <a href="car-delivery.html">
+           Vehicle Delivery
           </a>
          </li>
          <li>
-          <a href="#">
-           Featured Vehicles
+          <a href="privary-policy.html">
+           Privacy Policy
+          </a>
+         </li>
+         <li>
+          <a href="terms-and-conditions.html#">
+           Terms and Conitions
+          </a>
+         </li>
+         <li>
+          <a href="contact.html">
+           Contact Us
           </a>
          </li>
         </ul>
@@ -663,37 +681,30 @@
          <div class="footer-contacts__item">
           <i class="ic icon-location-pin">
           </i>
-          Fairview Ave, El Monte, CA 91732
+          Abuja: 4, A Close, 1st Ave. Gwarinpa
+         </div>
+         <div class="footer-contacts__item">
+          <i class="ic icon-location-pin">
+          </i>
+          Lagos: 562, Lagos Abeokuta Express, Road, Ijaye Ojokoro
          </div>
          <div class="footer-contacts__item">
           <i class="ic icon-envelope">
           </i>
           <a href="mailto:support@domain.com">
-           support@domain.com
+           hello@autobuy.ng
           </a>
          </div>
          <div class="footer-contacts__item">
           <i class="ic icon-earphones-alt">
           </i>
           Phone:
-          <a class="footer-contacts__phone" href="tel:+17553028549">
-           +1 755 302 8549
+          <a class="footer-contacts__phone" href="tel:+2348116441634">
+           +234 811 644 1634
           </a>
          </div>
         </div>
         <ul class="footer-soc list-unstyled">
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-twitter">
-           </i>
-          </a>
-         </li>
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-behance">
-           </i>
-          </a>
-         </li>
          <li class="footer-soc__item">
           <a class="footer-soc__link" href="#" target="_blank">
            <i class="ic fab fa-facebook-f">
@@ -708,21 +719,18 @@
          </li>
          <li class="footer-soc__item">
           <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-youtube">
+           <i class="ic fab fa-linkedin">
            </i>
           </a>
          </li>
         </ul>
-        <a class="btn btn-white" href="#">
-         Take a test drive
-        </a>
        </section>
       </div>
      </div>
     </div>
     <div class="footer-copyright">
      <div class="container">
-      (c) 2019 AUTLINES - Auto Dealer Template. All rights reserved.
+      (c) 2020 autobuy - Nigeria's Automobile Marketplace. All rights reserved.
      </div>
     </div>
    </footer>
@@ -771,6 +779,12 @@
   </script>
   <!-- Scale images-->
   <script src="{% static 'assets/plugins/ofi.min.js' %}">
+  </script>
+  <!-- Main slider-->
+  <script src="{% static 'assets/plugins/slider-pro/jquery.sliderPro.min.js' %}">
+  </script>
+  <!-- Sliders-->
+  <script src="{% static 'assets/plugins/slick/slick.js' %}">
   </script>
   <!-- Slider number-->
   <script src="{% static 'assets/plugins/noUiSlider/wNumb.js' %}">
