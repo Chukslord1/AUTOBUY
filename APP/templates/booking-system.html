@@ -435,7 +435,7 @@
           </div>
          </div>
          <div class="col-lg-8">
-          <form class="b-booking-main" method="POST">
+          <form id="myForm" class="b-booking-main" method="POST">
             {% csrf_token %}
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
@@ -711,18 +711,89 @@
            </div>
           <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
            <script type="text/javascript">
+           function total_package(){
+             var i=j=k=0;
+             if (document.getElementById("customCheck1").checked== true){
+               i=35;
+             }else if (document.getElementById("customCheck2").checked== true) {
+               j=45;
+             }else if (document.getElementById("customCheck3").checked== true) {
+               k=55;
+             }
+             var total_package_pay=i+j+k;
+           }
+           function total_price(){
+             var a=b=c=d=0;
+             var e=f=g=h=0;
+             if (document.getElementById("customCheck4").checked== true){
+               a=12.90;
+               e=2;
+             }else if (document.getElementById("customCheck5").checked== true) {
+               b=12.90;
+               f=2;
+             }else if (document.getElementById("customCheck6").checked== true) {
+               c=12.90;
+               g=2;
+             }else if (document.getElementById("customCheck7").checked== true) {
+               d=12.90;
+               h=2;
+             }
+             var total_package_pay=0;
+             total_package();
+             var total_pay=a+b+c+d+total_package_pay;
+             var total_time=e+f+g+h;
+             var total_pay_string=String(total_pay);
+             var total_time_string=String(total_time);
+             document.getElementById("money").innerHTML = total_pay_string;
+             document.getElementById("time").innerHTML = total_time_string;
+           }
+
            $(document).ready(function() {
-    $('#replace').keyup(function() {
+    $('#replace').on("change paste keyup",function() {
        $('#example').html($(this).val());
+       total_price();
     });
 });
+$(document).ready(function() {
+$('#replace2').on("change paste keyup",function() {
+$('#example2').html($(this).val());
+});
+});
+
+function payWithPaystack(){
+var total_pay=2;
+total_price();
+var handler = PaystackPop.setup({
+key: 'pk_test_2e6c36e35df589cd45c15eca59189df5e3fcc1af',
+email: "chukslord1@gmail.com",
+amount: total_pay,
+ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+metadata: {
+custom_fields: [
+{
+    display_name: "chukslord1",
+    variable_name: "Afriproperty Basic Subscription Package",
+    value: "+2348012345678"
+}
+]
+},
+callback: function(response){
+alert('success. transaction ref is ' + response.reference);
+document.getElementById("myForm").submit();
+},
+onClose: function(){
+alert('window closed');
+}
+});
+handler.openIframe();
+}
            </script>
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
              Select Date &amp; Time
             </h2>
             <input id="replace" name"date" type="date" />
-            <input id="date" name"time" type="time" />
+            <input id="replace2" name"time" type="time" />
            </div>
            <div class="b-booking-main__section">
             <h2 class="b-booking-main__title">
@@ -747,7 +818,7 @@
               <div class="b-booking-total">
                <div class="b-booking-total__main">
                 <div class="b-booking-total__title">
-                 12:00 PM
+                 <a id="example2">16:43</a>
                 </div>
                 <div class="b-booking-total__info">
                  Appointment Time
@@ -761,7 +832,7 @@
               <div class="b-booking-total">
                <div class="b-booking-total__main">
                 <div class="b-booking-total__title">
-                 10 h 50 min
+                <a id="time">3</a>hrs
                 </div>
                 <div class="b-booking-total__info">
                  Duration
@@ -775,7 +846,7 @@
               <div class="b-booking-total">
                <div class="b-booking-total__main">
                 <div class="b-booking-total__title">
-                 $ 145.00
+                 <a id="money">$ 145.00</a>
                 </div>
                 <div class="b-booking-total__info">
                  Total Price
@@ -835,7 +906,8 @@
             </div>
             <div class="text-center">
              Within 24 hours, Our representative we will confirm your appointment by call / email
-             <button class="btn btn-secondary mt-5">
+             <script src="https://js.paystack.co/v1/inline.js"></script>
+             <button class="btn btn-secondary mt-5" onclick="payWithPaystack()">
               Confirm Booking
              </button>
              {{message}}

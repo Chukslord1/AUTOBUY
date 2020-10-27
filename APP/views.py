@@ -923,6 +923,43 @@ def logout(request):
 
 
 def reservation(request):
+    if request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"reservation-grid.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"reservation-grid.html",context)
     return render(request,"reservation-grid.html")
 
 def booking(request):
@@ -949,7 +986,7 @@ def booking(request):
             pass
         else:
             service4=""
-        service=service1+service2+service3+services4
+        service=service1+service2+service3+service4
         date=request.POST.get("date")
         time=request.POST.get("time")
         first_name=request.POST.get("first_name")
@@ -958,7 +995,7 @@ def booking(request):
         phone=request.POST.get("phone")
         model=request.POST.get("car_model")
         message=request.POST.get("message")
-        book=Booking.object.create(first_name=first_name,last_name=last_name,email=email,phone=phone,make_or_model=model,message=message,category=category,package=package,service=service,date=date,time=time)
+        book=Booking.objects.create(first_name=first_name,last_name=last_name,email=email,phone=phone,make_or_model=model,message=message,category=category,package=package,service=service,date=date,time=time)
         book.save()
         context={"message":"Submitted Successfully"}
         return render(request,"booking-system.html",context)
