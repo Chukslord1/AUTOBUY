@@ -1,0 +1,62 @@
+.color-primary {
+    background-color: #087eaf !important;
+ }
+
+.border-color-primary {
+    border-color: #087eaf !important;
+ }
+
+.text-color-primary {
+    color: #087eaf !important;
+ }
+
+.mainmenu .dropdown li a:before{
+    background-color:#087eaf;
+    opacity:.7;
+}
+
+.thumbnail-property .property-title a,.primary-hover, .text-color-primary, .agent-list-result .contact span.mail a, .pagination>li>a,.pagination>li>span,.pagination>li>a:focus,.pagination>li>a:hover,.pagination>li>span:focus,.pagination>li>span:hover,
+.anchor.active i,.anchor i:hover,a,.thumbnail-property .property-field, .thumbnail-property-list .media-right .property-title a,.thumbnail-property-list .media-right .property-title, 
+.widget-custom-filet-2 .field-box input[type="radio"]:checked ~ .label-title, .grid-type a:hover, .grid-type a.active {
+    color: #087eaf;
+}
+
+[class*="icon-star-ratings"]:after{
+    color: #087eaf !important;
+ }
+
+ .owl-theme .owl-controls .owl-page.active span,
+ .owl-theme .owl-controls .owl-page:hover span,
+.owl-theme .owl-controls.clickable .owl-buttons div:hover,
+.treefield-categories .treefield-box-item:hover,
+.pagination li a:hover,
+.pagination li a.active,
+.treefield-categories-list .treefield-box-item:hover,
+.thumbnail-property .property-title a:hover, .primary-hover:hover, .vert-line-primary:before, .thumbnail-property.features .caption:before, .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover 
+  .scale-range .noUi-target .noUi-handle {
+    background-color: #087eaf;
+}
+
+.thumbnail-property .property-image .property-image-hover {
+    background: #087eaf;
+}
+
+.thumbnail-property .property-image:hover .property-image-hover {
+    opacity: .65;
+}
+
+.border-color-primary {
+    border-color:#087eaf;
+}
+
+.color-secondary {
+    background: #008ac3 !important;
+}
+.border-color-secondary {
+    border-color: #008ac3 !important;
+}
+.text-color-secondary {color:#008ac3 !important;}
+body {
+    background: rgb(241, 241, 241) none repeat scroll 0% 0% / auto padding-box border-box;
+    background-size: auto;
+}

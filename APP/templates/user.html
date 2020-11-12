@@ -167,9 +167,12 @@ button.social-signin.google {
 <div id="login-box">
 <center>
   <h1>
-   Sign up
+   Sign up/Sign In
   </h1>
   <form method="POST">
+    {{message_register}}
+    {{message_confirm}}
+    {{message}}
     {% csrf_token %}
   <input name="username" placeholder="Username" type="text"/>
   <input name="email" placeholder="E-mail" type="text"/>

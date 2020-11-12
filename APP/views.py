@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing,Booking,NewsLetter,Quote,Delivery
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report,Make,Loan,Insurance,Clearing,Booking,NewsLetter,Quote,Delivery,Analytics,Message
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -17,6 +17,12 @@ from django.utils.http import urlsafe_base64_decode
 from . tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from geopy.geocoders import Nominatim
+import time
+from pprint import pprint
+
+
+app = Nominatim(user_agent="tutorial")
 # Create your views here.
 value="0"
 
@@ -161,7 +167,7 @@ class IndexListView(ListView):
                         context["message_confirm"]="Please Confirm your email to complete registration."
                         context["message_register"] ="user created"
         elif self.request.GET.get('third_check')=="three":
-            if self.request.user.is_authenticated:
+            if self.request.user.is_authenticated.is_authenticated:
                 title=self.request.GET.get('title')
                 power=self.request.GET.get('power')
                 speed=self.request.GET.get('speed')
@@ -253,8 +259,11 @@ class CarDetailView(DetailView):
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             context['message']="Question Sent Successfully"
+            if self.request.user.is_authenticated :
+                analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Sent A Question to Owner of: ")
+                analytic.save()
         elif self.request.GET.get('third_check')=="three":
-            if self.request.user.is_authenticated:
+            if self.request.user.is_authenticated.is_authenticated:
                 item=self.request.GET.get('item')
                 favorite=Car.objects.get(slug=item)
                 if favorite:
@@ -280,6 +289,9 @@ class CarDetailView(DetailView):
                         book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
                         transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
                         book.save()
+                        if self.request.user.is_authenticated :
+                            analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Added To Favorites")
+                            analytic.save()
         elif self.request.method=="POST":
             name=self.request.POST.get("name")
             email=self.request.POST.get("email")
@@ -301,13 +313,21 @@ class CarDetailView(DetailView):
             server.login("housing-send@advancescholar.com", "housing@24hubs.com")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
-            context["message"]:"Successfully Submitted  Request"
+            message=Message.objects.create(user=User.objects.get(email=email))
+            message.save()
+            context["message"]="Successfully Submitted  Request"
+            if self.request.user.is_authenticated :
+                analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Sent Message To Seller of")
+                analytic.save()
         elif self.request.GET.get('report')=="True":
             item=Car.objects.get(title=obj.title)
             title=item.title
             reason=self.request.GET.get('reason')
             report=Report.objects.create(title=title,reason=reason)
             report.save()
+            if self.request.user.is_authenticated :
+                analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Reported")
+                analytic.save()
         if self.request.GET.get('sub')=="true":
             email=self.request.GET.get('email')
             check_email=NewsLetter.objects.filter(email=email)
@@ -337,7 +357,10 @@ class CarDetailView(DetailView):
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         context['cars'] = Car.objects.all()
-        context['other'] = Car.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         objects.filter(category=obj.category).order_by("-id")
+        context['other'] = Car.objects.filter(category=obj.category).order_by("id")
+        if self.request.user.is_authenticated:
+            analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Viewed")
+            analytic.save()
         paginator= Paginator(Car.objects.filter(category=obj.category).order_by("-id"),10)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -363,7 +386,11 @@ class SearchListView(ListView):
                 query= self.request.GET.get('search')
             else:
                 query="a"
-            print(query)
+            state= self.request.GET.get('state')
+            if state:
+                pass
+            else:
+                state="a"
             category= self.request.GET.get('category')
             if category:
                 category= self.request.GET.get('category')
@@ -391,14 +418,14 @@ class SearchListView(ListView):
                 new_year_max=2020
             price_min=self.request.GET.get('price_min')
             if price_min:
-                price_min=price_min.replace("$","")
+                price_min=price_min.replace("₦","")
                 price_min=price_min.replace(",","")
                 new_price_min=int(price_min)
             else:
                 new_price_min=1000
             price_max=self.request.GET.get('price_max')
             if price_max:
-                price_max=price_max.replace("$","")
+                price_max=price_max.replace("₦","")
                 price_max=price_max.replace(",","")
                 new_price_max=int(price_max)
             else:
@@ -427,13 +454,15 @@ class SearchListView(ListView):
             if second_check=="two":
                 search = self.model.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
                 context['search'] = search
-                print(search)
+                if self.request.user.is_authenticated :
+                    analytic=Analytics.objects.create(user=self.request.user,title=query,type="Searched")
+                    analytic.save()
             else:
                 search = self.model.objects.none()
                 context['search'] = search
                 print(search)
         elif self.request.GET.get('third_check')=="three":
-            if self.request.user.is_authenticated:
+            if self.request.user.is_authenticated.is_authenticated:
                 title=self.request.GET.get('title')
                 power=self.request.GET.get('power')
                 speed=self.request.GET.get('speed')
@@ -482,7 +511,7 @@ class CategoryListView(ListView):
                 search = self.model.objects.none()
                 context['search'] = search
         elif self.request.GET.get('third_check')=="three":
-            if self.request.user.is_authenticated:
+            if self.request.user.is_authenticated.is_authenticated:
                 title=self.request.GET.get('title')
                 power=self.request.GET.get('power')
                 speed=self.request.GET.get('speed')
@@ -755,6 +784,9 @@ class ArticleDetailView(DetailView):
         check_login=self.request.user
 
         context['latest'] = Car.objects.all().order_by('-id')[:3]
+        if self.request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Viewed ")
+            analytic.save()
         context['blogs'] = Article.objects.all()
         popular=[]
         blog=Article.objects.all()
@@ -892,26 +924,8 @@ def password(request):
     return render(request,"change-password.html",context)
 @login_required
 def profile(request):
-    context={'featured':Car.objects.filter(featured=True)[:3],"bookmarks":Bookmark.objects.filter(creator=request.user)}
-    if request.method=="POST":
-        name=request.POST.get("name")
-        email=request.POST.get("email")
-        phone=request.POST.get("phone")
-        description=request.POST.get("description")
-        image=request.FILES.get("image")
-        data=UserProfile.objects.get(user=request.user)
-        if name:
-            data.name=name
-        if phone:
-            data.phone=phone
-        if email:
-            data.website=email
-        if description:
-            data.description=description
-        if image:
-            data.image=image
-        data.save()
-    return render(request,"profile.html",context)
+
+    return redirect("dashboard.html")
 @login_required
 def bookmark(request):
     context={'featured':Car.objects.filter(featured=True)[:3],"bookmarks":Bookmark.objects.filter(creator=request.user)}
@@ -998,6 +1012,9 @@ def booking(request):
         book=Booking.objects.create(first_name=first_name,last_name=last_name,email=email,phone=phone,make_or_model=model,message=message,category=category,package=package,service=service,date=date,time=time)
         book.save()
         context={"message":"Submitted Successfully"}
+        if request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=self.request.user,title="Booking",type="Submitted ")
+            analytic.save()
         return render(request,"booking-system.html",context)
     elif request.method=="GET":
         email=request.GET.get("email")
@@ -1047,14 +1064,14 @@ def cars_for_sale(request):
         else:
             new_year_max=2020
         price_min=request.GET.get('price_min')
-        price_min=price_min.replace("$","")
+        price_min=price_min.replace("₦","")
         price_min=price_min.replace(",","")
         if price_min:
             new_price_min=int(price_min)
         else:
             new_price_min=1000
         price_max=request.GET.get('price_max')
-        price_max=price_max.replace("$","")
+        price_max=price_max.replace("₦","")
         price_max=price_max.replace(",","")
         if price_max:
             new_price_max=int(price_max)
@@ -1087,12 +1104,14 @@ def cars_for_sale(request):
         else:
             arrange="reg_date"
         if second_check=="two":
-            search = Car.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max))).order_by(arrange)
+            search = Car.objects.filter(Q(state=True),Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max))).order_by(arrange)
+            if request.user.is_authenticated:
+                analytic=Analytics.objects.create(user=request.user,title=query,type="Searched ")
+                analytic.save()
             context={"search":search}
         else:
             search = Car.objects.none()
             context={'search':search}
-            print(search)
     if request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1189,13 +1208,19 @@ def sell_car_1(request):
         if Car.objects.filter(slug=slug):
             return render(request,"sell-car-1.html",context)
         else:
-            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
-            car.save()
-            for x in image:
-                new_image=Images.objects.create(title=title,image=x)
-                new_image.save()
-                car.image.add(new_image)
-            return redirect("sell-car-3.html")
+            if request.user.is_authenticated :
+                car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
+                car.save()
+                for x in image:
+                    new_image=Images.objects.create(title=title,image=x)
+                    new_image.save()
+                    car.image.add(new_image)
+                    analytic=Analytics.objects.create(user=self.request.user,title="Sell Car",type="Submitted to")
+                    analytic.save()
+                    return redirect("sell-car-3.html")
+            else:
+                context={"message":"please login to submit"}
+                return render(request,"sell-car-2.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1246,6 +1271,7 @@ def sell_car_3(request):
         package=request.GET.get("package")
         car.package=package
         car.state=True
+        car.featured=True
         car.save()
         return redirect("sell-car.html")
     elif request.GET.get('sub')=="true":
@@ -1331,13 +1357,19 @@ def swap2(request):
         if Car.objects.filter(slug=slug):
             return render(request,"swap2.html",context)
         else:
-            car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,user=request.user,type="swap",slug=slug)
-            car.save()
-            for x in image:
-                new_image=Images.objects.create(title=title,image=x)
-                new_image.save()
-                car.image.add(new_image)
-            return redirect("swap3.html")
+            if request.user.is_authenticated :
+                car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="swap",user=request.user,slug=slug)
+                car.save()
+                for x in image:
+                    new_image=Images.objects.create(title=title,image=x)
+                    new_image.save()
+                    car.image.add(new_image)
+                    analytic=Analytics.objects.create(user=self.request.user,title="Swap Car",type="Submitted to")
+                    analytic.save()
+                    return redirect("swap3.html")
+            else:
+                context={"message":"please login to submit"}
+                return render(request,"swap2.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1385,6 +1417,7 @@ def swap3(request):
         package=request.GET.get("package")
         car.package=package
         car.state=True
+        car.featured=True
         car.save()
         context={"message":"Added Successfully"}
         return redirect("swap3.html")
@@ -1534,16 +1567,19 @@ def car_insurance(request):
         return render(request,"car-insurance.html")
 
 def clearing(request):
-    if request.method=="GET":
-        name=request.GET.get("name")
-        email=request.GET.get("email")
-        phone=request.GET.get("phone")
-        make=request.GET.get("make")
-        model=request.GET.get("model")
-        year=request.GET.get("year")
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        make=request.POST.get("make")
+        model=request.POST.get("model")
+        year=request.POST.get("year")
         clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         clear.save()
         context={"message":"submitted successfully"}
+        if self.request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=self.request.user,title="Clearing",type="Submitted To")
+            analytic.save()
         return render(request,"clearing.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
@@ -1595,6 +1631,9 @@ def car_registration(request):
         clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         clear.save()
         context={"message":"submitted successfully"}
+        if request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=self.request.user,title="Car Registration",type="Submitted to")
+            analytic.save()
         return render(request,"car-registration.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
@@ -1637,16 +1676,19 @@ def car_registration(request):
         return render(request,"car-registration.html")
 
 def car_delivery(request):
-    if request.method=="GET":
-        name=request.GET.get("name")
-        email=request.GET.get("email")
-        phone=request.GET.get("phone")
-        make=request.GET.get("make")
-        model=request.GET.get("model")
-        year=request.GET.get("year")
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        make=request.POST.get("make")
+        model=request.POST.get("model")
+        year=request.POST.get("year")
         delivery=Delivery.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         delivery.save()
         context={"message":"submitted successfully"}
+        if request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=request.user,title=" Car Delivery",type="Submitted To")
+            analytic.save()
         return render(request,"car-delivery.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
@@ -1701,7 +1743,6 @@ def user(request):
                 context = {"message": "user with email already exists"}
                 return render(request,"user.html",context)
             else:
-                print(email)
                 user = User.objects.create(
                     username=username, password=password1, email=email)
                 user.set_password(user.password)
@@ -1711,7 +1752,7 @@ def user(request):
                 profile = UserProfile.objects.create(user=user, name=username,trials=3,user_type=user_type)
                 profile.save()
                 current_site = get_current_site(request)
-                subject = 'Activate Your AfriProperty Account'
+                subject = 'Activate Your AutoBuy Account'
                 message = render_to_string('account_activation_email.html', {
                     'user': user,
                     'domain': current_site.domain,
@@ -1736,8 +1777,7 @@ def user(request):
                 server.login("housing-send@advancescholar.com", "housing@24hubs.com")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
-                context = {'profile':profile,"message_confirm": "Please Confirm your email to complete registration."}
-                print(request.session['user'])
+                context = {'profile':profile,"message_confirm": "Please Check Your Mail  to complete registration."}
                 return render(request,'user.html',context)
     else:
         return render(request,"user.html")
@@ -1763,11 +1803,14 @@ def become_dealer(request):
     return redirect("user.html")
 
 def dashboard(request):
-    context={"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.all(),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
+    context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"message_count":Message.objects.filter(user=request.user).count(),"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.filter(creator=request.user),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
     if request.GET.get("remove")=="true":
         title=request.GET.get("title")
         item=Bookmark.objects.get(title=title)
         item.delete()
+        if request.user.is_authenticated :
+            analytic=Analytics.objects.create(user=request.user,title=title,type="Deleted ")
+            analytic.save()
         return render(request,"dashboard.html",context)
     elif request.GET.get("delete")=="true":
         title=request.GET.get("title")
@@ -1781,7 +1824,7 @@ def dashboard(request):
             paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            context={"analytics":Analytics.objects.filter(user=request.user).order_by("id")[0:10],"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
         else:
             news=NewsLetter.objects.create(email=email)
@@ -1789,8 +1832,7 @@ def dashboard(request):
             paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            return render(request,"cars-for-sale.html",context)
+            context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             fromaddr = "housing-send@advancescholar.com"
             toaddr = email
             subject="Newsletter Subscription"
@@ -1934,3 +1976,19 @@ def contact(request):
             return render(request,"contacts.html",context)
     else:
         return render(request, "contacts.html")
+
+
+def tint_permit(request):
+    return render(request,"tint-permit.html")
+
+def papers(request):
+    return render(request,"papers.html")
+
+def drivers_license(request):
+    return render(request,"drivers-license.html")
+
+def car_upgrade(request):
+    return render(request,"car-upgrade.html")
+
+def car_shipping(request):
+    return rneder(request,"car-shipping.html")

@@ -15,7 +15,7 @@
   <meta content="true" name="HandheldFriendly"/>
   <link href="{% static 'assets/css/master.css' %}" rel="stylesheet"/>
   <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet"/>
-  <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon"/>
+  <link href="{% static 'assets/media/general/logo-sm.png' %}" rel="icon" type="image/x-icon"/>
   <!--[if lt IE 9 ]>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script><meta content="no" http-equiv="imagetoolbar">
 <![endif]-->
@@ -59,6 +59,8 @@
        Cars For Sale
       </a>
      </li>
+     {% if user.is_authenticated %}
+     {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
      <li class="nav-item">
       <a class="nav-link" href="sell-car.html">
        Sell
@@ -69,6 +71,8 @@
        Swap
       </a>
      </li>
+     {% endif %}
+     {% endif %}
      <li class="nav-item">
       <a class="nav-link">
        Finance
@@ -160,6 +164,8 @@
             Cars For Sale
            </a>
           </li>
+          {% if user.is_authenticated %}
+          {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
           <li class="nav-item">
            <a class="nav-link" href="sell-car.html">
             Sell
@@ -170,6 +176,8 @@
             Swap
            </a>
           </li>
+          {% endif %}
+          {% endif %}
           <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" href="#">
             Finance
@@ -213,9 +221,9 @@
           <i class="ic icon-magnifier">
           </i>
          </span>
-         <button class="header-main__btn btn btn-secondary">
-          <a href="sell-car.html">
-           Sell
+         <button class="header-main__btn btn btn-secondary" onclick="onclick="window.location.href='admin'"">
+          <a href="admin">
+           Admin Portal
           </a>
          </button>
         </nav>
@@ -318,9 +326,9 @@
           <i class="ic icon-magnifier">
           </i>
          </span>
-         <button class="header-main__btn btn btn-secondary">
-          <a href="sell-car.html">
-           Sell
+         <button class="header-main__btn btn btn-secondary" onclick="onclick="window.location.href='admin'"">
+          <a href="admin">
+           Admin Portal
           </a>
          </button>
         </nav>
@@ -359,25 +367,13 @@
        </div>
        <div class="quickview__item">
         <div class="quickview__item-total">
-         64
+         {{message_count}}
         </div>
         <div class="quickview__item-description">
          <i class="far fa-comment">
          </i>
          <span class="text-light">
           Messages
-         </span>
-        </div>
-       </div>
-       <div class="quickview__item">
-        <div class="quickview__item-total">
-         27°
-        </div>
-        <div class="quickview__item-description">
-         <i class="fas fa-map-marker-alt">
-         </i>
-         <span class="text-light">
-          Lagos
          </span>
         </div>
        </div>
@@ -398,7 +394,11 @@
         </strong>
        </h3>
        <p class="overviewCard-subtitle">
+         {% if user.profile.user_type %}
         {{user.profile.user_type}}
+         {% else %}
+         Admin
+        {% endif %}
        </p>
       </div>
      </div>
@@ -469,50 +469,7 @@
        </div>
       </div>
       <div class="card__main">
-       <div class="card__row">
-        <div class="card__icon">
-         <i class="fas fa-search">
-         </i>
-        </div>
-        <div class="card__time">
-         <div>
-          10/10/20
-         </div>
-        </div>
-        <div class="card__detail">
-         <div class="card__description">
-          Searched
-         </div>
-         <div class="card__source text-bold">
-          2020 Toyota Land Cruiser
-         </div>
-         <div class="card__note">
-          on Autobuy.ng
-         </div>
-        </div>
-       </div>
-       <div class="card__row">
-        <div class="card__icon">
-         <i class="fas fa-car">
-         </i>
-        </div>
-        <div class="card__time">
-         <div>
-          10/10/20
-         </div>
-        </div>
-        <div class="card__detail">
-         <div class="card__description">
-          Viewed
-         </div>
-         <div class="card__source text-bold">
-          2020 Toyota Corolla
-         </div>
-         <div class="card__note">
-          on Autobuy.ng
-         </div>
-        </div>
-       </div>
+        {% for item in analytics %}
        <div class="card__row">
         <div class="card__icon">
          <i class="fas fa-id-card">
@@ -520,87 +477,22 @@
         </div>
         <div class="card__time">
          <div>
-          3/2/20
+          {{item.date}}
          </div>
         </div>
         <div class="card__detail">
          <div class="card__description">
-          Applied For
+          {{item.type}}
          </div>
          <div class="card__source text-bold">
-          Car Registration
+          {{item.title}}
          </div>
          <div class="card__note">
           on Autobuy.ng
          </div>
         </div>
        </div>
-       <div class="card__row">
-        <div class="card__icon">
-         <i class="fas fa-id-card">
-         </i>
-        </div>
-        <div class="card__time">
-         <div>
-          3/2/20
-         </div>
-        </div>
-        <div class="card__detail">
-         <div class="card__description">
-          Applied For
-         </div>
-         <div class="card__source text-bold">
-          Car Registration
-         </div>
-         <div class="card__note">
-          on Autobuy.ng
-         </div>
-        </div>
-       </div>
-       <div class="card__row">
-        <div class="card__icon">
-         <i class="fas fa-id-card">
-         </i>
-        </div>
-        <div class="card__time">
-         <div>
-          3/2/20
-         </div>
-        </div>
-        <div class="card__detail">
-         <div class="card__description">
-          Applied For
-         </div>
-         <div class="card__source text-bold">
-          Car Registration
-         </div>
-         <div class="card__note">
-          on Autobuy.ng
-         </div>
-        </div>
-       </div>
-       <div class="card__row">
-        <div class="card__icon">
-         <i class="fas fa-id-card">
-         </i>
-        </div>
-        <div class="card__time">
-         <div>
-          3/2/20
-         </div>
-        </div>
-        <div class="card__detail">
-         <div class="card__description">
-          Applied For
-         </div>
-         <div class="card__source text-bold">
-          Car Registration
-         </div>
-         <div class="card__note">
-          on Autobuy.ng
-         </div>
-        </div>
-       </div>
+       {% endfor %}
       </div>
      </div>
      <div class="card">
@@ -612,8 +504,8 @@
        </div>
       </div>
       <div class="card">
+        <div class="documents">
         {% for item in cars %}
-       <div class="documents">
         <div class="document">
          <div class="document__img">
            {% for i in item.image.all %}
@@ -645,8 +537,8 @@
          </button>
        </form>
         </div>
-       </div>
        {% endfor %}
+       </div>
       </div>
      </div>
      <div class="card">
@@ -658,13 +550,13 @@
        </div>
       </div>
       <div class="card">
+        <div class="documents">
         {% for item in favorites %}
         <script>
         function submit2{{item.slug}} () {
           var value=document.getElementById("theForm{{item.slug}}").submit();
         }
         </script>
-       <div class="documents">
         <div class="document">
          <div class="document__img">
           <a href="#">
@@ -687,8 +579,8 @@
          </button>
        </form>
         </div>
-       </div>
        {% endfor %}
+       </div>
       </div>
      </div>
     </div>
@@ -698,196 +590,11 @@
 </html>
 <!-- /.main-cards -->
 <!-- end .b-title-page-->
-<footer class="footer">
- <div class="container">
-  <div class="row">
-   <div class="col-lg-3 col-md-6">
-    <div class="footer-section">
-     <a class="footer__logo" href="index.html">
-      <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
-     </a>
-     <div class="footer-info">
-      Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
-                  from vehicle delivery available in the 36 states to premium automobile services in the major cities.
-     </div>
-    </div>
-    <section class="footer-section">
-     <h3 class="footer-section__title footer-section__title_sm">
-      Subscribe Newsletter
-     </h3>
-     <form class="footer-form">
-      <div class="form-group">
-       <input class="footer-form__input form-control" placeholder="your email" type="email"/>
-       <i class="ic far fa-envelope-open">
-       </i>
-      </div>
-     </form>
-    </section>
-   </div>
-   <div class="col-lg-3 col-md-6">
-    <section class="footer-section pl-4">
-     <h3 class="footer-section__title">
-      Our Hours
-     </h3>
-     <div class="footer-hours">
-      <div class="footer-hours__title">
-       Sales Hours
-      </div>
-      <div class="footer-hours__info">
-       Mon - Fri:  09:00 am to 06:00 pm
-      </div>
-      <div class="footer-hours__info">
-       Sat: 10:00am to 05:00 pm
-      </div>
-     </div>
-     <div class="footer-hours">
-      <div class="footer-hours__title">
-       Service Hours
-      </div>
-      <div class="footer-hours__info">
-       Mon - Fri:  09:00 am to 06:00 pm
-      </div>
-      <div class="footer-hours__info">
-       Sat: 10:00am to 05:00 pm
-      </div>
-     </div>
-     <div class="footer-hours">
-      <div class="footer-hours__title">
-       Online Shop Hours
-      </div>
-      <div class="footer-hours__info">
-       24 Hours
-      </div>
-      <div class="footer-hours__info">
-       7 days a week
-      </div>
-     </div>
-    </section>
-   </div>
-   <div class="col-lg-3 col-md-6">
-    <section class="footer-section footer-section_link pl-4">
-     <h3 class="footer-section__title">
-      About autobuy
-     </h3>
-     <ul class="footer-list list-unstyled">
-      <li>
-       <a href="index.hmtl">
-        Home
-       </a>
-      </li>
-      <li>
-       <a href="cars-for-sale.html">
-        Cars For Sale
-       </a>
-      </li>
-      <li>
-       <a href="about.html">
-        About us
-       </a>
-      </li>
-      <li>
-       <a href="news.html">
-        News
-       </a>
-      </li>
-      <li>
-       <a href="clearing.html">
-        Vehicle Clearing
-       </a>
-      </li>
-      <li>
-       <a href="car-registration.html">
-        Vehicle Registration
-       </a>
-      </li>
-      <li>
-       <a href="car-delivery.html">
-        Vehicle Delivery
-       </a>
-      </li>
-      <li>
-       <a href="privary-policy.html">
-        Privacy Policy
-       </a>
-      </li>
-      <li>
-       <a href="terms-and-conditions.html#">
-        Terms and Conitions
-       </a>
-      </li>
-      <li>
-       <a href="contact.html">
-        Contact Us
-       </a>
-      </li>
-     </ul>
-    </section>
-   </div>
-   <div class="col-lg-3 col-md-6">
-    <section class="footer-section">
-     <h3 class="footer-section__title">
-      Get In Touch
-     </h3>
-     <div class="footer-contacts">
-      <div class="footer-contacts__item">
-       <i class="ic icon-location-pin">
-       </i>
-       Abuja: 4, A Close, 1st Ave. Gwarinpa
-      </div>
-      <div class="footer-contacts__item">
-       <i class="ic icon-location-pin">
-       </i>
-       Lagos: 562, Lagos Abeokuta Express, Road, Ijaye Ojokoro
-      </div>
-      <div class="footer-contacts__item">
-       <i class="ic icon-envelope">
-       </i>
-       <a href="mailto:support@domain.com">
-        hello@autobuy.ng
-       </a>
-      </div>
-      <div class="footer-contacts__item">
-       <i class="ic icon-earphones-alt">
-       </i>
-       Phone:
-       <a class="footer-contacts__phone" href="tel:+2348116441634">
-        +234 811 644 1634
-       </a>
-      </div>
-     </div>
-     <ul class="footer-soc list-unstyled">
-      <li class="footer-soc__item">
-       <a class="footer-soc__link" href="#" target="_blank">
-        <i class="ic fab fa-facebook-f">
-        </i>
-       </a>
-      </li>
-      <li class="footer-soc__item">
-       <a class="footer-soc__link" href="#" target="_blank">
-        <i class="ic fab fa-instagram">
-        </i>
-       </a>
-      </li>
-      <li class="footer-soc__item">
-       <a class="footer-soc__link" href="#" target="_blank">
-        <i class="ic fab fa-linkedin">
-        </i>
-       </a>
-      </li>
-     </ul>
-     <a class="btn btn-white" href="#">
-      Take a test drive
-     </a>
-    </section>
-   </div>
-  </div>
- </div>
- <div class="footer-copyright">
-  <div class="container">
-   (c) 2020 autobuy - Nigeria's Automobile Marketplace. All rights reserved.
-  </div>
- </div>
-</footer>
+</div>
+{% include "base.html" %}
+{% block content %}
+
+ {% endblock %}
 <!-- .footer-->
 <!-- end layout-theme-->
 <!-- ++++++++++++-->

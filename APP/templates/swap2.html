@@ -1,11 +1,12 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="zxx">
  <head>
   <meta charset="utf-8"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
   <title>
-   Autobuy / Nigeria's Automobile Marketplace
+   Swap | Autobuy - Nigeria's Automobile Marketplace
   </title>
   <meta content="" name="description"/>
   <meta content="" name="keywords"/>
@@ -13,7 +14,8 @@
   <meta content="telephone=no" name="format-detection"/>
   <meta content="true" name="HandheldFriendly"/>
   <link href="{% static 'assets/css/master.css' %}" rel="stylesheet"/>
-  <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon"/>
+  <link href="{% static 'assets/css/neon.css' %}" rel="stylesheet"/>
+  <link href="{% static 'assets/media/general/logo-sm.png' %}" rel="icon" type="image/x-icon"/>
   <!--[if lt IE 9 ]>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script><meta content="no" http-equiv="imagetoolbar">
 <![endif]-->
@@ -57,6 +59,8 @@
         Cars For Sale
        </a>
       </li>
+      {% if user.is_authenticated %}
+      {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:sell-car' %}">
         Sell
@@ -67,6 +71,8 @@
         Swap
        </a>
       </li>
+      {% endif %}
+      {% endif %}
       <li class="nav-item">
        <a class="nav-link">
         Finance
@@ -90,13 +96,13 @@
        </a>
        <ul class="mobile-sub-menu">
         <li>
-         <a href="c{% url 'APP:clearing' %}">
+         <a href="{% url 'APP:clearing' %}">
           Clearing
          </a>
         </li>
         <li>
          <a href="{% url 'APP:car-registration' %}">
-          Car Registration
+          Car Documentation
          </a>
         </li>
         <li>
@@ -104,29 +110,22 @@
           Car Delivery
          </a>
         </li>
-       </ul>
-      </li>
-      <li class="nav-item">
-       <a class="nav-link">
-        Reservations
-       </a>
-       <ul class="mobile-sub-menu">
         <li>
-         <a href="{% url 'APP:reservation' %}">
-          Reservation Car
+         <a href="drivers-license.html">
+          Drivers license
          </a>
         </li>
         <li>
-         <a href="{% url 'APP:booking' %}">
-          Reservation Service
+         <a href="tint-permit.html">
+          Tint Permit
+         </a>
+        </li>
+        <li>
+         <a href="car-shipping.html,">
+          Car Shipping
          </a>
         </li>
        </ul>
-      </li>
-      <li class="nav-item">
-       <a class="nav-link" href="{% url 'APP:blog_list' %}">
-        News
-       </a>
       </li>
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:become-dealer' %}">
@@ -145,10 +144,67 @@
      <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
        <div class="col-auto">
-        <a class="navbar-brand navbar-brand_light scroll" href="{% url 'APP:index' %}">
+        <a class="navbar-brand navbar-brand_light scroll" href="index.html">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
         </a>
-        <a class="navbar-brand navbar-brand_dark scroll" href="{% url 'APP:index' %}">
+        <a class="navbar-brand navbar-brand_dark scroll" href="index.html">
+         <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
+        </a>
+       </div>
+       <div class="col-auto d-xl-none">
+        <!-- Mobile Trigger Start-->
+        <button class="menu-mobile-button js-toggle-mobile-slidebar toggle-menu-button">
+         <i class="toggle-menu-button-icon">
+          <span>
+          </span>
+          <span>
+          </span>
+          <span>
+          </span>
+          <span>
+          </span>
+          <span>
+          </span>
+          <span>
+          </span>
+         </i>
+        </button>
+        <!-- Mobile Trigger End-->
+       </div>
+   </header>
+   <!-- end .header-->
+   <header class="header">
+    <div class="top-bar">
+          <div class="container-fluid">
+            <div class="row justify-content-between align-items-center">
+              <div class="col-auto">
+                <div class="top-bar__item"><i class="ic fas fa-map-marker-alt text-primary"></i>
+                   Call Us 24/7!<a class="top-bar__link" href="tel:+2348116441634"> +234 811 644 1634</a>
+                </div>
+                <div class="top-bar__item"><i class="ic fas fa-envelope text-primary"></i> Email<a class="top-bar__link" href="mailto:sales@autobuy.ng"> support@autobuy.ng</a></div>
+                <div class="top-bar__item"><i class="ic fas fa-clock text-primary"></i> Opening Hours
+
+                  <span class="top-bar__link">Mon  to Fri : 9:00am to 6:00pm</span>
+                </div>
+              </div>
+              <div class="col-auto">
+                <ul class="header-soc list-unstyled">
+                  <li class="header-soc__item"><a class="header-soc__link" href="https://facebook.com/autobuynigeria" target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
+                  <li class="header-soc__item"><a class="header-soc__link" href="https://instagram.com/autobuynigeria" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
+                  <li class="header-soc__item"><a class="header-soc__link" href="https://linkedin.com/company/autobuynigeria" target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="header-main">
+     <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+       <div class="col-auto">
+        <a class="navbar-brand navbar-brand_light scroll" href="index.html">
+         <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
+        </a>
+        <a class="navbar-brand navbar-brand_dark scroll" href="index.html">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
         </a>
        </div>
@@ -173,97 +229,87 @@
         <!-- Mobile Trigger End-->
        </div>
        <div class="col-xl d-none d-xl-block">
-        <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
-         <ul class="yamm main-menu navbar-nav">
-           <li class="nav-item">
-            <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
-             Cars For Sale
-            </a>
-           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="{% url 'APP:sell-car' %}">
-             Sell
-            </a>
-           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="{% url 'APP:swap' %}">
-             Swap
-            </a>
-           </li>
-           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#">
-             Finance
-            </a>
-            <div class="dropdown-menu">
-             <a class="dropdown-item" href="{% url 'APP:car-loan' %}">
-              Car Loan
+         <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
+          <ul class="yamm main-menu navbar-nav">
+            <li class="nav-item">
+             <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
+              Cars For Sale
              </a>
-             <a class="dropdown-item" href="{% url 'APP:car-insurance' %}">
-              Car Insurance
-             </a>
-            </div>
-           </li>
-           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#">
-             Other Services
-            </a>
-            <div class="dropdown-menu">
-             <a class="dropdown-item" href="{% url 'APP:clearing' %}">
-              Clearing
-             </a>
-             <a class="dropdown-item" href="{% url 'APP:car-registration' %}">
-              Car Registration
-             </a>
-             <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
-              Car Delivery
-             </a>
-            </div>
-            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#">
-              Reservation
-             </a>
-             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'APP:reservation' %}">
-               Reservation car
-              </a>
-              <a class="dropdown-item" href="{% url 'APP:booking' %}">
-               Reservation service
-              </a>
-             </div>
             </li>
-            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#">
-              News
+            {% if user.is_authenticated %}
+            {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
+            <li class="nav-item">
+             <a class="nav-link" href="{% url 'APP:sell-car' %}">
+              Sell
              </a>
-             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'APP:blog_list' %}">
-               Blog List
-              </a>
-             </div>
             </li>
             <li class="nav-item">
-             <a class="nav-link" href="{% url 'APP:become-dealer' %}">
-              Become a dealer
+             <a class="nav-link" href="{% url 'APP:swap' %}">
+              Swap
              </a>
             </li>
+            {% endif %}
+            {% endif %}
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              Finance
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:car-loan' %}">
+               Car Loan
+              </a>
+              <a class="dropdown-item" href="{% url 'APP:car-insurance' %}">
+               Car Insurance
+              </a>
+             </div>
+            </li>
+            <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#">
+              Other Services
+             </a>
+             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'APP:clearing' %}">
+               Clearing
+              </a>
+              <a class="dropdown-item" href="{% url 'APP:car-registration' %}">
+               Car Documentation
+              </a>
+              <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
+               Car Delivery
+              </a>
+              <a class="dropdown-item" href="drivers-license.html">
+               Drivers license
+              </a>
+              <a class="dropdown-item" href="tint-permit.html">
+               Tint Permit
+              </a>
+              <a class="dropdown-item" href="car-shipping.html,">
+               Car Shipping
+              </a>
+             </div>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'APP:become-dealer' %}">
+               Become a dealer
+              </a>
+             </li>
+          </ul>
+          {% if user.is_authenticated %}
+          <a class="header-main__link" href="{% url 'APP:dashboard' %}">
+           <i class="ic icon-user">
+           </i>
+          </a>
          </ul>
-         {% if user.is_authenticated %}
-         <a class="header-main__link" href="{% url 'APP:dashboard' %}">
-          <i class="ic icon-user">
-          </i>
+         {% else %}
+         <a class="header-main__link" href="{% url 'APP:user' %}">
+         <i class="ic icon-user">
+         </i>
          </a>
-       </ul>
-       {% else %}
-       <a class="header-main__link" href="{% url 'APP:user' %}">
-        <i class="ic icon-user">
-        </i>
-       </a>
-         {% endif %}
-         <span class="header-main__link btn_header_search">
-          <i class="ic icon-magnifier">
-          </i>
-         </span>
-        </nav>
+          {% endif %}
+          <span class="header-main__link btn_header_search">
+           <i class="ic icon-magnifier">
+           </i>
+          </span>
+         </nav>
        </div>
       </div>
      </div>
@@ -323,6 +369,11 @@
      window.location.href="{% url 'APP:search' %}" + queryString + "&search=" + value_4;
    }
    </script>
+   <script>
+   function submit () {
+     var value=document.getElementById("theform").submit;
+   }
+   </script>
    <div class="l-main-content">
     <div class="ui-decor ui-decor_mirror bg-primary">
     </div>
@@ -332,585 +383,602 @@
        <div class="container">
         <div class="row">
          <div class="col-lg-4">
-           <div class="b-booking-nav">
-            <a class="b-booking-nav__item" href="#">
-             <div class="b-booking-nav__header">
-              Step 1
-             </div>
-             <div class="b-booking-nav__main">
-              <i class="ic fas fa-car-side">
-              </i>
-              <span class="b-booking-nav__title">
-               Select Car Type
-              </span>
-              <span class="b-booking-nav__info">
-               Select your vehicle type
-              </span>
-             </div>
-            </a>
-            <a class="b-booking-nav__item  active" href="#">
-             <div class="b-booking-nav__header">
-              Step 2
-             </div>
-             <div class="b-booking-nav__main">
-              <i class="ic fas fa-cubes">
-              </i>
-              <span class="b-booking-nav__title">
-               Vehicle Information
-              </span>
-              <span class="b-booking-nav__info">
-               Enter Vehicle Information
-              </span>
-             </div>
-            </a>
-            <a class="b-booking-nav__item" href="#">
-             <div class="b-booking-nav__header">
-              Step 3
-             </div>
-             <div class="b-booking-nav__main">
-              <i class="ic fas fa-cog">
-              </i>
-              <span class="b-booking-nav__title">
-               Boost Options
-              </span>
-              <span class="b-booking-nav__info">
-               A la carte Services for you
-              </span>
-             </div>
-            </a>
-           </div>
+          <div class="b-booking-nav">
+           <a class="b-booking-nav__item" href="#">
+            <div class="b-booking-nav__header">
+             Step 1
+            </div>
+            <div class="b-booking-nav__main">
+             <i class="ic fas fa-car-side">
+             </i>
+             <span class="b-booking-nav__title">
+              Select Car Type
+             </span>
+             <span class="b-booking-nav__info">
+              Select your vehicle type
+             </span>
+            </div>
+           </a>
+           <a class="b-booking-nav__item active" href="#">
+            <div class="b-booking-nav__header">
+             Step 2
+            </div>
+            <div class="b-booking-nav__main">
+             <i class="ic fas fa-cubes">
+             </i>
+             <span class="b-booking-nav__title">
+              Vehicle Information
+             </span>
+             <span class="b-booking-nav__info">
+              Enter Vehicle Information
+             </span>
+            </div>
+           </a>
+           <a class="b-booking-nav__item" href="#">
+            <div class="b-booking-nav__header">
+             Step 3
+            </div>
+            <div class="b-booking-nav__main">
+             <i class="ic fas fa-cog">
+             </i>
+             <span class="b-booking-nav__title">
+              Services Menu
+             </span>
+             <span class="b-booking-nav__info">
+              A la carte Services for you
+             </span>
+            </div>
+           </a>
+           <a class="b-booking-nav__item" href="#">
+            <div class="b-booking-nav__header">
+             Step 4
+            </div>
+            <div class="b-booking-nav__main">
+             <i class="ic far fa-calendar">
+             </i>
+             <span class="b-booking-nav__title">
+              Date And Time
+             </span>
+             <span class="b-booking-nav__info">
+              Click on time for booking
+             </span>
+            </div>
+           </a>
+           <a class="b-booking-nav__item" href="#">
+            <div class="b-booking-nav__header">
+             Step 5
+            </div>
+            <div class="b-booking-nav__main">
+             <i class="ic fas fa-edit">
+             </i>
+             <span class="b-booking-nav__title">
+              Booking Summary
+             </span>
+             <span class="b-booking-nav__info">
+              Provide your contact infos
+             </span>
+            </div>
+           </a>
+          </div>
          </div>
-         <script>
-         function submit () {
-           var value=document.getElementById("theform").submit();
-         }
-         </script>
-
          <div class="col-lg-8">
-           <h2>{{message}}</h2>
-          <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:swap2' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-           <div class="b-booking-main__section">
-            <h2 class="b-booking-main__title">
-             Vehicle Information
-            </h2>
-           </div>
-           <div class="Neon Neon-theme-dragdropbox">
-            <input id="image" name="image" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
-            <div class="Neon-input-dragDrop">
-             <div class="Neon-input-inner">
-              <div class="Neon-input-icon">
-               <i class="fa fa-file-image-o">
-               </i>
+           <form id="theform" class="b-booking-main" method="POST" action="{% url 'APP:swap2' %}" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="b-booking-main__section">
+             <h2 class="b-booking-main__title">
+              Vehicle Information
+             </h2>
+            </div>
+            <div class="Neon Neon-theme-dragdropbox">
+             <input id="image" name="image" style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" multiple/>
+             <div class="Neon-input-dragDrop">
+              <div class="Neon-input-inner">
+               <div class="Neon-input-icon">
+                <i class="fa fa-file-image-o">
+                </i>
+               </div>
+               <div class="Neon-input-text">
+                <h3>
+                 Drag &amp; Drop or Select Vehicle Photos here
+                </h3>
+                <span style="display:inline-block; margin: 15px 0">
+                 or
+                </span>
+               </div>
+               <a class="Neon-input-choose-btn blue">
+                Browse Files
+               </a>
               </div>
-              <div class="Neon-input-text">
-               <h3>
-                Drag &amp; Drop or Select Vehicle Photos here
-               </h3>
-               <span style="display:inline-block; margin: 15px 0">
-                or
-               </span>
-              </div>
-              <a class="Neon-input-choose-btn blue">
-               Browse Files
-              </a>
              </div>
             </div>
-           </div>
-           <div class="b-main-filter__label">
-             Title
-           </div>
-           <div class="form-group">
-            <input class="form-control" id="title" type="text" name="title" placeholder="Enter Tilte of Car You Want To Sell" />
-           </div>
-           <div class="b-main-filter__label">
-             Sub title
-           </div>
-           <div class="form-group">
-            <input class="form-control" id="subtitle" type="text" name="subtitle" />
-           </div>
-           <div class="b-booking-main__section pb-1">
             <div class="b-main-filter__label">
-             Select Condition
+              Title
             </div>
             <div class="form-group">
-             <select id="condition" name="condition" class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               --
-              </option>
-              <option>
-               Brand New
-              </option>
-              <option>
-               Foreign Used
-              </option>
-              <option>
-               Locally Used
-              </option>
-              <option>
-               Pre Order
-              </option>
-             </select>
+             <input class="form-control" id="title" type="text" name="title" placeholder="Enter Title of Car You Want To Sell"  required/>
             </div>
             <div class="b-main-filter__label">
-              Make
+              Sub title
             </div>
             <div class="form-group">
-             <input class="form-control" id="make" type="text" name="make" />
+             <input class="form-control" id="subtitle" type="text" name="subtitle"  required/>
             </div>
-            <div class="b-main-filter__label">
-             Select Model
+            <div class="b-booking-main__section pb-1">
+             <div class="b-main-filter__label">
+              Select Condition
+             </div>
+             <div class="form-group">
+              <select id="condition" name="condition" class="selectpicker" data-style="ui-select" data-width="100%" required>
+               <option>
+                --
+               </option>
+               <option>
+                Brand New
+               </option>
+               <option>
+                Foreign Used
+               </option>
+               <option>
+                Locally Used
+               </option>
+               <option>
+                Pre Order
+               </option>
+              </select>
+             </div>
+             <div class="b-main-filter__label">
+               Make
+             </div>
+             <div class="form-group">
+               <select id="make" class="selectpicker" data-style="ui-select" data-width="100%" required>
+               <option selected="" value="">All Makes</option><option>Acura</option><option >Alfa Romeo</option><option >Am General</option><option >Aston Martin</option><option >Audi</option><option >Avanti Motors</option><option >Bentley</option><option >BMW</option><option >Bugatti</option><option >Buick</option><option >Cadillac</option><option >Chevrolet</option><option >Chrysler</option><option >Daewoo</option><option >Daihatsu</option><option>Dodge</option><option >Eagle</option><option >Ferrari</option><option >FIAT</option><option >Fisker</option><option >Ford</option><option val>Genesis</option><option >Geo</option><option >GMC</option><option >Honda</option><option >Hummer</option><option value="20064">Hyundai</option><option >INFINITI</option><option >International</option><option >Isuzu</option><option >Jaguar</option><option >Jeep</option><option val>Karma</option><option >Kia</option><option >Koenigsegg</option><option >Lamborghini</option><option>Land Rover</option><option>Lexus</option><option>Lincoln</option><option>Lotus</option><option>Maserati</option><option>Maybach</option><option>Mazda</option><option>McLaren</option><option>Mercedes-Benz</option><option>Mercury</option><option>MINI</option><option>Mitsubishi</option><option>Morgan</option><option>Nissan</option><option>Oldsmobile</option><option va>Pagani</option><option>Panoz</option><option>Peugeot</option><option>Plymouth</option><option va>Polestar</option><option>Pontiac</option><option>Porsche</option><option>Qvale</option><option>RAM</option><option>Rolls-Royce</option><option>Saab</option><option>Saleen</option><option>Saturn</option><option>Scion</option><option>smart</option><option>Spyker</option><option>Sterling</option><option>Subaru</option><option>Suzuki</option><option>Tesla</option><option>Toyota</option><option>Volkswagen</option><option>Volvo</option><option>Yugo</option>
+               </select>
+             </div>
+             <div class="b-main-filter__label">
+              Select Model
+             </div>
+             <div class="form-group">
+               <div class="autocomplete">
+              <input autocomplete="off" id="model" type="text" name="model" placeholder="Model" required>
             </div>
-            <div class="form-group">
-             <select id="model" class="selectpicker" name="model" data-style="ui-select" data-width="100%">
-              <option value="model1">
-               Model 1
-              </option>
-              <option value="model2">
-               Model 2
-              </option>
-              <option value="model3">
-              Model 3
-              </option>
-             </select>
+             </div>
+             <div class="b-main-filter__label">
+              Year
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="year" type="text" name="year"  required/>
+             </div>
+             <div class="b-main-filter__label">
+              Select Transmission
+             </div>
+             <div class="form-group">
+              <select class="selectpicker" id="transmission" data-style="ui-select" name="transmission" data-width="100%" required>
+               <option>
+                Select Gear Type
+               </option>
+               <option  value="automatic">
+                Automatic
+               </option>
+               <option value="semi-automatic">
+                Semi-Automatic
+               </option>
+               <option value="manual">
+                Manual
+               </option>
+              </select>
+             </div>
+             <div class="b-main-filter__label">
+              Fuel Type
+             </div>
+             <div class="form-group">
+              <select id="fuel_type" class="selectpicker" name="fuel_type" data-style="ui-select" data-width="100%" required>
+               <option>
+                Select Fuel Type
+               </option>
+               <option>
+                Petrol
+               </option>
+               <option>
+                Diesel
+               </option>
+               <option>
+                Electric
+               </option>
+              </select>
+             </div>
+             <div class="b-main-filter__label">
+             Body Style
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="body_style" name="body_style" placeholder="body style" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Exterior Color
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="body_style" name="color" placeholder="color" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Interior Color
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="interior_color" name="interior_color" placeholder="interior color" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Engine
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="engine" name="engine" placeholder="engine" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Drive Train
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="drive_train" name="drive_train" placeholder="drive train" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             No of Seats
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="no_of_seats" name="no_of_seats" placeholder="no_of_seats" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Overview
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="overview" name="overview" placeholder="overview" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Owner Review
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="owner_review" name="owner_review" placeholder="owner review" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+              Select State
+             </div>
+             <select id="state" class="selectpicker" data-max-options="1" data-style="ui-select" data-width="100%" multiple="multiple" title="State" required>
+                <option>ABUJA FCT</option>
+                <option>ABIA</option>
+                <option>ADAMAWA</option>
+                <option value="akwa">AKWA IBOM</option>
+                <option>ANAMBRA</option>
+                <option>BAUCHI</option>
+                <option>BAYELSA</option>
+                <option>BENUE</option>
+                <option>BORNO</option>
+                <option value="cross">CROSS RIVER</option>
+                <option>DELTA</option>
+                <option>EBONYI</option>
+                <option>EDO</option>
+                <option>EKITI</option>
+                <option>ENUGU</option>
+                <option>GOMBE</option>
+                <option>IMO</option>
+                <option>JIGAWA</option>
+                <option>KADUNA</option>
+                <option>KANO</option>
+                <option>KATSINA</option>
+                <option>KEBBI</option>
+                <option>KOGI</option>
+                <option>KWARA</option>
+                <option>LAGOS</option>
+                <option>NASSARAWA</option>
+                <option>NIGER</option>
+                <option>OGUN</option>
+                <option>ONDO</option>
+                <option>OSUN</option>
+                <option>OYO</option>
+                <option>PLATEAU</option>
+                <option>RIVERS</option>
+                <option>SOKOTO</option>
+                <option>TARABA</option>
+                <option>YOBE</option>
+                <option>ZAMFARA</option>
+              </select>
+             <div class="b-main-filter__label">
+              Enter Price
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="price" name="price" placeholder="₦ Price" required="required" type="text" required/>
+             </div>
+             <div class="b-main-filter__label">
+             Total Price
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="total_price" type="text" name="total_price"  required/>
+             </div>
+             <div class="b-main-filter__label">
+              Features
+             </div>
+             <div class="form-group">
+              <textarea class="form-control" id="features" name="features" placeholder="Enter Additional Information" required="required" rows="5" required></textarea>
+             </div>
+             <div class="b-main-filter__label">
+              Sellers Note
+             </div>
+             <div class="form-group">
+              <textarea class="form-control" id="seller_note" name="seller_note" placeholder="Enter Additional Information" required="required" rows="5" required></textarea>
+             </div>
+             <div class="b-main-filter__label">
+              Enter Odometer Mileage
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+              Enter Your Phone Number
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="phone" name="phone" placeholder="phone" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="b-main-filter__label">
+             Enter Your  Email
+             </div>
+             <div class="form-group">
+              <input class="form-control" id="email" name="email" placeholder="Email" required="required" type="text" required>
+              </input>
+             </div>
+             <div class="text-center">
+              Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
+              <button class="btn btn-secondary mt-5" onclick="submit()">
+               <a >
+                Next
+               </a>
+              </button>
+             </div>
             </div>
-            <div class="b-main-filter__label">
-             Year
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="year" type="text" name="year" />
-            </div>
-            <div class="b-main-filter__label">
-                Pump Size
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="pupm_size" type="text" name="pump_size" />
-            </div>
-            <div class="b-main-filter__label">
-             Select Transmission
-            </div>
-            <div class="form-group">
-             <select class="selectpicker" id="transmission" data-style="ui-select" name="transmission" data-width="100%">
-              <option>
-               Select Gear Type
-              </option>
-              <option  value="automatic">
-               Automatic
-              </option>
-              <option value="semi-automatic">
-               Semi-Automatic
-              </option>
-              <option value="manual">
-               Manual
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Fuel Type
-            </div>
-            <div class="form-group">
-             <select id="fuel_type" class="selectpicker" name="fuel_type" data-style="ui-select" data-width="100%">
-              <option>
-               Select Fuel Type
-              </option>
-              <option>
-               Petrol
-              </option>
-              <option>
-               Diesel
-              </option>
-              <option>
-               Electric
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-            Body Style
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="body_style" name="body_style" placeholder="body style" required="required" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Color
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="body_style" name="color" placeholder="color" required="required" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Engine
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="engine" name="engine" placeholder="engine" required="required" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Drive Train
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="drive_train" name="drive_train" placeholder="drive train" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Interior Color
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="interior_color" name="interior_color" placeholder="interior color" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            No of Seats
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="no_of_seats" name="no_of_seats" placeholder="no_of_seats" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Overview
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="overview" name="overview" placeholder="overview" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Owner Review
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="owner_review" name="owner_review" placeholder="owner review" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-             Select State
-            </div>
-            <div class="form-group">
-             <select id="location" name="location" class="selectpicker" data-style="ui-select" data-width="100%">
-              <option>
-               Select State
-              </option>
-              <option value="abuja">
-               Abuja
-              </option>
-              <option value="lagos">
-               Lagos
-              </option>
-              <option value="port harcourt">
-               Port Harcourt
-              </option>
-             </select>
-            </div>
-            <div class="b-main-filter__label">
-             Enter Price
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="price" name="price" placeholder="₦ Price" required="required" type="text"/>
-            </div>
-            <div class="b-main-filter__label">
-            Total Price
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="total_price" type="text" name="total_price" />
-            </div>
-            <div class="b-main-filter__label">
-             Features
-            </div>
-            <div class="form-group">
-             <textarea class="form-control" id="features" name="features" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
-            </div>
-            <div class="b-main-filter__label">
-             Sellers Note
-            </div>
-            <div class="form-group">
-             <textarea class="form-control" id="seller_note" name="seller_note" placeholder="Enter Additional Information" required="required" rows="5"></textarea>
-            </div>
-            <div class="b-main-filter__label">
-             Enter Odometer Mileage
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="mileage" name="mileage" placeholder="mileage" required="required" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-             Enter Your Phone Number
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="phone" name="phone" placeholder="phone" required="required" type="text">
-             </input>
-            </div>
-            <div class="b-main-filter__label">
-            Enter Your  Email
-            </div>
-            <div class="form-group">
-             <input class="form-control" id="email" name="email" placeholder="Email" required="required" type="text">
-             </input>
-            </div>
-            <div class="text-center">
-             Ensure Information Entered Is Accurate. Note that once you click next button you can not go back.
-             <button class="btn btn-secondary mt-5" onclick="submit()">
-              <a >
-               Next
-              </a>
-             </button>
-            </div>
-           </div>
-          </form>
+           </form>
          </div>
         </div>
        </div>
       </div>
+      <script>
+      function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+              /*check if the item starts with the same letters as the text field value:*/
+              if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                /*create a DIV element for each matching element:*/
+                b = document.createElement("DIV");
+                /*make the matching letters bold:*/
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                /*insert a input field that will hold the current array item's value:*/
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                b.addEventListener("click", function(e) {
+                    /*insert the value for the autocomplete text field:*/
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                    closeAllLists();
+                });
+                a.appendChild(b);
+              }
+            }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+              /*If the arrow DOWN key is pressed,
+              increase the currentFocus variable:*/
+              currentFocus++;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 38) { //up
+              /*If the arrow UP key is pressed,
+              decrease the currentFocus variable:*/
+              currentFocus--;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 13) {
+              /*If the ENTER key is pressed, prevent the form from being submitted,*/
+              e.preventDefault();
+              if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+              }
+            }
+        });
+        function addActive(x) {
+          /*a function to classify an item as "active":*/
+          if (!x) return false;
+          /*start by removing the "active" class on all items:*/
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = (x.length - 1);
+          /*add class "autocomplete-active":*/
+          x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+          /*a function to remove the "active" class from all autocomplete items:*/
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          /*close all autocomplete lists in the document,
+          except the one passed as an argument:*/
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+              x[i].parentNode.removeChild(x[i]);
+            }
+          }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+      }
+
+      /*An array containing all the country names in the world:*/
+    var countries = ["CL","ILX","Integra","Legend","MDX","NSX","RDX","RL","RLX","RSX","SLX","TL","TLX","TSX","TSX Sport Wagon","Vigor","ZDX","4000","A3","A3 Sportback e-tron","A4","A4 allroad","A5","A5 Sportback","A6","A6 allroad","A7 ","A8","A8L","Allroad","Allroad Quattro","Cabriolet","Coupe","e-tron","Q3","Q3 Sport","Q5","Q5 Hybrid","Q7","Q8 ","Quattro","R8","RS 3","RS 4","RS 5","RS 5 Sportback","RS 6","RS 7","RS Q8","S3","S4","S5","S5 Sportback","S6","S7","S8","S8 plus","SQ5","SQ7","SQ8","TT","TT RS","TTS","V8","1 Series","2 Series","3 Series","4 Series","5 Series","6 Series","7 Series","8 Series","ActiveHybrid X6","i3","i8","K1200gt","M","M2","M3","M4","M5","M6","M8","X1","X2","X3","X3 M","X4","X4 M","X5","X5 M","X6","X6 M","X7","Z3","Z4","Z4 M","Z8","40 Special","50 Special","Allure","Cascada","Century","Electra","Enclave","Encore","Encore GX","Envision","Estate Wagon","Gran Sport","Grand National","Invicta","LaCrosse","LeSabre","Lucerne","Park Avenue","Rainier","Reatta","Regal","Regal Sportback","Regal TourX","Rendezvous","Riviera","Roadmaster","Skylark","Terraza","Verano","Wildcat","Allante","ATS","ATS-V","Brougham","Catera","CT4","CT5","CT6","CT6 Plu-In Hybrid","CT6-V","CTS","CTS-V","Deville","Deville Professional","DTS","DTS Pro","Eldorado","Eldorado Biarritz","ELR","Escalade","Escalade ESV","Escalade EXT","Escalade Hybrid","Fleetwood Brougham","Fleetwood D'Elegance","Series 62","Seville","Sixty Special","SRX","STS","STS-V","XLR","XLR-V","XT4","XT5","XT6","XTS","SXT Pro","150","210","3100","3500","3500HD LCF","4500 LCF","5500HD LCF","6500XD LCF","Apache","Astro","Astro Cargo","Avalanche","Aveo","Bel Air","Beretta","Biscayne","Blazer","Bolt EV","C/K 10 Series","C/K 1500 Series","C/K 20 Series","C/K 2500 Series","C/K 30 Series","C/K 3500 Series","C4500","C5500","C6500","C7500","C8500","Camaro","Caprice","Captiva Sport","Captiva Sport Fleet","Cavalier","Celebrity","Chevelle","Chevelle Malibu","Chevette","Chevy Van","Citation","Citation","City Express Cargo","Classic","Cobalt","Colorado","Corsica","Corvair","Corvair Monza","Corvette","Cruze","Cruze Limited","D30","El Camino","Equinox","Express","Express Cargo","Express Cutaway","Express Passenger","Fleetline","Fleetmaster","Forward Control Chassis","G10","G20","200","200 Convertible","300","300 M","Aspen Hybrid","Cirrus","Concorde","Conquest","Cordoba","Crossfire","Crossfire SRT-6","Fifth Avenue","Grand Voyager","Imperial","Le Boron","LHS","New Yorker","Newport","Pacifica","Pacifica Hybrid","Prowler","PT Cruiser","Sebring","TC","Town and Country","Voyager","Windsor","400","5500","600","Aries","Aries K ","Avenger","Caliber","Caravan","Challenger","Charger","Charger SRT-8","Colt","Coronet","D100 Pickup","D150 Pickup","D200 Pickup","D250 Pickup","D300 Pickup","D350 Pickup","Dakota","Dart","Daytona","Demon","Diplomat","Durango","Grand Caravan","Intrepid ","Journey","Lancer","Magnum","Magnum SRT-8","Mirada","Monaco","Neon","Neon SRT-4","Nitro","Omni","Polara","RAM","RAM 100","RAM 150","RAM 250","RAM 350","Ram 50 Pickup","Ram Cargo","Ram Chassis 1500","Ram Chassis 2500","Ram Chassis 3500","Ram Chassis 4500","Ram Chassis 5500","Ram Pickup 1500","Ram Pickup 1500 SRT-10","Ram Pickup 2500","Ram Pickup 3500","Ram Pickup 5500","Ram Van","Ram Wagon","Ramcharger","Rampage","Shadow","Spirit","Sprinter","Sprinter Cab Chassis","Aerostar","Aspire","B-600","B-800","Bronco","Bronco II","Bronco Sport","C-600","C-800","C-8000","Cabriolet","CF8000","C-Max","C-MAX Energi","C-MA Hybrid","Contour","Courier","Crestlin","Crown Victoria","Deluxe","E-100","E-150","E-250","E-350","E-450","EcoSport","Edge","Escape","Escape Hybrid","Escort","E-Series Cargo","E-Series Chassis","E-Series Wagon","Excursion","Expedition","Expedition EL","Expedition Max","Explorer","Explorer Hybrid","Explorer Sport","Explorer Sport Trac","F-100","F-150","F-150 Heritage","F-150 SVT Lightning","F-250","F-250 Super Duty","F-350","F-350 Super Duty","F-450","F-450 Super Duty","F-550","F-550 Super Duty","F-600","F-600 Super Duty","F-650","F-650 Super Duty","F-700","F-7000","F-750","F-750 Super Duty","F-800","F-8000","GMC","Acadia Limited","Brigadier","C/K 1500 Series","C/K 2500 Series","C/K 3500 Series","C4500","C5500","C6500","C7500","C8500","Caballero","Canyon","Envoy","Envoy XL","Envoy XUV","Foward Control Chassis","General","Jimmy","R/V1500 Series","R/V2500 Series","R/V3500 Series","Rally Wagon","S-15","S-15 Jimmy","Safari","Safari Cargo","Savana","Savana","Savana Cutaway","Savana Passenger","Sierra 1500","Sierra 1500 Classic","Sierra 1500 Hybrid","Sierra 1500 Limited","Sierra 1500HD","Sierra 1500HD Classic","Sierra 2500","Sierra 2500 Classic","Sierra 2500HD","Sierra 2500HD Classic","Sierra 3500","Sierra 3500 CC Classic","Sierra 3500 Classic","Sierra 3500HD","Sierra 3500HD CC","Sierra C3","Sonoma ","Suburban","Syclone","T5500","T6500","T7500","TC5500","Terrain","TOPKICK","Typhoon","Vandura","W3500","W4500","W5500","W6500","Yukon","Yukon XL","Honda","Accord","Accord Crosstour","Accord Hybrid","Accord Plug-in","Big Red","CBR","CBR600RR","Civic","Civic CRX","Civic del sol","Clarity Plug-in Hybrid","CRF","Croostour","CR-V","CR-V Hybrid","CR-Z","Element","Fit","Fury","Goldwing","HR-V","Insight","Magna","Odyssey","Passport","PCX150","Pilot","Prelude","Rancher","Rebel","Recon","Ridgeline","S200","Shadow","Shadow Ace","Shadow Aero","Shadow Phantom","Shadow Sabre","Shadow Spirit","Valkyrie","VTX","Hyundai","Accent","Azera","Elantra","Elantra Coupe","Elantra GT","Elantra Touring","Entourage","Equus","Genesis","Genesis Coupe","Ioniq Electric","Ioniq Hybrid","Ioniq Plug-in Hybrid","Kona","Kona EV","Palisade","Santa Fe","Santa Fe Sport","Santa Fe XL","Sonata","Sonata Hybrid","Sonata Plug-in Hybrid","Tiburon","Tucson","Veloster","Veloster N","Veloster Turbo","Venue","Veracruz","XG300","XG350","Infiniti","EX35","EX37","FX35","FX37","FX45","FX50","G20","G25","G35","G35X","G37","G37 Convertible","G37 Coupe","G37 Sedan","G37X","I30","I35","J30","JX 35","M30","M35","M35h","M35X","M37","M45","M56","Q40","Q45","Q50","Q50 Hybrid","Q60","Q60 Convertible","Q60 Coupe","Q70","Q70 Hybrid","Q70L","QX30","QX4","QX50","QX56","QX60","QX60 Hybrid","QX70","QX80","Jeep","Cherokee","CJ-5","CJ-7","Comanche","Commander","Compass","Gladiator","Grand Cherokee","Grand Wagoneer","J-10 Pickup","J-10 Pickup","Liberty","New Compass","Patriot","Patriot X","Renegade","Scrambler","Wagoneer","Willys","Wrangler","Wrangler JK","Wrangler JK Unlimited","Wrangler Sport","Wrangler Unlimited","Kia","Amanti","Borrego","Cadenza","Forte","Forte Koup","Forte5","K5","K900","Niro","Niro EV","Niro Plug-In Hybrid","Optima","Optima Hybrid","Optima Plug-In Hybrid","Rio","Rio 5-Door","Rio5","Rondo","Sedona","Seltos","Sephia","Sorento","Soul","Soul EV","Spectra","Spectra5","Sportage","Stinger","Telluride","Land Rover","Defender","Discovery ","Discovery Series II","Discovery Sport","Freelander","LR2","LR3","LR4","Range Rover","Range Rover Evoque","Range Rover Evoque Convertible","Range Rover Evoque Coupe","Range Rover Sport","Range Rover Velar","Lexus","CT 200h","ES 250","ES 300","ES 300h","ES 330","ES 350","GS 200t","GS 300","GS 350","GS 400","GS 430","GS 450h","GS 460","GS F","GX 460","GX 470","HS 250h","IS 200t","IS 250","IS 250C","IS 300","IS 350","IS 350C","IS F","LC 500","LC 500 Convertible","LC 500h","LS 400","LS 430","LS 460","LS 460L","LS 500","LS 500h","LS 600h L","LX 450","LX 470","LX 570","NX 200t","NX 300","NX 300h","RC 200t","RC 300","RC 350","RC F","RX 300","RX 330","RX 350","RX 350L","RX 400h","RX 450h","RX 450hl","SC 300","SC 400","SC 430","UX 200","UX 250h","Lincoln","Aviator","Blackwood","Capri","Continental","Corsair","LS","Mark II","Mark III","Mark IV","Mark LT","Mark V","Mark VI","Mark VII","Mark VIII","MKC","MKS","MKT","MKT Town Car","MKX","MKZ","MKZ Hybrid","Nautilus","Navigator","Navigator L","Premiere","Town Car","Zephyr","Pontiac","1000","6000","Aztek","Bonnevill","Catalina","Chieftain","Fiero","Firebird","Firebird Trans Am","G3","G5","G6","G8","Grand Am","Grand Le Mans","Grand Prix","Grand Ville","GTO","Le Mans","Montana","Montana SV6","Safari","Solstice","Star Chief","Sunbird","Sunfire","Tempest","Torrent","Trans Am ","Trans Sport","Ventura","Vibe","Wave","Porsche","356","356 Speedster","550 Spyder","718 Boxster","718 Cayman","911","911 Carrera","914","918 Spyder","924","928","944","968","Boxster","Carrera GT","Cayenne","Cayman","Macan","Panamera","Taycan","RAM","C/V","Dakota","ProMaster Cab Chassis","ProMaster Cargo","ProMaster City Cargo","ProMaster City Wagon","ProMaster Cutaway Chassis","ProMaster Window","Ram Chassis 2500","Ram Chassis 3500","Ram Chassis 4500","Ram Chassis 5500","Ram Pickup","Ram Pickup 1500","Ram Pickup 1500","Ram Pickup 2500","Ram Pickup 3500","Ram Van","Subaru","Ascent","B9 Tribeca","Baja","Brat","BRZ","Crosstrek","Forester","GL","Impreza","Legacy","Loyale","Outback","STI","SVX","Tribeca","WRX","XV Crosstrek","Toyota","4Runner","86","Avalon","Avalon Hybrid","Camry","Camry Hybrid","Camry Solara","Celica","C-HR","Corolla","Corolla Hatchback","Corolla Hybrid","Corolla iM","Corona","Cressida","ECHO","FJ Cruiser","GR Supra","Highlander","Highlander Hybrid","Land Cruiser","Matrix","Mirai","MR2","MR2 Spyder","Paseo","Pickup","Previa","Prius","Prius c","Prius Plug-in Hybrid","Prius Prime","Prius v","RAV4","RAV4 EV","RAV4 Hybrid","RAV4 Prime","Sequoia","Sienna","Starlet","Supra","T100","Tacoma","Tercel","Tundra","Venza","Yaris","Yaris Hatchback","Yaris iA","Volkswagen","Arteon","Atlas","Atlas Cross Sport","Beetle","Beetle Convertible","Bus","Cabrio","Cabriolet","CC","Corrado","e-Gold","Eos","EuroVan","Fox","Gli","Golf","Golf Alltrack","Golf GTI","Golf R","Golf SportWagen","GTI","Jetta","Jetta GLI","Karmann Ghia","New Beetle","New Beetle Convertible","Passat","Phaeton","Pickup","R32","Rabbit","Routan","Scirocco","Super Beetle","Thing ","Tiguan ","Tiguan Limited","Touareg","Touareg 2","Transporter II","Vanagon","Volvo","122","1800","240","740","850","960","C30","C70","Coupe","N12","S40","S60","S60 Cross Country","S60 R","S70","S80","S90","V40","V50","V60","V60 Cross Country","V70","V90","V90 Cross Country","VHD","VN","VNL","VNM","VNR","WG","XC","XC40","XC60","XC70","XC90"];
+
+      /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+      autocomplete(document.getElementById("model"), countries);
+      </script>
+      <style>
+    * {
+    box-sizing: border-box;
+    }
+
+    body {
+    font: 16px Arial;
+    }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+    position: relative;
+    display: inline-block;
+    }
+
+    input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 20px;
+    font-size: 16px;
+    }
+
+    input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+    }
+
+    input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+    cursor: pointer;
+    }
+
+    .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    }
+
+    .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+    background-color: #e9e9e9;
+    }
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+    }
+    </style>
       <!-- end .b-booking-->
      </main>
     </div>
    </div>
   </div>
-  <footer class="footer">
-   <div class="footer__figure">
-    <img alt="foto" class="img-fluid" src="{% static 'assets/media/content/footer/figure-1.png' %}"/>
-   </div>
-   <div class="footer__decor">
-   </div>
-   <div class="container">
-    <div class="row">
-     <div class="col-lg-3 col-md-6">
-      <div class="footer-section">
-       <a class="footer__logo" href="{% url 'APP:index' %}">
-        <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
-       </a>
-       <div class="footer-info">
-        Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
-                   from vehicle delivery available in the 36 states to premium automobile services in the major cities.
-       </div>
-      </div>
-      <section class="footer-section">
-       <h3 class="footer-section__title footer-section__title_sm">
-        Subscribe Newsletter
-       </h3>
-       <script>
-       function news(){
-         document.getElementById("news").submit();
-       }
-       </script>
-       {{message}}
-       <form id="news" class="footer-form" method="GET">
-        <div class="form-group">
-          <input name="sub" type="hidden" value="true"/>
-         <input name="email" class="footer-form__input form-control" placeholder="your email" type="email"/>
-         <button  onclick="news()" class="ic far fa-envelope-open">
-         </button>
-        </div>
-       </form>
-      </section>
-     </div>
-     <div class="col-lg-3 col-md-6">
-      <section class="footer-section pl-4">
-       <h3 class="footer-section__title">
-        Our Hours
-       </h3>
-       <div class="footer-hours">
-        <div class="footer-hours__title">
-         Sales Hours
-        </div>
-        <div class="footer-hours__info">
-         Mon - Fri:  09:00 am to 06:00 pm
-        </div>
-        <div class="footer-hours__info">
-         Sat: 10:00am to 05:00 pm
-        </div>
-       </div>
-       <div class="footer-hours">
-        <div class="footer-hours__title">
-         Service Hours
-        </div>
-        <div class="footer-hours__info">
-         Mon - Fri:  09:00 am to 06:00 pm
-        </div>
-        <div class="footer-hours__info">
-         Sat: 10:00am to 05:00 pm
-        </div>
-       </div>
-       <div class="footer-hours">
-        <div class="footer-hours__title">
-         Online Shop Hours
-        </div>
-        <div class="footer-hours__info">
-         24 Hours
-        </div>
-        <div class="footer-hours__info">
-         7 days a week
-        </div>
-       </div>
-      </section>
-     </div>
-     <div class="col-lg-3 col-md-6">
-      <section class="footer-section footer-section_link pl-4">
-       <h3 class="footer-section__title">
-        About autobuy
-       </h3>
-       <ul class="footer-list list-unstyled">
-        <li>
-         <a href="{% url 'APP:index' %}">
-          Home
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:cars-for-sale' %}">
-          Cars For Sale
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:about' %}">
-          About us
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:blog_list' %}">
-          News
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:clearing' %}">
-          Vehicle Clearing
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:car-registration' %}">
-          Vehicle Registration
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:car-delivery' %}">
-          Vehicle Delivery
-         </a>
-        </li>
-        <li>
-         <a href="{% url 'APP:contact' %}">
-          Contact Us
-         </a>
-        </li>
-       </ul>
-      </section>
-     </div>
-     <div class="col-lg-3 col-md-6">
-      <section class="footer-section">
-       <h3 class="footer-section__title">
-        Get In Touch
-       </h3>
-       <div class="footer-contacts">
-        <div class="footer-contacts__item">
-         <i class="ic icon-location-pin">
-         </i>
-         Abuja: 4, A Close, 1st Ave. Gwarinpa
-        </div>
-        <div class="footer-contacts__item">
-         <i class="ic icon-location-pin">
-         </i>
-         Lagos: 562, Lagos Abeokuta Express, Road, Ijaye Ojokoro
-        </div>
-        <div class="footer-contacts__item">
-         <i class="ic icon-envelope">
-         </i>
-         <a href="mailto:support@domain.com">
-          hello@autobuy.ng
-         </a>
-        </div>
-        <div class="footer-contacts__item">
-         <i class="ic icon-earphones-alt">
-         </i>
-         Phone:
-         <a class="footer-contacts__phone" href="tel:+2348116441634">
-          +234 811 644 1634
-         </a>
-        </div>
-       </div>
-       <ul class="footer-soc list-unstyled">
-        <li class="footer-soc__item">
-         <a class="footer-soc__link" href="#" target="_blank">
-          <i class="ic fab fa-facebook-f">
-          </i>
-         </a>
-        </li>
-        <li class="footer-soc__item">
-         <a class="footer-soc__link" href="#" target="_blank">
-          <i class="ic fab fa-instagram">
-          </i>
-         </a>
-        </li>
-        <li class="footer-soc__item">
-         <a class="footer-soc__link" href="#" target="_blank">
-          <i class="ic fab fa-linkedin">
-          </i>
-         </a>
-        </li>
-       </ul>
-      </section>
-     </div>
-    </div>
-   </div>
-   <div class="footer-copyright">
-    <div class="container">
-     (c) 2020 autobuy - Nigeria's Automobile Marketplace. All rights reserved.
-    </div>
-   </div>
-  </footer>
+</div>
+{% include "base.html" %}
+{% block content %}
+
+ {% endblock %}
   <!-- .footer-->
- </div>
- <!-- end layout-theme-->
- <!-- ++++++++++++-->
- <!-- MAIN SCRIPTS-->
- <!-- ++++++++++++-->
- <script src="{% static 'assets/libs/jquery-3.3.1.min.js' %}">
- </script>
- <script src="{% static 'assets/libs/jquery-migrate-1.4.1.min.js' %}">
- </script>
- <!-- Bootstrap-->
- <script src="{% static 'assets/plugins/popever/popper.min.js' %}">
- </script>
- <script src="{% static 'assets/libs/bootstrap-4.1.3/js/bootstrap.min.js' %}">
- </script>
- <!-- -->
- <!-- Color scheme-->
- <script src="{% static 'assets/plugins/switcher/js/dmss.js' %}">
- </script>
- <!-- Select customization & Color scheme-->
- <script src="{% static 'assets/libs/bootstrap-select.min.js' %}">
- </script>
- <!-- Pop-up window-->
- <script src="{% static 'assets/plugins/magnific-popup/jquery.magnific-popup.min.js' %}">
- </script>
- <!-- Headers scripts-->
- <script src="{% static 'assets/plugins/headers/slidebar.js' %}">
- </script>
- <script src="{% static 'assets/plugins/headers/header.js' %}">
- </script>
- <!-- Mail scripts-->
- <script src="{% static 'assets/plugins/jqBootstrapValidation.js' %}">
- </script>
- <script src="{% static 'assets/plugins/contact_me.js' %}">
- </script>
- <!-- Progress numbers-->
- <script src="{% static 'assets/plugins/rendro-easy-pie-chart/jquery.easypiechart.min.js' %}">
- </script>
- <script src="{% static 'assets/plugins/rendro-easy-pie-chart/jquery.waypoints.min.js' %}">
- </script>
- <!-- Animations-->
- <script src="{% static 'assets/plugins/scrollreveal/scrollreveal.min.js' %}">
- </script>
- <!-- Scale images-->
- <script src="{% static 'assets/plugins/ofi.min.js' %}">
- </script>
- <!-- Main slider-->
- <script src="{% static 'assets/plugins/slider-pro/jquery.sliderPro.min.js' %}">
- </script>
- <!-- Sliders-->
- <script src="{% static 'assets/plugins/slick/slick.js' %}">
- </script>
- <!-- Slider number-->
- <script src="{% static 'assets/plugins/noUiSlider/wNumb.js' %}">
- </script>
- <script src="{% static 'assets/plugins/noUiSlider/nouislider.min.js' %}">
- </script>
- <!-- User customization-->
- <script src="{% static 'assets/js/custom.js' %}">
- </script>
-</body>
-</html>
+  </div>
+  <!-- end layout-theme-->
+  <!-- ++++++++++++-->
+  <!-- MAIN SCRIPTS-->
+  <!-- ++++++++++++-->
+  <script src="{% static 'assets/libs/jquery-3.3.1.min.js' %}">
+  </script>
+  <script src="{% static 'assets/libs/jquery-migrate-1.4.1.min.js' %}">
+  </script>
+  <!-- Bootstrap-->
+  <script src="{% static 'assets/plugins/popever/popper.min.js' %}">
+  </script>
+  <script src="{% static 'assets/libs/bootstrap-4.1.3/js/bootstrap.min.js' %}">
+  </script>
+  <!-- -->
+  <!-- Color scheme-->
+  <script src="{% static 'assets/plugins/switcher/js/dmss.js' %}">
+  </script>
+  <!-- Select customization & Color scheme-->
+  <script src="{% static 'assets/libs/bootstrap-select.min.js' %}">
+  </script>
+  <!-- Pop-up window-->
+  <script src="{% static 'assets/plugins/magnific-popup/jquery.magnific-popup.min.js' %}">
+  </script>
+  <!-- Headers scripts-->
+  <script src="{% static 'assets/plugins/headers/slidebar.js' %}">
+  </script>
+  <script src="{% static 'assets/plugins/headers/header.js' %}">
+  </script>
+  <!-- Mail scripts-->
+  <script src="{% static 'assets/plugins/jqBootstrapValidation.js' %}">
+  </script>
+  <script src="{% static 'assets/plugins/contact_me.js' %}">
+  </script>
+  <!-- Progress numbers-->
+  <script src="{% static 'assets/plugins/rendro-easy-pie-chart/jquery.easypiechart.min.js' %}">
+  </script>
+  <script src="{% static 'assets/plugins/rendro-easy-pie-chart/jquery.waypoints.min.js' %}">
+  </script>
+  <!-- Animations-->
+  <script src="{% static 'assets/plugins/scrollreveal/scrollreveal.min.js' %}">
+  </script>
+  <!-- Scale images-->
+  <script src="{% static 'assets/plugins/ofi.min.js' %}">
+  </script>
+  <!-- Main slider-->
+  <script src="{% static 'assets/plugins/slider-pro/jquery.sliderPro.min.js' %}">
+  </script>
+  <!-- Sliders-->
+  <script src="{% static 'assets/plugins/slick/slick.js' %}">
+  </script>
+  <!-- Slider number-->
+  <script src="{% static 'assets/plugins/noUiSlider/wNumb.js' %}">
+  </script>
+  <script src="{% static 'assets/plugins/noUiSlider/nouislider.min.js' %}">
+  </script>
+  <!-- User customization-->
+  <script src="{% static 'assets/js/custom.js' %}">
+  </script>
+  </body>
+  </html>

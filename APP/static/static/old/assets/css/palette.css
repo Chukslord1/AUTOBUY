@@ -1,0 +1,201 @@
+/* CUSTOM PALETTE */
+
+.colorpicker {
+   z-index: 99999;
+}
+
+.colorpicker.dropdown-menu {
+    right: inherit;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+.custom-palette {
+    position: fixed;
+    left: 0;
+    top: 125px;
+    z-index: 15000;
+    border-top: 2px solid #0f7ad5;
+    border-right: 2px solid #0f7ad5;
+    border-bottom: 2px solid #0f7ad5;
+    -webkit-transition: margin 0.2s linear;
+    -moz-transition: margin 0.2s linear;
+    -o-transition: margin 0.2s linear;
+    transition: margin 0.2s linear;
+    display: block;
+}
+
+.custom-palette .custom-palette-box {
+    background: #fff;
+    color: black;
+    width: 175px;
+    position:relative;
+    padding: 15px 10px;
+}
+
+.custom-palette .custom-palette-box .custom-palette-btn  {
+    color: white;
+    position:absolute;
+    right: -89px;
+    top: 46px;
+    border: 0;
+    border-radius: 0;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    outline: 1px solid white;
+    outline-offset: -3px;
+}
+
+.custom-palette.palette-closed {
+    margin-left: -177px;
+}
+
+#pallete-save,
+#pallete-reset {
+    margin-top: 15px;
+}
+
+.custom-palette .custom-palette-box input:not([type="radio"]) {
+    background: #F1F1F1;
+    border: 1px solid #ccc;
+    height: 32px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.custom-palette .custom-palette-box .c-input:first-child {
+    margin-right: 35px;
+}
+
+.custom-palette .custom-palette-box .c-input {
+    cursor: pointer;
+}
+
+.custom-palette .custom-palette-box .c-input input {
+    margin-bottom: 4px;
+}
+
+.custom-palette .input-group {
+    margin-bottom: 15px;
+}
+
+.custom-palette .label-title {
+    color: #000;
+    display: block;
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Open Sans Light', sans-serif;
+    margin-bottom: 12px;
+}
+
+.custom-palette .label-title:after {
+    content:'';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #DDD;
+    bottom: -5px;
+    left: 0;
+}
+
+.custom-palette .input-group-addon {
+    background-color: #e5e5e5;
+    padding: 5px 14px;
+}
+
+.custom-palette .colorpicker-element .input-group-addon i {
+    margin-top: 2px;
+}
+
+.custom-palette .palette-prepared ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.custom-palette .palette-prepared ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-right: -13px;
+}
+
+.custom-palette .palette-prepared li {
+    border: 1px solid rgba(0,0,0,0.1);
+    display: block;
+    float: left;
+    list-style: none;
+    margin-bottom: 11px;
+    margin-right: 12px;
+}
+
+.custom-palette .palette-prepared-list a {
+    background-color: black;
+    display: block;
+    height: 26px;
+    margin: 1px;
+    width: 26px;
+}
+
+.custom-palette .palette-prepared-list-images a img {
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
+    -ms-object-fit: cover;
+    -o-object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.custom-palette .palette-color-orange a {
+    background-color: #f3c409;
+}
+
+.custom-palette .palette-color-brown a {
+    background-color: #846447;
+}
+
+.custom-palette .palette-color-purple a {
+    background-color: #8e5c90;
+}
+
+.custom-palette .palette-color-cyan a {
+    background-color: #0aa699;
+}
+
+.custom-palette .palette-color-green a {
+    background-color: #39b54a
+}
+
+.custom-palette .palette-color-blue a {
+    background-color: #19a0d8;
+}
+
+.custom-palette .palette-color-pink a {
+    background-color: #bf224e;
+}
+
+.custom-palette .palette-color-red a {
+    background-color: #cd2122;
+}
+
+.custom-palette  .c-input>input:focus~.c-indicator {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#palette-backgroundimage-prepared a.active {
+    box-shadow: 2px 2px 0 #666;
+    -webkit-box-shadow: 2px 2px 0 #666;
+}
+
+#pallete-background-boxed {
+    display: block;
+}
+
+/* CUSTOM PALETTE */

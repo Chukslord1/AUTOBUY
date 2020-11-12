@@ -5,7 +5,7 @@
   <meta charset="utf-8"/>
   <meta content="ie=edge" http-equiv="x-ua-compatible"/>
   <title>
-   Autobuy / Nigeria's Automobile Marketplace
+   Autobuy | Home - Nigeria's Automobile Marketplace
   </title>
   <meta content="" name="description"/>
   <meta content="" name="keywords"/>
@@ -13,7 +13,7 @@
   <meta content="telephone=no" name="format-detection"/>
   <meta content="true" name="HandheldFriendly"/>
   <link href="{% static 'assets/css/master.css' %}" rel="stylesheet"/>
-  <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon"/>
+  <link href="{% static 'assets/media/general/logo-sm.png' %}" rel="icon" type="image/x-icon"/>
   <!--[if lt IE 9 ]>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script><meta content="no" http-equiv="imagetoolbar">
 <![endif]-->
@@ -57,6 +57,8 @@
         Cars For Sale
        </a>
       </li>
+      {% if user.is_authenticated %}
+      {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:sell-car' %}">
         Sell
@@ -67,6 +69,8 @@
         Swap
        </a>
       </li>
+      {% endif %}
+      {% endif %}
       <li class="nav-item">
        <a class="nav-link">
         Finance
@@ -90,13 +94,13 @@
        </a>
        <ul class="mobile-sub-menu">
         <li>
-         <a href="c{% url 'APP:clearing' %}">
+         <a href="{% url 'APP:clearing' %}">
           Clearing
          </a>
         </li>
         <li>
          <a href="{% url 'APP:car-registration' %}">
-          Car Registration
+          Car Documentation
          </a>
         </li>
         <li>
@@ -104,29 +108,27 @@
           Car Delivery
          </a>
         </li>
-       </ul>
-      </li>
-      <li class="nav-item">
-       <a class="nav-link">
-        Reservations
-       </a>
-       <ul class="mobile-sub-menu">
         <li>
-         <a href="{% url 'APP:reservation' %}">
-          Reservation Car
+         <a href="drivers-license.html">
+          Drivers license
          </a>
         </li>
         <li>
-         <a href="{% url 'APP:booking' %}">
-          Reservation Service
+         <a href="tint-permit.html">
+          Tint Permit
+         </a>
+        </li>
+        <li>
+         <a href="car-shipping.html,">
+          Car Shipping
+         </a>
+        </li>
+        <li>
+         <a href="car-upgrade.html,">
+          Car Upgrade
          </a>
         </li>
        </ul>
-      </li>
-      <li class="nav-item">
-       <a class="nav-link" href="{% url 'APP:blog_list' %}">
-        News
-       </a>
       </li>
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:become-dealer' %}">
@@ -151,6 +153,7 @@
         <a class="navbar-brand navbar-brand_dark scroll" href="{% url 'APP:index' %}">
          <img alt="logo" class="normal-logo img-fluid" src="{% static 'assets/media/general/logo-dark.png' %}"/>
         </a>
+
        </div>
        <div class="col-auto d-xl-none">
         <!-- Mobile Trigger Start-->
@@ -180,6 +183,8 @@
              Cars For Sale
             </a>
            </li>
+           {% if user.is_authenticated %}
+           {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
            <li class="nav-item">
             <a class="nav-link" href="{% url 'APP:sell-car' %}">
              Sell
@@ -190,6 +195,8 @@
              Swap
             </a>
            </li>
+           {% endif %}
+           {% endif %}
            <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#">
              Finance
@@ -212,35 +219,24 @@
               Clearing
              </a>
              <a class="dropdown-item" href="{% url 'APP:car-registration' %}">
-              Car Registration
+              Car Documentation
              </a>
              <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
               Car Delivery
              </a>
+             <a class="dropdown-item" href="drivers-license.html">
+              Drivers license
+             </a>
+             <a class="dropdown-item" href="tint-permit.html">
+              Tint Permit
+             </a>
+             <a class="dropdown-item" href="car-shipping.html,">
+              Car Shipping
+             </a>
+             <a class="dropdown-item" href="car-upgrade.html,">
+              Car Upgrade
+             </a>
             </div>
-            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#">
-              Reservation
-             </a>
-             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'APP:reservation' %}">
-               Reservation car
-              </a>
-              <a class="dropdown-item" href="{% url 'APP:booking' %}">
-               Reservation service
-              </a>
-             </div>
-            </li>
-            <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#">
-              News
-             </a>
-             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'APP:blog_list' %}">
-               Blog List
-              </a>
-             </div>
-            </li>
             <li class="nav-item">
              <a class="nav-link" href="{% url 'APP:become-dealer' %}">
               Become a dealer
@@ -312,8 +308,10 @@ function showOutput () {
   }
   var value_3=document.getElementById("make").value;
   var value_2=document.getElementById("model").value;
-  var value_1=document.getElementById("min_price").value;
-  var value=document.getElementById("max_price").value;
+  var value_range=document.getElementById("price").value;
+  var value_range_new=value_range.split("-");
+  var value_1=value_range_new[0];
+  var value=value_range_new[1];
 
 
   var paid="two";
@@ -378,6 +376,7 @@ function date () {
 }
 </script>
 
+<!--Make sure the form has the autocomplete function switched off:-->
    <div class="b-main-filter bg-dark">
     <div class="ui-decor ui-decor_mirror bg-primary">
     </div>
@@ -393,50 +392,50 @@ function date () {
       </h2>
        <div class="b-main-filter__cat btn-group-toggle" data-toggle="buttons">
         <label class="btn b-main-filter__cat-item">
-         <input id="option1" name="options" value="suv" type="radio"/>
+         <input id="option1" name="options" style="visibility:hidden;"  value="suv" type="radio"/>
          <span class="ic flaticon-car-suv">
          </span>
          SUV
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option2" name="options" value="sedan" type="radio"/>
+         <input id="option2" name="options" style="visibility:hidden;"  value="sedan" type="radio"/>
          <span class="ic flaticon-sedan-car-model">
          </span>
          SEDAN
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option3" name="options" value="wagon" type="radio"/>
+         <input id="option3" name="options" style="visibility:hidden;"  value="wagon" type="radio"/>
          <span class="ic flaticon-car-black-side-view-pointing-left">
          </span>
          WAGON
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option4" name="options" value="coupe" type="radio"/>
-         <span class="ic flaticon-sedan-car-model">
-         </span>
-         COUPE
-        </label>
-        <label class="btn b-main-filter__cat-item active">
-         <input checked="checked" id="option5" name="options" value="pickup" type="radio"/>
+         <input id="option4" name="options" style="visibility:hidden;"  value="pickup" type="radio"/>
          <span class="ic flaticon-pick-up">
          </span>
-         PICKUP
+         Pickup
+        </label>
+        <label class="btn b-main-filter__cat-item active">
+         <input checked="checked" id="option5" style="visibility:hidden;"  name="options" value="" type="radio"/>
+         <span class="ic flaticon-car">
+         </span>
+         ANY
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option6" name="options" value="bus" type="radio"/>
+         <input id="option6" name="options" style="visibility:hidden;"  value="bus" type="radio"/>
          <span class="ic flaticon-car-black-side-view-pointing-left">
          </span>
          BUS
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option7" name="options" value="truck" type="radio"/>
-         <span class="ic flaticon-car">
+         <input id="option7" name="options" style="visibility:hidden;"  value="truck" type="radio"/>
+         <span class="ic flaticon-pick-up">
          </span>
          TRUCKS &amp; TRAILERS
         </label>
         <label class="btn b-main-filter__cat-item">
-         <input id="option8" name="options" value="heavy" type="radio"/>
-         <span class="ic flaticon-car">
+         <input id="option8" name="options" style="visibility:hidden;"  value="heavy" type="radio"/>
+         <span class="ic flaticon-gears">
          </span>
          Heavy Equipment
         </label>
@@ -444,7 +443,7 @@ function date () {
        <ul class="b-main-filter-nav nav nav-tabs" id="findTab" role="tablist">
         <li class="b-main-filter-nav__item nav-item">
          <label  class="b-main-filter-nav__link nav-link active">
-          <i class="ic icon-magnifier text-primary">
+           <input name="tab" value="" type="radio"/>
           </i>
           All
         </label>
@@ -452,7 +451,7 @@ function date () {
         <li class="b-main-filter-nav__item nav-item">
          <label class="b-main-filter-nav__link nav-link">
            <input id="use1"  name="tab" value="new" type="radio"/>
-          New Cars
+          New
         </label>
         </li>
         <li class="b-main-filter-nav__item nav-item">
@@ -474,86 +473,257 @@ function date () {
         </label>
         </li>
        </ul>
+
        <div class="b-main-filter-content tab-content" id="findTabContent">
         <div class="tab-pane fade show active" id="content-allCar">
          <div class="row align-items-end no-gutters">
           <div class="b-main-filter__main col-lg">
            <div class="b-main-filter__inner row no-gutters">
-            <div class="b-main-filter__item col-md-4">
+            <div class="b-main-filter__item col-md-3">
              <div class="b-main-filter__label">
               Select Make
              </div>
              <div class="b-main-filter__selector">
               <select id="make" class="selectpicker" data-style="ui-select" data-width="100%">
-                {% for item in makes %}
-               <option>
-                 {{item.name}}
-               </option>
-               {% endfor %}
+              <option selected="" value="">All Makes</option><option>Acura</option><option >Alfa Romeo</option><option >Am General</option><option >Aston Martin</option><option >Audi</option><option >Avanti Motors</option><option >Bentley</option><option >BMW</option><option >Bugatti</option><option >Buick</option><option >Cadillac</option><option >Chevrolet</option><option >Chrysler</option><option >Daewoo</option><option >Daihatsu</option><option>Dodge</option><option >Eagle</option><option >Ferrari</option><option >FIAT</option><option >Fisker</option><option >Ford</option><option val>Genesis</option><option >Geo</option><option >GMC</option><option >Honda</option><option >Hummer</option><option value="20064">Hyundai</option><option >INFINITI</option><option >International</option><option >Isuzu</option><option >Jaguar</option><option >Jeep</option><option val>Karma</option><option >Kia</option><option >Koenigsegg</option><option >Lamborghini</option><option>Land Rover</option><option>Lexus</option><option>Lincoln</option><option>Lotus</option><option>Maserati</option><option>Maybach</option><option>Mazda</option><option>McLaren</option><option>Mercedes-Benz</option><option>Mercury</option><option>MINI</option><option>Mitsubishi</option><option>Morgan</option><option>Nissan</option><option>Oldsmobile</option><option va>Pagani</option><option>Panoz</option><option>Peugeot</option><option>Plymouth</option><option va>Polestar</option><option>Pontiac</option><option>Porsche</option><option>Qvale</option><option>RAM</option><option>Rolls-Royce</option><option>Saab</option><option>Saleen</option><option>Saturn</option><option>Scion</option><option>smart</option><option>Spyker</option><option>Sterling</option><option>Subaru</option><option>Suzuki</option><option>Tesla</option><option>Toyota</option><option>Volkswagen</option><option>Volvo</option><option>Yugo</option>
               </select>
              </div>
             </div>
-            <div class="b-main-filter__item col-md-4">
+            <div class="b-main-filter__item col-md-3">
              <div class="b-main-filter__label">
-              Select a Model
+              Model
              </div>
              <div class="b-main-filter__selector">
-              <select id="model" class="selectpicker" data-style="ui-select" data-width="100%">
-               <option value="model1">
-                Model 1
-               </option>
-               <option value="model2">
-                Model 2
-               </option>
-               <option value="model3">
-                Model 3
-               </option>
-              </select>
-             </div>
+               <div class="autocomplete">
+                 <input autocomplete="off" id="model" type="text" name="model" placeholder="Model">
+               </div>
             </div>
-            <div class="b-main-filter__item col-md-4">
+             <script>
+             function autocomplete(inp, arr) {
+               /*the autocomplete function takes two arguments,
+               the text field element and an array of possible autocompleted values:*/
+               var currentFocus;
+               /*execute a function when someone writes in the text field:*/
+               inp.addEventListener("input", function(e) {
+                   var a, b, i, val = this.value;
+                   /*close any already open lists of autocompleted values*/
+                   closeAllLists();
+                   if (!val) { return false;}
+                   currentFocus = -1;
+                   /*create a DIV element that will contain the items (values):*/
+                   a = document.createElement("DIV");
+                   a.setAttribute("id", this.id + "autocomplete-list");
+                   a.setAttribute("class", "autocomplete-items");
+                   /*append the DIV element as a child of the autocomplete container:*/
+                   this.parentNode.appendChild(a);
+                   /*for each item in the array...*/
+                   for (i = 0; i < arr.length; i++) {
+                     /*check if the item starts with the same letters as the text field value:*/
+                     if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                       /*create a DIV element for each matching element:*/
+                       b = document.createElement("DIV");
+                       /*make the matching letters bold:*/
+                       b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                       b.innerHTML += arr[i].substr(val.length);
+                       /*insert a input field that will hold the current array item's value:*/
+                       b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                       /*execute a function when someone clicks on the item value (DIV element):*/
+                       b.addEventListener("click", function(e) {
+                           /*insert the value for the autocomplete text field:*/
+                           inp.value = this.getElementsByTagName("input")[0].value;
+                           /*close the list of autocompleted values,
+                           (or any other open lists of autocompleted values:*/
+                           closeAllLists();
+                       });
+                       a.appendChild(b);
+                     }
+                   }
+               });
+               /*execute a function presses a key on the keyboard:*/
+               inp.addEventListener("keydown", function(e) {
+                   var x = document.getElementById(this.id + "autocomplete-list");
+                   if (x) x = x.getElementsByTagName("div");
+                   if (e.keyCode == 40) {
+                     /*If the arrow DOWN key is pressed,
+                     increase the currentFocus variable:*/
+                     currentFocus++;
+                     /*and and make the current item more visible:*/
+                     addActive(x);
+                   } else if (e.keyCode == 38) { //up
+                     /*If the arrow UP key is pressed,
+                     decrease the currentFocus variable:*/
+                     currentFocus--;
+                     /*and and make the current item more visible:*/
+                     addActive(x);
+                   } else if (e.keyCode == 13) {
+                     /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                     e.preventDefault();
+                     if (currentFocus > -1) {
+                       /*and simulate a click on the "active" item:*/
+                       if (x) x[currentFocus].click();
+                     }
+                   }
+               });
+               function addActive(x) {
+                 /*a function to classify an item as "active":*/
+                 if (!x) return false;
+                 /*start by removing the "active" class on all items:*/
+                 removeActive(x);
+                 if (currentFocus >= x.length) currentFocus = 0;
+                 if (currentFocus < 0) currentFocus = (x.length - 1);
+                 /*add class "autocomplete-active":*/
+                 x[currentFocus].classList.add("autocomplete-active");
+               }
+               function removeActive(x) {
+                 /*a function to remove the "active" class from all autocomplete items:*/
+                 for (var i = 0; i < x.length; i++) {
+                   x[i].classList.remove("autocomplete-active");
+                 }
+               }
+               function closeAllLists(elmnt) {
+                 /*close all autocomplete lists in the document,
+                 except the one passed as an argument:*/
+                 var x = document.getElementsByClassName("autocomplete-items");
+                 for (var i = 0; i < x.length; i++) {
+                   if (elmnt != x[i] && elmnt != inp) {
+                     x[i].parentNode.removeChild(x[i]);
+                   }
+                 }
+               }
+               /*execute a function when someone clicks in the document:*/
+               document.addEventListener("click", function (e) {
+                   closeAllLists(e.target);
+               });
+             }
+
+             /*An array containing all the country names in the world:*/
+             var countries = ["CL","ILX","Integra","Legend","MDX","NSX","RDX","RL","RLX","RSX","SLX","TL","TLX","TSX","TSX Sport Wagon","Vigor","ZDX","4000","A3","A3 Sportback e-tron","A4","A4 allroad","A5","A5 Sportback","A6","A6 allroad","A7 ","A8","A8L","Allroad","Allroad Quattro","Cabriolet","Coupe","e-tron","Q3","Q3 Sport","Q5","Q5 Hybrid","Q7","Q8 ","Quattro","R8","RS 3","RS 4","RS 5","RS 5 Sportback","RS 6","RS 7","RS Q8","S3","S4","S5","S5 Sportback","S6","S7","S8","S8 plus","SQ5","SQ7","SQ8","TT","TT RS","TTS","V8","1 Series","2 Series","3 Series","4 Series","5 Series","6 Series","7 Series","8 Series","ActiveHybrid X6","i3","i8","K1200gt","M","M2","M3","M4","M5","M6","M8","X1","X2","X3","X3 M","X4","X4 M","X5","X5 M","X6","X6 M","X7","Z3","Z4","Z4 M","Z8","40 Special","50 Special","Allure","Cascada","Century","Electra","Enclave","Encore","Encore GX","Envision","Estate Wagon","Gran Sport","Grand National","Invicta","LaCrosse","LeSabre","Lucerne","Park Avenue","Rainier","Reatta","Regal","Regal Sportback","Regal TourX","Rendezvous","Riviera","Roadmaster","Skylark","Terraza","Verano","Wildcat","Allante","ATS","ATS-V","Brougham","Catera","CT4","CT5","CT6","CT6 Plu-In Hybrid","CT6-V","CTS","CTS-V","Deville","Deville Professional","DTS","DTS Pro","Eldorado","Eldorado Biarritz","ELR","Escalade","Escalade ESV","Escalade EXT","Escalade Hybrid","Fleetwood Brougham","Fleetwood D'Elegance","Series 62","Seville","Sixty Special","SRX","STS","STS-V","XLR","XLR-V","XT4","XT5","XT6","XTS","SXT Pro","150","210","3100","3500","3500HD LCF","4500 LCF","5500HD LCF","6500XD LCF","Apache","Astro","Astro Cargo","Avalanche","Aveo","Bel Air","Beretta","Biscayne","Blazer","Bolt EV","C/K 10 Series","C/K 1500 Series","C/K 20 Series","C/K 2500 Series","C/K 30 Series","C/K 3500 Series","C4500","C5500","C6500","C7500","C8500","Camaro","Caprice","Captiva Sport","Captiva Sport Fleet","Cavalier","Celebrity","Chevelle","Chevelle Malibu","Chevette","Chevy Van","Citation","Citation","City Express Cargo","Classic","Cobalt","Colorado","Corsica","Corvair","Corvair Monza","Corvette","Cruze","Cruze Limited","D30","El Camino","Equinox","Express","Express Cargo","Express Cutaway","Express Passenger","Fleetline","Fleetmaster","Forward Control Chassis","G10","G20","200","200 Convertible","300","300 M","Aspen Hybrid","Cirrus","Concorde","Conquest","Cordoba","Crossfire","Crossfire SRT-6","Fifth Avenue","Grand Voyager","Imperial","Le Boron","LHS","New Yorker","Newport","Pacifica","Pacifica Hybrid","Prowler","PT Cruiser","Sebring","TC","Town and Country","Voyager","Windsor","400","5500","600","Aries","Aries K ","Avenger","Caliber","Caravan","Challenger","Charger","Charger SRT-8","Colt","Coronet","D100 Pickup","D150 Pickup","D200 Pickup","D250 Pickup","D300 Pickup","D350 Pickup","Dakota","Dart","Daytona","Demon","Diplomat","Durango","Grand Caravan","Intrepid ","Journey","Lancer","Magnum","Magnum SRT-8","Mirada","Monaco","Neon","Neon SRT-4","Nitro","Omni","Polara","RAM","RAM 100","RAM 150","RAM 250","RAM 350","Ram 50 Pickup","Ram Cargo","Ram Chassis 1500","Ram Chassis 2500","Ram Chassis 3500","Ram Chassis 4500","Ram Chassis 5500","Ram Pickup 1500","Ram Pickup 1500 SRT-10","Ram Pickup 2500","Ram Pickup 3500","Ram Pickup 5500","Ram Van","Ram Wagon","Ramcharger","Rampage","Shadow","Spirit","Sprinter","Sprinter Cab Chassis","Aerostar","Aspire","B-600","B-800","Bronco","Bronco II","Bronco Sport","C-600","C-800","C-8000","Cabriolet","CF8000","C-Max","C-MAX Energi","C-MA Hybrid","Contour","Courier","Crestlin","Crown Victoria","Deluxe","E-100","E-150","E-250","E-350","E-450","EcoSport","Edge","Escape","Escape Hybrid","Escort","E-Series Cargo","E-Series Chassis","E-Series Wagon","Excursion","Expedition","Expedition EL","Expedition Max","Explorer","Explorer Hybrid","Explorer Sport","Explorer Sport Trac","F-100","F-150","F-150 Heritage","F-150 SVT Lightning","F-250","F-250 Super Duty","F-350","F-350 Super Duty","F-450","F-450 Super Duty","F-550","F-550 Super Duty","F-600","F-600 Super Duty","F-650","F-650 Super Duty","F-700","F-7000","F-750","F-750 Super Duty","F-800","F-8000"];
+
+             /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+             autocomplete(document.getElementById("model"), countries);
+             </script>
+             <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 20px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+</style>
+            </div>
+            <div class="b-main-filter__item col-md-3">
              <div class="b-main-filter__label">
-              Price Min
+              Price  ₦
              </div>
              <div class="b-main-filter__selector">
-              <select id="min_price" class="selectpicker" data-style="ui-select" data-width="100%">
-               <option value="5000">
-                Min ₦5000
+              <select id="price" class="selectpicker" data-style="ui-select" data-width="100%">
+                <option value="0-1000000000000">
+               Any
+                </option>
+               <option value="50000-150000">
+              50000-150000
                </option>
-               <option value="15000">
-                Min ₦15000
+               <option value="150000-250000">
+                150000-250000
                </option>
-               <option value="25000">
-                Min ₦25000
+               <option value="250000-350000">
+                250000-350000
+               </option>
+               <option value="350000-550000">
+                350000-550000
+               </option>
+               <option value="550000-750000">
+                550000-750000
+               </option>
+               <option value="750000-1000000">
+                 750000-1000000
                </option>
               </select>
              </div>
             </div>
-            <div class="b-main-filter__item col-md-4">
+            <center>
+            <div class="col-lg-auto">
+          <button class="b-main-filter__btn btn btn-secondary" onclick="showOutput()">
+            Search
+          </button>
+          </div>
+          </center>
+            <!-- <div class="b-main-filter__item col-md-4">
              <div class="b-main-filter__label">
-              Price Max
+              Max  ₦
              </div>
              <div class="b-main-filter__selector">
               <select id="max_price" class="selectpicker" data-style="ui-select" data-width="100%">
                <option value="5000">
-                Max ₦5000
+                Max 5000
                </option>
                <option value="15000">
-                Max ₦15000
+                Max 15000
                </option>
                <option value="25000">
-                Max ₦25000
+                Max 25000
                </option>
               </select>
              </div>
-            </div>
+            </div> -->
            </div>
           </div>
-          <div class="col-lg-auto">
-           <button class="b-main-filter__btn btn btn-secondary" onclick="showOutput()">
-            Search
-           </button>
-          </div>
+
          </div>
         </div>
        </div>
@@ -676,17 +846,22 @@ function date () {
            </li>
           </ul>
           <h3 class="b-services-content__subtitle text-primary">
-           Book your free Auto Inspection
+           Book your free inspection
           </h3>
           <p>
-           Excepteur sint occaecat cupidatat non proident sunt ind culpa qudesa officia deserunt mollit anim est laboru unde omnis iste natus.
+           Get your car upgraded, get state of the art body and performance upgrade today
           </p>
+          <div class="text-center mt-3">
+           <a class="btn btn-secondary" href="car-upgrade.html">
+            Book Upgrade
+           </a>
+          </div>
           <div class="b-phone">
            <i class="ic icon-call-end">
            </i>
-           Call Us For Booking
+           Call or WhatsApp Us For Booking
            <a class="b-phone__number" href="tel:+234 811 644 1634">
-            +1 (755) 302-8549
+            +234 811 644 1634
            </a>
           </div>
           <!-- end .b-phone-->
@@ -695,7 +870,7 @@ function date () {
         <section aria-labelledby="services3-tab" class="b-services-content__section tab-pane fade" id="services3" role="tabpanel">
          <div class="text-center d-inline-block">
           <div class="ui-title-logo">
-           autobuy
+           shipping
           </div>
           <h2 class="ui-title mb-3">
            Why Choose Us
@@ -703,23 +878,28 @@ function date () {
          </div>
          <div class="b-services-content__main">
           <p>
-           We at AutoBuy,offer the best sevices,both sales and swap,leaving your stress free. we take into consideration the authenticity of documents and proper validation of ownership to avoid scams and forgery.
+           Need to ship your vehicle from USA, Canada or UAE to Nigeria?
           </p>
           <p>
-           Eorem ipsum dolor sit amet, consectetur adipisicing elit sed eiusmod tempor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat. Duis aute irure dolorin reprehenderits vol dolore fugiat nulla pariatur excepteur sint occaecat cupidatat.
+           Autobuy Nigeria has got you covered, with almost a decade of Vehicle Shipping experience, we are experts in vehicle shipping logistics, clearing and road transportation.
           </p>
           <h3 class="b-services-content__subtitle text-primary">
-           Book your free Auto Inspection
+           Book Your Vehicle Shipping Today
           </h3>
           <p>
-           Excepteur sint occaecat cupidatat non proident sunt ind culpa qudesa officia deserunt mollit anim est laboru unde omnis iste natus.
+           Get your vehicle inspected and know all the upgradable body and performance kits, bringing your car dreams to life
           </p>
+          <div class="text-center mt-3">
+           <a class="btn btn-secondary" href="car-shipping.html">
+            Book Now
+           </a>
+          </div>
           <div class="b-phone">
            <i class="ic icon-call-end">
            </i>
            Call Us For Booking
            <a class="b-phone__number" href="tel:+234 811 644 1634">
-            +1 (755) 302-8549
+            +234 811 644 1634
            </a>
           </div>
           <!-- end .b-phone-->
@@ -728,7 +908,7 @@ function date () {
         <section aria-labelledby="services4-tab" class="b-services-content__section tab-pane fade" id="services4" role="tabpanel">
          <div class="text-center d-inline-block">
           <div class="ui-title-logo">
-           autobuy
+           Delivery
           </div>
           <h2 class="ui-title mb-3">
            Why Choose Us
@@ -736,17 +916,26 @@ function date () {
          </div>
          <div class="b-services-content__main">
           <p>
-           Eorem ipsum dolor sit amet, consectetur adipisicing elit sed eiusmod tempor et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat. Duis aute irure dolorin reprehenderits vol dolore fugiat nulla pariatur excepteur sint occaecat cupidatat.
+           We are experienced in both driving and haulage vehicle delivery, delivery over 200 vehicles across states in Nigeria annually.
           </p>
           <p>
-           Non proident sunt ind culpa qudesa officia deserunt mollit anim est laboru unde omnis iste natus error sit voluptatem.
+           Whether you want your vehicle hauled from one state and delivered to another or you need professional drivers to drive your vehicles from Lagos to Kano, Autobuy Nigeria has got you covered.
+          </p>
+
+          <div class="text-center mt-3">
+           <a class="btn btn-secondary" href="car-delivery.html">
+            Book Now
+           </a>
+          </div>
+          <p>
+           Take advantage of our services today.
           </p>
           <div class="b-phone">
            <i class="ic icon-call-end">
            </i>
            Call Us For Booking
            <a class="b-phone__number" href="tel:+234 811 644 1634">
-            +1 (755) 302-8549
+            +234 811 644 1634
            </a>
           </div>
           <!-- end .b-phone-->
@@ -772,9 +961,6 @@ function date () {
        </h2>
        <div class="row">
         <div class="col-md-8 offset-md-2">
-         <p>
-        Shows the list of cars , with highlights and specs. Advertised cars are also placed on here.
-         </p>
         </div>
        </div>
       </div>
@@ -811,7 +997,7 @@ function date () {
               PRICE
              </span>
              <span class="b-goods__price-number">
-              ₦45,800
+              45,800
              </span>
             </div>
             <div class="b-goods__price-msrp">
@@ -1013,7 +1199,7 @@ function date () {
             <div class="b-goods-2__price">
              MSRP
              <span class="b-goods-2__price-inner text-secondary">
-              ₦{{item.price}}
+              {{item.price}}
              </span>
             </div>
            </div>
@@ -1098,7 +1284,7 @@ function date () {
           Choose The Car You Like
          </div>
          <div class="b-stages__info">
-          Select the car that best suites your taste after taking a tour.
+          Select the car that best suites your taste after taking a tour of our inventory.
          </div>
         </div>
        </div>
@@ -1107,10 +1293,10 @@ function date () {
          03
         </span>
         <div class="b-stages__title text-primary">
-         Apply For Auto Finance
+         Contact Seller
         </div>
         <div class="b-stages__info">
-         Purchase your very own car via our flexible Financing plan.
+         Get in contact with seller to discuss on making your car deal.
         </div>
        </div>
        <div class="b-stages__item col-lg-3 d-flex-lg flex-lg-column-reverse">
@@ -1119,10 +1305,10 @@ function date () {
         </span>
         <div class="b-stages__inner">
          <div class="b-stages__title text-primary">
-          Get Approved &amp; Drive
+          Inspect Vehicle &amp; Drive
          </div>
          <div class="b-stages__info">
-          Complete the necessary documentation and Get your Car.
+          Inspect car,test ,complete the necessary documentation and Get your Car.
          </div>
         </div>
        </div>
@@ -1142,7 +1328,7 @@ function date () {
         <div class="b-reviews-slider js-slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": false, "dots": false, "arrows": false}'>
          <blockquote class="b-reviews">
           <div class="b-reviews__text">
-         AutoBuy makes owning a car simple and hassle free.indeed, it has been one of the fastest ways to buy cars which have been duely verified. All of which i did from the convinience of my phone.
+            AutoBuy makes owning a car simple and hassle free.indeed, it has been one of the fastest ways to buy cars which have been duely verified. All of which i did from the convinience of my phone.
           </div>
           <div class="b-reviews__footer">
            <div class="b-reviews__name">
@@ -1156,11 +1342,11 @@ function date () {
          <!-- end .b-reviews-->
          <blockquote class="b-reviews">
           <div class="b-reviews__text">
-           Norem ipsum dolor sit amet consectetur adipisicing elit aliqua enim veniam quis nostrud exercita duis aute irure dolor krep rehenderit consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip irure dolor.
-          </div>
+            AutoBuy makes owning a car simple and hassle free.indeed, it has been one of the fastest ways to buy cars which have been duely verified. All of which i did from the convinience of my phone.
+               </div>
           <div class="b-reviews__footer">
            <div class="b-reviews__name">
-            Donald James
+            Mr Muyiwa Olaniyi
            </div>
            <div class="b-reviews__category">
             Customer
@@ -1170,11 +1356,11 @@ function date () {
          <!-- end .b-reviews-->
          <blockquote class="b-reviews">
           <div class="b-reviews__text">
-           Norem ipsum dolor sit amet consectetur adipisicing elit aliqua enim veniam quis nostrud exercita duis aute irure dolor krep rehenderit consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip irure dolor.
+           AutoBuy makes owning a car simple and hassle free.indeed, it has been one of the fastest ways to buy cars which have been duely verified. All of which i did from the convinience of my phone.
           </div>
           <div class="b-reviews__footer">
            <div class="b-reviews__name">
-            Donald James
+             Mr Muyiwa Olaniyi
            </div>
            <div class="b-reviews__category">
             Customer
@@ -1241,7 +1427,7 @@ function date () {
          </time>
          <span class="entry-meta__item">
           by
-          <a class="entry-meta__link text-primary" href="blog-main.html">
+          <a class="entry-meta__link text-primary" href="{{item.get_absolute_url}}">
            {{item.author}}
           </a>
          </span>
@@ -1254,7 +1440,7 @@ function date () {
         <div class="entry-main">
          <div class="entry-header">
           <h2 class="entry-title">
-           <a href="blog-post.html">
+           <a href="{{item.get_absolute_url}}">
             {{item.title}}
            </a>
           </h2>
@@ -1319,205 +1505,10 @@ function date () {
     </div>
    </section>
    <!-- end .b-bnr-->
-   <footer class="footer">
-    <div class="footer__figure">
-     <img alt="foto" class="img-fluid" src="{% static 'assets/media/content/footer/figure-1.png' %}"/>
-    </div>
-    <div class="footer__decor">
-    </div>
-    <div class="container">
-     <div class="row">
-      <div class="col-lg-3 col-md-6">
-       <div class="footer-section">
-        <a class="footer__logo" href="index.html">
-         <img alt="Logo" class="img-fluid" src="{% static 'assets/media/general/logo-light.png' %}"/>
-        </a>
-        <div class="footer-info">
-         Autobuy.ng puts you in the driver seat of your next car search, we are Nigeria's Automobile Marketplace. Our services ranges
-                    from vehicle delivery available in the 36 states to premium automobile services in the major cities.
-        </div>
-       </div>
-       <section class="footer-section">
-        <h3 class="footer-section__title footer-section__title_sm">
-         Subscribe Newsletter
-        </h3>
-        <script>
-        function news(){
-          document.getElementById("news").submit();
-        }
-        </script>
-        {{message}}
-        <form id="news" class="footer-form" method="GET">
-         <div class="form-group">
-           <input name="sub" type="hidden" value="true"/>
-          <input name="email" class="footer-form__input form-control" placeholder="your email" type="email"/>
-          <button  onclick="news()" class="ic far fa-envelope-open">
-          </button>
-         </div>
-        </form>
-       </section>
-      </div>
-      <div class="col-lg-3 col-md-6">
-       <section class="footer-section pl-4">
-        <h3 class="footer-section__title">
-         Our Hours
-        </h3>
-        <div class="footer-hours">
-         <div class="footer-hours__title">
-          Sales Hours
-         </div>
-         <div class="footer-hours__info">
-          Mon - Fri:  09:00 am to 06:00 pm
-         </div>
-         <div class="footer-hours__info">
-          Sat: 10:00am to 05:00 pm
-         </div>
-        </div>
-        <div class="footer-hours">
-         <div class="footer-hours__title">
-          Service Hours
-         </div>
-         <div class="footer-hours__info">
-          Mon - Fri:  09:00 am to 06:00 pm
-         </div>
-         <div class="footer-hours__info">
-          Sat: 10:00am to 05:00 pm
-         </div>
-        </div>
-        <div class="footer-hours">
-         <div class="footer-hours__title">
-          Online Shop Hours
-         </div>
-         <div class="footer-hours__info">
-          24 Hours
-         </div>
-         <div class="footer-hours__info">
-          7 days a week
-         </div>
-        </div>
-       </section>
-      </div>
-      <div class="col-lg-3 col-md-6">
-       <section class="footer-section footer-section_link pl-4">
-        <h3 class="footer-section__title">
-         About autobuy
-        </h3>
-        <ul class="footer-list list-unstyled">
-         <li>
-          <a href="index.hmtl">
-           Home
-          </a>
-         </li>
-         <li>
-          <a href="cars-for-sale.html">
-           Cars For Sale
-          </a>
-         </li>
-         <li>
-          <a href="about.html">
-           About us
-          </a>
-         </li>
-         <li>
-          <a href="news.html">
-           News
-          </a>
-         </li>
-         <li>
-          <a href="clearing.html">
-           Vehicle Clearing
-          </a>
-         </li>
-         <li>
-          <a href="car-registration.html">
-           Vehicle Registration
-          </a>
-         </li>
-         <li>
-          <a href="car-delivery.html">
-           Vehicle Delivery
-          </a>
-         </li>
-         <li>
-          <a href="privary-policy.html">
-           Privacy Policy
-          </a>
-         </li>
-         <li>
-          <a href="terms-and-conditions.html#">
-           Terms and Conitions
-          </a>
-         </li>
-         <li>
-          <a href="contact.html">
-           Contact Us
-          </a>
-         </li>
-        </ul>
-       </section>
-      </div>
-      <div class="col-lg-3 col-md-6">
-       <section class="footer-section">
-        <h3 class="footer-section__title">
-         Get In Touch
-        </h3>
-        <div class="footer-contacts">
-         <div class="footer-contacts__item">
-          <i class="ic icon-location-pin">
-          </i>
-          Abuja: 4, A Close, 1st Ave. Gwarinpa
-         </div>
-         <div class="footer-contacts__item">
-          <i class="ic icon-location-pin">
-          </i>
-          Lagos: 562, Lagos Abeokuta Express, Road, Ijaye Ojokoro
-         </div>
-         <div class="footer-contacts__item">
-          <i class="ic icon-envelope">
-          </i>
-          <a href="mailto:support@domain.com">
-           hello@autobuy.ng
-          </a>
-         </div>
-         <div class="footer-contacts__item">
-          <i class="ic icon-earphones-alt">
-          </i>
-          Phone:
-          <a class="footer-contacts__phone" href="tel:+2348116441634">
-           +234 811 644 1634
-          </a>
-         </div>
-        </div>
-        <ul class="footer-soc list-unstyled">
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-facebook-f">
-           </i>
-          </a>
-         </li>
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-instagram">
-           </i>
-          </a>
-         </li>
-         <li class="footer-soc__item">
-          <a class="footer-soc__link" href="#" target="_blank">
-           <i class="ic fab fa-linkedin">
-           </i>
-          </a>
-         </li>
-        </ul>
-       </section>
-      </div>
-     </div>
-    </div>
-    <div class="footer-copyright">
-     <div class="container">
-      (c) 2020 autobuy - Nigeria's Automobile Marketplace. All rights reserved.
-     </div>
-    </div>
-   </footer>
+   {% include "base.html" %}
+   {% block content %}
+
+    {% endblock %}
    <!-- .footer-->
   </div>
   <!-- end layout-theme-->

@@ -1,0 +1,43 @@
+.infobox {
+  width: 275px;
+  background: white;
+  position: relative;
+  z-index: 5;
+  .thumbnail {
+    margin-bottom: 0;
+  }
+  .thumbnail-property .property-image {
+    height: 180px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid white;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+  }
+}
+
+.infobox2 {
+  width: 270px;
+  background: white;
+  position: relative;
+  padding: 5px 5px;
+  text-align: center;
+}
+
+.infoBox > img {
+  position: absolute !important;
+  left: 5px;
+  top: 5px;
+  cursor: pointer;
+  z-index: 10;
+}

@@ -11,6 +11,11 @@ class Images(models.Model):
     def __str__(self):
         return self.title
 
+class Analytics(models.Model):
+    title=models.TextField()
+    type=models.TextField()
+    date=models.DateField(auto_now_add=True)
+    user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
 
 class Car(models.Model):
     subtitle=models.TextField(blank=True, null=True)
@@ -85,6 +90,10 @@ class Featured(models.Model):
     slug = models.SlugField()
     paginate_by = 2
 
+
+class Message(models.Model):
+    user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
+
 class Bookmark(models.Model):
     title=models.TextField(blank=True, null=True)
     category=models.TextField(blank=True, null=True)
@@ -120,8 +129,10 @@ class UserProfile(models.Model):
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),
+        ('Dealer', 'Dealer'),
+        ('None', 'None'),
     )
-    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)
+    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default="None")
     slug = models.SlugField()
     def __str__(self):
         return self.name

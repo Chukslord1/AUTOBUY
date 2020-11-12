@@ -14,7 +14,7 @@
   <meta content="telephone=no" name="format-detection"/>
   <meta content="true" name="HandheldFriendly"/>
   <link href="{% static 'assets/css/master.css' %}" rel="stylesheet"/>
-  <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon"/>
+  <link href="{% static 'assets/media/general/logo-sm.png' %}" rel="icon" type="image/x-icon"/>
   <!--[if lt IE 9 ]>
 <script src="/assets/js/separate-js/html5shiv-3.7.2.min.js" type="text/javascript"></script><meta content="no" http-equiv="imagetoolbar">
 <![endif]-->
@@ -58,6 +58,8 @@
        Cars For Sale
       </a>
      </li>
+     {% if user.is_authenticated %}
+     {% if user.profile.user_type == "Dealer" or request.user.is_staff %}
      <li class="nav-item">
       <a class="nav-link" href="sell-car.html">
        Sell
@@ -68,6 +70,8 @@
        Swap
       </a>
      </li>
+     {% endif %}
+     {% endif %}
      <li class="nav-item">
       <a class="nav-link">
        Finance
