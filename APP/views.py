@@ -1168,98 +1168,117 @@ def cars_for_sale(request):
 def sell_car(request):
     return render(request,"sell-car.html")
 def sell_car_1(request):
-    global value
-    value=request.GET.get("category")
-    if request.GET.get("category") and request.GET.get("title") is False:
-        return render(request,"sell-car-1.html")
-    elif request.method=="POST":
-        category=value
-        print(value);
-        image=request.FILES.getlist("image")
-        title=request.POST.get("title")
-        subtitle=request.POST.get("subtitle")
-        pump_size=request.POST.get("pump_size")
-        body_style=request.POST.get("body_style")
-        color=request.POST.get("color")
-        engine=request.POST.get("engine")
-        drive_train=request.POST.get("drive_train")
-        interior_color=request.POST.get("interior_color")
-        no_of_seats=request.POST.get("no_of_seats")
-        overview=request.POST.get("overview")
-        owner_review=request.POST.get("owner_review")
-        phone=request.POST.get("phone")
-        email=request.POST.get("email")
-        condition=request.POST.get("condition")
-        make=request.POST.get("make")
-        model=request.POST.get("model")
-        features=request.POST.get("features")
-        model_year=request.POST.get("year")
-        transmission=request.POST.get("transmission")
-        fuel_type=request.POST.get("fuel_type")
-        address=request.POST.get("location")
-        mileage=request.POST.get("mileage")
-        price=request.POST.get("price")
-        total_price=request.POST.get("total_price")
-        seller_note=request.POST.get("seller_note")
-        package=request.POST.get("package")
-        global slug
-        slug=title.replace(" ","")
-        context={"message":"title already exist"}
-        if Car.objects.filter(slug=slug):
-            return render(request,"sell-car-1.html",context)
-        else:
-            if request.user.is_authenticated :
-                car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
-                car.save()
-                for x in image:
-                    new_image=Images.objects.create(title=title,image=x)
-                    new_image.save()
-                    car.image.add(new_image)
-                    analytic=Analytics.objects.create(user=self.request.user,title="Sell Car",type="Submitted to")
-                    analytic.save()
-                    return redirect("sell-car-3.html")
+    try:
+        global value
+        value=request.GET.get("category")
+        if request.GET.get("category") and request.GET.get("title") is False:
+            return render(request,"sell-car-1.html")
+        elif request.method=="POST":
+            category=value
+            print(value);
+            image=request.FILES.getlist("image")
+            title=request.POST.get("title")
+            if title:
+                title=request.POST.get("title")
             else:
-                context={"message":"please login to submit"}
-                return render(request,"sell-car-2.html",context)
-    elif request.GET.get('sub')=="true":
-        email=request.GET.get('email')
-        check_email=NewsLetter.objects.filter(email=email)
-        if check_email.exists():
-            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            return render(request,"cars-for-sale.html",context)
+                return redirect("sell-car-1.html")
+            subtitle=request.POST.get("subtitle")
+            pump_size=request.POST.get("pump_size")
+            body_style=request.POST.get("body_style")
+            color=request.POST.get("color")
+            engine=request.POST.get("engine")
+            drive_train=request.POST.get("drive_train")
+            interior_color=request.POST.get("interior_color")
+            no_of_seats=request.POST.get("no_of_seats")
+            overview=request.POST.get("overview")
+            owner_review=request.POST.get("owner_review")
+            phone=request.POST.get("phone")
+            condition=request.POST.get("condition")
+            make=request.POST.get("make")
+            model=request.POST.get("model")
+            features=request.POST.get("features")
+            model_year=request.POST.get("year")
+            transmission=request.POST.get("transmission")
+            fuel_type=request.POST.get("fuel_type")
+            location=request.POST.get("location")
+            state=request.POST.get("state")
+            country=request.POST.get("country")
+            if state:
+                address=location+" "+state
+            elif country:
+                address=location+" "+country
+            else:
+                address=location
+            mileage=request.POST.get("mileage")
+            price_new=request.POST.get("price")
+            price_old=price_new.replace(",","")
+            price=price_old.replace("$","")
+            price_1=request.POST.get("total_price")
+            first_price=price_1.replace(",","")
+            total_price=price.replace("$","")
+            seller_note=request.POST.get("seller_note")
+            package=request.POST.get("package")
+            global slug
+            slug=title.replace(" ","")
+            context={"message":"title already exist"}
+            if Car.objects.filter(slug=slug):
+                return render(request,"sell-car-1.html",context)
+            else:
+                if request.user.is_authenticated :
+                    car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
+                    car.save()
+                    for x in image:
+                        new_image=Images.objects.create(title=title,image=x)
+                        new_image.save()
+                        car.image.add(new_image)
+                        analytic=Analytics.objects.create(user=request.user,title="Sell Car",type="Submitted to")
+                        analytic.save()
+                    return redirect("sell-car-3.html")
+                else:
+                    context={"message":"please login to submit"}
+                    return render(request,"sell-car-2.html",context)
+        elif request.GET.get('sub')=="true":
+            email=request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+                return render(request,"cars-for-sale.html",context)
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+                return render(request,"cars-for-sale.html",context)
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
+                return render(request,"sell-car-1.html",context)
         else:
-            news=NewsLetter.objects.create(email=email)
-            news.save()
-            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
-            toaddr = email
-            subject="Newsletter Subscription"
-            msg = MIMEMultipart()
-            msg['From'] = fromaddr
-            msg['To'] = toaddr
-            msg['Subject'] = subject
+            return render(request,"sell-car-1.html")
+    except:
+        return redirect("sell-car-1.html")
 
-
-            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
-            msg.attach(MIMEText(body, 'plain'))
-
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
-            text = msg.as_string()
-            server.sendmail(fromaddr, toaddr, text)
-            return render(request,"sell-car-1.html",context)
-    else:
-        return render(request,"sell-car-1.html")
 
 def sell_car_2(request):
     return render(request,"sell-car-2.html")
@@ -1317,98 +1336,117 @@ def sell_car_3(request):
 def swap(request):
     return render(request,"swap.html")
 def swap2(request):
-    global value
-    value=request.GET.get("category")
-    if request.GET.get("category") and request.GET.get("title") is False:
-        return render(request,"swap2.html")
-    elif request.method=="POST":
-        category=value
-        print(value);
-        image=request.FILES.getlist("image")
-        title=request.POST.get("title")
-        subtitle=request.POST.get("subtitle")
-        pump_size=request.POST.get("pump_size")
-        body_style=request.POST.get("body_style")
-        color=request.POST.get("color")
-        engine=request.POST.get("engine")
-        drive_train=request.POST.get("drive_train")
-        interior_color=request.POST.get("interior_color")
-        no_of_seats=request.POST.get("no_of_seats")
-        overview=request.POST.get("overview")
-        owner_review=request.POST.get("owner_review")
-        phone=request.POST.get("phone")
-        email=request.POST.get("email")
-        condition=request.POST.get("condition")
-        make=request.POST.get("make")
-        model=request.POST.get("model")
-        features=request.POST.get("features")
-        model_year=request.POST.get("year")
-        transmission=request.POST.get("transmission")
-        fuel_type=request.POST.get("fuel_type")
-        address=request.POST.get("location")
-        mileage=request.POST.get("mileage")
-        price=request.POST.get("price")
-        total_price=request.POST.get("total_price")
-        seller_note=request.POST.get("seller_note")
-        package=request.POST.get("package")
-        global slug
-        slug=title.replace(" ","")
-        context={"message":"title already exist"}
-        if Car.objects.filter(slug=slug):
-            return render(request,"swap2.html",context)
-        else:
-            if request.user.is_authenticated :
-                car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="swap",user=request.user,slug=slug)
-                car.save()
-                for x in image:
-                    new_image=Images.objects.create(title=title,image=x)
-                    new_image.save()
-                    car.image.add(new_image)
-                    analytic=Analytics.objects.create(user=self.request.user,title="Swap Car",type="Submitted to")
-                    analytic.save()
-                    return redirect("swap3.html")
+    try:
+        global value
+        value=request.GET.get("category")
+        if request.GET.get("category") and request.GET.get("title") is False:
+            return render(request,"swap2.html")
+        elif request.method=="POST":
+            category=value
+            print(value);
+            image=request.FILES.getlist("image")
+            title=request.POST.get("title")
+            if title:
+                title=request.POST.get("title")
             else:
-                context={"message":"please login to submit"}
+                return redirect("swap2.html")
+            subtitle=request.POST.get("subtitle")
+            pump_size=request.POST.get("pump_size")
+            body_style=request.POST.get("body_style")
+            color=request.POST.get("color")
+            engine=request.POST.get("engine")
+            drive_train=request.POST.get("drive_train")
+            interior_color=request.POST.get("interior_color")
+            no_of_seats=request.POST.get("no_of_seats")
+            overview=request.POST.get("overview")
+            owner_review=request.POST.get("owner_review")
+            phone=request.POST.get("phone")
+            email=request.POST.get("email")
+            condition=request.POST.get("condition")
+            make=request.POST.get("make")
+            model=request.POST.get("model")
+            features=request.POST.get("features")
+            model_year=request.POST.get("year")
+            transmission=request.POST.get("transmission")
+            fuel_type=request.POST.get("fuel_type")
+            location=request.POST.get("location")
+            state=request.POST.get("state")
+            country=request.POST.get("country")
+            if state:
+                address=location+" "+state
+            elif country:
+                address=location+" "+country
+            else:
+                address=location
+            mileage=request.POST.get("mileage")
+            price_new=request.POST.get("price")
+            price_old=price_new.replace(",","")
+            price=price_old.replace("$","")
+            price_1=request.POST.get("total_price")
+            first_price=price_1.replace(",","")
+            total_price=price.replace("$","")
+            seller_note=request.POST.get("seller_note")
+            package=request.POST.get("package")
+            global slug
+            slug=title.replace(" ","")
+            context={"message":"title already exist"}
+            if Car.objects.filter(slug=slug):
                 return render(request,"swap2.html",context)
-    elif request.GET.get('sub')=="true":
-        email=request.GET.get('email')
-        check_email=NewsLetter.objects.filter(email=email)
-        if check_email.exists():
-            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            return render(request,"cars-for-sale.html",context)
+            else:
+                if request.user.is_authenticated :
+                    car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="swap",user=request.user,slug=slug)
+                    car.save()
+                    for x in image:
+                        new_image=Images.objects.create(title=title,image=x)
+                        new_image.save()
+                        car.image.add(new_image)
+                        analytic=Analytics.objects.create(user=self.request.user,title="Swap Car",type="Submitted to")
+                        analytic.save()
+                    return redirect("swap3.html")
+                else:
+                    context={"message":"please login to submit"}
+                    return render(request,"swap2.html",context)
+        elif request.GET.get('sub')=="true":
+            email=request.GET.get('email')
+            check_email=NewsLetter.objects.filter(email=email)
+            if check_email.exists():
+                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+                return render(request,"cars-for-sale.html",context)
+            else:
+                news=NewsLetter.objects.create(email=email)
+                news.save()
+                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+                page_number = request.GET.get('page')
+                page_obj = paginator.get_page(page_number)
+                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+                return render(request,"cars-for-sale.html",context)
+                fromaddr = "housing-send@advancescholar.com"
+                toaddr = email
+                subject="Newsletter Subscription"
+                msg = MIMEMultipart()
+                msg['From'] = fromaddr
+                msg['To'] = toaddr
+                msg['Subject'] = subject
+
+
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                msg.attach(MIMEText(body, 'plain'))
+
+                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                text = msg.as_string()
+                server.sendmail(fromaddr, toaddr, text)
+                return render(request,"swap2.html",context)
         else:
-            news=NewsLetter.objects.create(email=email)
-            news.save()
-            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
-            toaddr = email
-            subject="Newsletter Subscription"
-            msg = MIMEMultipart()
-            msg['From'] = fromaddr
-            msg['To'] = toaddr
-            msg['Subject'] = subject
-
-
-            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
-            msg.attach(MIMEText(body, 'plain'))
-
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
-            text = msg.as_string()
-            server.sendmail(fromaddr, toaddr, text)
-            return render(request,"swap2.html",context)
-    else:
-        return render(request,"swap2.html")
+            return render(request,"swap2.html")
+    except:
+        return redirect("swap2.html")
 def swap3(request):
     global slug
     print(slug)

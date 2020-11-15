@@ -57,7 +57,7 @@ class Car(models.Model):
     overview=models.TextField(blank=True, null=True)
     owner_review=models.TextField(blank=True, null=True)
     type=models.TextField(blank=True, null=True)
-    state=models.BooleanField(blank=True, null=True, default=True)
+    state=models.BooleanField(blank=True, null=True, default=False)
     slug = models.SlugField()
     paginate_by = 2
 
