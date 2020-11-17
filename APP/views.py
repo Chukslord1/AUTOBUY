@@ -1220,8 +1220,8 @@ def sell_car_1(request):
             package=request.POST.get("package")
             global slug
             slug=title.replace(" ","")
-            context={"message":"title already exist"}
             if Car.objects.filter(slug=slug):
+                context={"message":"title already exist"}
                 return render(request,"sell-car-1.html",context)
             else:
                 if request.user.is_authenticated :
@@ -1389,8 +1389,8 @@ def swap2(request):
             package=request.POST.get("package")
             global slug
             slug=title.replace(" ","")
-            context={"message":"title already exist"}
             if Car.objects.filter(slug=slug):
+                context={"message":"title already exist"}
                 return render(request,"swap2.html",context)
             else:
                 if request.user.is_authenticated :
@@ -1614,11 +1614,14 @@ def clearing(request):
         year=request.POST.get("year")
         clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         clear.save()
-        context={"message":"submitted successfully"}
-        if self.request.user.is_authenticated :
-            analytic=Analytics.objects.create(user=self.request.user,title="Clearing",type="Submitted To")
+        if request.user.is_authenticated :
+            context={"message":"submitted successfully"}
+            analytic=Analytics.objects.create(user=request.user,title="Clearing",type="Submitted To")
             analytic.save()
-        return render(request,"clearing.html",context)
+            return render(request,"clearing.html",context)
+        else:
+            context={"message":"please login to submit form"}
+            return render(request,"clearing.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1668,11 +1671,14 @@ def car_registration(request):
         year=request.POST.get("year")
         clear=Clearing.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         clear.save()
-        context={"message":"submitted successfully"}
         if request.user.is_authenticated :
-            analytic=Analytics.objects.create(user=self.request.user,title="Car Registration",type="Submitted to")
+            analytic=Analytics.objects.create(user=request.user,title="Car Registration",type="Submitted to")
             analytic.save()
-        return render(request,"car-registration.html",context)
+            context={"message":"submitted successfully"}
+            return render(request,"car-registration.html",context)
+        else:
+            context={"message":"please login to sumit form"}
+            return render(request,"car-registration.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1723,11 +1729,14 @@ def car_delivery(request):
         year=request.POST.get("year")
         delivery=Delivery.objects.create(name=name,email=email,phone=phone,model=model,make=make,year=year)
         delivery.save()
-        context={"message":"submitted successfully"}
         if request.user.is_authenticated :
+            context={"message":"submitted successfully"}
             analytic=Analytics.objects.create(user=request.user,title=" Car Delivery",type="Submitted To")
             analytic.save()
-        return render(request,"car-delivery.html",context)
+            return render(request,"car-delivery.html",context)
+        else:
+            context={"message":"please login to submit form"}
+            return render(request,"car-delivery.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -2029,4 +2038,4 @@ def car_upgrade(request):
     return render(request,"car-upgrade.html")
 
 def car_shipping(request):
-    return rneder(request,"car-shipping.html")
+    return render(request,"car-shipping.html")

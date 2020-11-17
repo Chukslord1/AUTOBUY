@@ -115,7 +115,7 @@
          </a>
         </li>
         <li>
-         <a href="car-shipping.html,">
+         <a href="car-shipping.html">
           Car Shipping
          </a>
         </li>
@@ -216,7 +216,7 @@
              <a class="dropdown-item" href="tint-permit.html">
               Tint Permit
              </a>
-             <a class="dropdown-item" href="car-shipping.html,">
+             <a class="dropdown-item" href="car-shipping.html">
               Car Shipping
              </a>
             </div>
