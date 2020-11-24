@@ -209,13 +209,31 @@ function date () {
          Car Upgrade
         </a>
       </li>
+      <li>
+       <a href="car-tracking.html">
+        Car Tracking
+       </a>
+     </li>
        </ul>
       </li>
+      {% if user.profile.user_type == "Dealer" %}
+      {% else %}
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:become-dealer' %}">
-        Become A Dealer
+        Become a dealer
        </a>
       </li>
+      {% endif %}
+      {% if user.is_authenticated is False %}
+      {% elif user.profile.user_type == "Buyer" %}
+      {% else %}
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:pricing' %}">
+        Pricing
+       </a>
+      </li>
+      {% endif %}
+
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:sell-car' %}">
         Sell
@@ -340,11 +358,24 @@ function date () {
                Car Upgrade
               </a>
              </div>
+             {% if user.profile.user_type == "Dealer" %}
+             {% else %}
              <li class="nav-item">
               <a class="nav-link" href="{% url 'APP:become-dealer' %}">
                Become a dealer
               </a>
              </li>
+             {% endif %}
+             {% if user.is_authenticated is False %}
+             {% elif user.profile.user_type == "Buyer" %}
+             {% else %}
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'APP:pricing' %}">
+               Pricing
+              </a>
+             </li>
+             {% endif %}
+
           </ul>
           {% if user.is_authenticated %}
           <a class="header-main__link" href="{% url 'APP:dashboard' %}">
@@ -917,11 +948,11 @@ color: #ffffff;
                 PRICE
                </span>
                <span class="b-goods__price-number">
-                {{item.price}}
+                ₦{{item.price}}
                </span>
               </div>
               <div class="b-goods__price-msrp">
-               MSRP 25,350
+               MSRP ₦ {{item.total_price}}
               </div>
              </div>
             </div>
@@ -939,7 +970,7 @@ color: #ffffff;
                   MILEAGE
                  </span>
                  <span class="b-goods-descrip__text">
-                  {{item.speed}}
+                  {{item.mileage}}
                  </span>
                 </div>
                </div>
@@ -1031,16 +1062,16 @@ color: #ffffff;
             <div class="col-auto">
              <div class="b-goods__price text-primary">
               <span class="b-goods__price-title">
-               DEALER
+               {{item.user.profile.user_type}}
                <br/>
                PRICE
               </span>
               <span class="b-goods__price-number">
-               {{item.price}}
+               ₦{{item.price}}
               </span>
              </div>
              <div class="b-goods__price-msrp">
-              MSRP 25,350
+              MSRP ₦{{item.total_price}}
              </div>
             </div>
            </div>
@@ -1058,7 +1089,7 @@ color: #ffffff;
                  MILEAGE
                 </span>
                 <span class="b-goods-descrip__text">
-                 {{item.speed}}
+                 {{item.mileage}}
                 </span>
                </div>
               </div>

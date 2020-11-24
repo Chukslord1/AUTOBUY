@@ -50,6 +50,8 @@ urlpatterns = [
     path("drivers-license.html",views.drivers_license,name="drivers-license"),
     path("car-upgrade.html",views.car_upgrade,name="car-upgrade"),
     path("car-shipping.html",views.car_shipping,name="car-shipping"),
+    path("car-tracking.html",views.car_tracking,name="car-tracking"),
+    path("pricing.html",views.pricing,name="pricing"),
 
 
 

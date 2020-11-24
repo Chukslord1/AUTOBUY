@@ -130,11 +130,24 @@
         </li>
        </ul>
       </li>
+      {% if user.profile.user_type == "Dealer" %}
+      {% else %}
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:become-dealer' %}">
-        Become A Dealer
+        Become a dealer
        </a>
       </li>
+      {% endif %}
+      {% if user.is_authenticated is False %}
+      {% elif user.profile.user_type == "Buyer" %}
+      {% else %}
+      <li class="nav-item">
+       <a class="nav-link" href="{% url 'APP:pricing' %}">
+        Pricing
+       </a>
+      </li>
+      {% endif %}
+
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:sell-car' %}">
         Sell
@@ -143,6 +156,29 @@
      </ul>
    </div>
    <header class="header">
+     <div class="top-bar">
+           <div class="container-fluid">
+             <div class="row justify-content-between align-items-center">
+               <div class="col-auto">
+                 <div class="top-bar__item"><i class="ic fas fa-map-marker-alt text-primary"></i>
+                    Call Us 24/7!<a class="top-bar__link" href="tel:+2348116441634"> +234 811 644 1634</a>
+                 </div>
+                 <div class="top-bar__item"><i class="ic fas fa-envelope text-primary"></i> Email<a class="top-bar__link" href="mailto:sales@autobuy.ng"> support@autobuy.ng</a></div>
+                 <div class="top-bar__item"><i class="ic fas fa-clock text-primary"></i> Opening Hours
+
+                   <span class="top-bar__link">Mon  to Fri : 9:00am to 6:00pm</span>
+                 </div>
+               </div>
+               <div class="col-auto">
+                 <ul class="header-soc list-unstyled">
+                   <li class="header-soc__item"><a class="header-soc__link" href="https://facebook.com/autobuynigeria" target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
+                   <li class="header-soc__item"><a class="header-soc__link" href="https://instagram.com/autobuynigeria" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
+                   <li class="header-soc__item"><a class="header-soc__link" href="https://linkedin.com/company/autobuynigeria" target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </div>
     <div class="header-main">
      <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
@@ -223,24 +259,40 @@
              <a class="dropdown-item" href="{% url 'APP:car-delivery' %}">
               Car Delivery
              </a>
-             <a class="dropdown-item" href="drivers-license.html">
+             <a class="dropdown-item" href="{% url 'APP:drivers-license' %}">
               Drivers license
              </a>
-             <a class="dropdown-item" href="tint-permit.html">
+             <a class="dropdown-item" href="{% url 'APP:tint-permit' %}">
               Tint Permit
              </a>
-             <a class="dropdown-item" href="car-shipping.html">
+             <a class="dropdown-item" href="{% url 'APP:car-shipping' %}">
               Car Shipping
              </a>
-             <a class="dropdown-item" href="car-upgrade.html">
+             <a class="dropdown-item" href="{% url 'APP:car-upgrade' %}">
               Car Upgrade
              </a>
+             <a class="dropdown-item" href="{% url 'APP:car-tracking' %}">
+              Car Tracking
+             </a>
             </div>
+            {% if user.profile.user_type == "Dealer" %}
+            {% else %}
             <li class="nav-item">
              <a class="nav-link" href="{% url 'APP:become-dealer' %}">
               Become a dealer
              </a>
             </li>
+            {% endif %}
+            {% if user.is_authenticated is False %}
+            {% elif user.profile.user_type == "Buyer" %}
+            {% else %}
+            <li class="nav-item">
+             <a class="nav-link" href="{% url 'APP:pricing' %}">
+              Pricing
+             </a>
+            </li>
+            {% endif %}
+
          </ul>
          {% if user.is_authenticated %}
          <a class="header-main__link" href="{% url 'APP:dashboard' %}">
@@ -591,23 +643,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
             {{object.overview}}
            </strong>
            </p>
-          <h3 class="b-goods-f__title-inner">
-           Highlights of the new Audi S5 Sportback
-          </h3>
-          <ul class="list list-mark-2">
-           <li>
-            Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-           </li>
-          </ul>
          </div>
          <div aria-labelledby="features-tab" class="tab-pane fade" id="features" role="tabpanel">
           <p>
-           {{object.feature}}
+           {{object.features}}
          </p>
          </div>
          <div aria-labelledby="location-tab" class="tab-pane fade" id="location" role="tabpanel">
           <p>
-           {{object.location}}
+           {{object.address}}
          </p>
          </div>
          <div aria-labelledby="reviews-tab" class="tab-pane fade" id="reviews" role="tabpanel">
@@ -623,21 +667,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <aside class="l-sidebar">
          <div class="b-goods-f-price">
           <div class="b-goods-f-price__header bg-secondary">
-            {% if object.user.profile.user_type == "dealer" %}
+            {% if object.user.profile.user_type == "Dealer" %}
            Dealer Price
            {% else %}
            Private Seller Price
            {% endif %}
            <span class="b-goods-f-price__main">
-            {{object.total_price}}
+             {% load humanize %}
+             {{ object.total_price|intcomma }}
            </span>
           </div>
           <div class="b-goods-f-price__inner">
-           <div class="b-goods-f-price__msrp">
-            MSRP: {{object.price}}
-           </div>
+           LOCATION: {{object.address}}
            <div class="b-goods-f-price__note">
-            Included Taxes &amp; Checkup*
+            Autobuy Autocheck, <a href="{% url 'APP:car-delivery' %}">Delivery</a>,<a href="{% url 'APP:car-registration' %}">Registration</a> and <a href="{% url 'APP:car-tracking' %}">Vehicle Tracking Available.</a>
            </div>
           </div>
          </div>
@@ -653,8 +696,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
            </div>
            <div class="b-seller__title">
             <div class="b-seller__name">
-             {{object.user}}
+            {{object.user}}
             </div>
+            Dealer Name: {{object.user.profile.name}}
+            LGA:{{object.user.profile.lga}}
+            State:{{object.user.profile.state}}
             <div class="b-seller__category">
              Member Since {{object.user.profile.created_at}}
             </div>

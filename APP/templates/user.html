@@ -1,5 +1,4 @@
 {% load static %}
-
 <style>
  @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {
@@ -20,7 +19,7 @@ body {
   position: relative;
   margin: 5% auto;
   width: 600px;
-  height: 400px;
+  height: 550px;
   background: #FFF;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -164,6 +163,7 @@ button.social-signin.google {
   background: #DD4B39;
 }
 </style>
+
 <div id="login-box">
 <center>
   <h1>
@@ -179,12 +179,31 @@ button.social-signin.google {
   <input name="password1" placeholder="Password" type="password"/>
   <input name="password2" placeholder="Retype password" type="password"/>
   Buyer
-  <input name="user_type" value="Buyer" type="radio"/>
+  <input name="user_type" value="Buyer" id="close_others" type="radio"/>
   Dealer
   <input name="user_type" value="Dealer" type="radio"/>
-  <input type="submit" />
+  Seller
+  <input name="user_type" value="Seller" type="radio"/>
+  <br>
+  <br>
+  Image
+  <input type="file" name="image"  id="new toggle2" />
+  <br>
+  <br>
+  <input type="text" name="lga" placeholder="Local Government Area" id="toggle2" />
+  <input type="text" name="state" placeholder="State" id="toggle2" />
+  <input type="submit"/>
   </form>
   OR
   <a href="user_login.html">Login</a>
 </center>
 </div>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+<script>
+jQuery(document).ready(function(){
+  jQuery("#close_others").click(function(){
+    jQuery(".toggle2").hide();
+    jQuery("#" + jQuery(this).val()).show();
+  });
+});
+</script>

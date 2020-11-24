@@ -41,7 +41,7 @@ class Car(models.Model):
     email = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     featured=models.BooleanField(default=False)
-    feature_expire=models.DateField(blank=True, null=True)
+    feature_expire=models.DateTimeField(blank=True, null=True)
     features=models.TextField(blank=True, null=True)
     radius=models.TextField(blank=True, null=True)
     reg_date=models.DateField(auto_now_add=True)
@@ -116,12 +116,16 @@ class Bookmark(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     name= models.TextField(blank=True, null=True)
+    state= models.TextField(blank=True, null=True)
+    lga= models.TextField(blank=True, null=True)
     website=models.CharField(max_length=300, null=True,blank=True)
     image= models.ImageField(blank=True, null=True)
     phone=models.CharField(max_length=100, null=True,blank=True)
     description=models.TextField(blank=True, null=True)
     premium=models.BooleanField(default=False)
-    premium_expire=models.DateField(blank=True, null=True)
+    premium_expire=models.DateTimeField(blank=True, null=True)
+    dealer=models.BooleanField(default=False)
+    dealer_expire=models.DateTimeField(blank=True, null=True)
     premium_feature_count=models.IntegerField(blank=True, null=True,default="0")
     email_confirmed = models.BooleanField(default=False)
     trials=models.IntegerField()
@@ -129,7 +133,7 @@ class UserProfile(models.Model):
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),
-        ('Dealer', 'Dealer'),
+        ('Seller', 'Seller'),
         ('None', 'None'),
     )
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES, default="None")

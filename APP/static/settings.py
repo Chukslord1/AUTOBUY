@@ -25,7 +25,7 @@ SECRET_KEY = '!1zp0^xn_drvrlfa(oh+eknn1qtgze7et286o+cd9_-ac^=igg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["34.125.67.39","ec2-3-138-164-85.us-east-2.compute.amazonaws.com","www.ec2-3-138-164-85.us-east-2.compute.amazonaws.com","https://ec2-3-138-164-85.us-east-2.compute.amazonaws.com","www.autobuy.ng","autobuy.ng","http://autobuy.ng"]
 
 
 # Application definition

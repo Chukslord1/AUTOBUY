@@ -3,7 +3,11 @@
 <center>{% if message %}
 <img width="250" height="250"src="{% static 'assets/media/general/logo-dark.png' %}">
   <h2>{{message}}</h2>
+  {% endif %}
   {% if user.is_authenticated %}
+  {% if user.profile.user_type == "Dealer" %}
+  <h2><a href="{% url 'APP:pricing' %}">Click here to Make Payment for Dealer Membership</a></h2>
+  {% else %}
   <h2><a href="{% url 'APP:profile' %}">Click here to return to Site</a></h2>
   {% endif %}
 {% endif %}

@@ -112,11 +112,14 @@
        </li>
       </ul>
      </li>
+     {% if user.profile.user_type == "Dealer" %}
+     {% else %}
      <li class="nav-item">
       <a class="nav-link" href="become-dealer.html">
        Become A Dealer
       </a>
      </li>
+     {% endif %}
      <li class="nav-item">
       <a class="nav-link" href="sell-car.html">
        Sell
@@ -206,24 +209,27 @@
              Car Delivery
             </a>
            </div>
+           {% if user.profile.user_type == "Dealer" %}
+           {% else %}
            <li class="nav-item">
             <a class="nav-link" href="become-dealer.html">
              Become a dealer
             </a>
            </li>
+           {% endif %}
           </li>
          </ul>
-         <a class="header-main__link" href="user.html">
-          <i class="ic icon-user">
-          </i>
-         </a>
-         <span class="header-main__link btn_header_search">
-          <i class="ic icon-magnifier">
-          </i>
-         </span>
-         <button class="header-main__btn btn btn-secondary" onclick="onclick="window.location.href='admin'"">
+         {% if user.profile.user_type == "Dealer" or user.profile.user_type == "Buyer" %}
+         {% else %}
+         <button class="header-main__btn btn btn-secondary" onclick="window.location.href='admin'">
           <a href="admin">
            Admin Portal
+          </a>
+         </button>
+         {% endif %}
+         <button class="header-main__btn btn btn-secondary" onclick="window.location.href='logout.html'">
+          <a href="logout.html">
+           Logout
           </a>
          </button>
         </nav>
@@ -311,24 +317,27 @@
              Car Delivery
             </a>
            </div>
+           {% if user.profile.user_type == "Dealer" %}
+           {% else %}
            <li class="nav-item">
             <a class="nav-link" href="become-dealer.html">
              Become a dealer
             </a>
            </li>
+           {% endif %}
           </li>
          </ul>
-         <a class="header-main__link" href="user.html">
-          <i class="ic icon-user">
-          </i>
-         </a>
-         <span class="header-main__link btn_header_search">
-          <i class="ic icon-magnifier">
-          </i>
-         </span>
-         <button class="header-main__btn btn btn-secondary" onclick="onclick="window.location.href='admin'"">
+         {% if user.profile.user_type == "Dealer" or user.profile.user_type == "Buyer" %}
+         {% else %}
+         <button class="header-main__btn btn btn-secondary" onclick="window.location.href='admin'">
           <a href="admin">
            Admin Portal
+          </a>
+         </button>
+         {% endif %}
+         <button class="header-main__btn btn btn-secondary" onclick="window.location.href='logout.html'">
+          <a href="logout.html">
+           Logout
           </a>
          </button>
         </nav>
@@ -396,12 +405,14 @@
        <p class="overviewCard-subtitle">
          {% if user.profile.user_type %}
         {{user.profile.user_type}}
-         {% else %}
+         {% elif user.profile.user_type == "None" %}
          Admin
         {% endif %}
        </p>
       </div>
      </div>
+     {% if user.profile.user_type == "Buyer" %}
+     {% else %}
      <div class="overviewCard">
       <div class="overviewCard-icon overviewCard-icon--calendar">
        <i class="far fa-calendar-check">
@@ -421,6 +432,7 @@
        </div>
       </a>
      </div>
+     {% endif %}
      <div class="overviewCard">
       <div class="overviewCard-icon overviewCard-icon--mail">
        <i class="far fa-envelope">
@@ -496,6 +508,8 @@
       </div>
      </div>
      <div class="card">
+       {% if user.profile.user_type == "Buyer" %}
+       {% else %}
       <div class="card__header">
        <div class="card__header-title text-light">
         <strong>
@@ -503,8 +517,11 @@
         </strong>
        </div>
       </div>
+      {% endif %}
       <div class="card">
         <div class="documents">
+        {% if user.profile.user_type == "Buyer" %}
+        {% else %}
         {% for item in cars %}
         <div class="document">
          <div class="document__img">
@@ -538,6 +555,7 @@
        </form>
         </div>
        {% endfor %}
+       {% endif %}
        </div>
       </div>
      </div>

@@ -20,6 +20,11 @@ from django.contrib.auth.decorators import login_required
 from geopy.geocoders import Nominatim
 import time
 from pprint import pprint
+import datetime
+from datetime import timezone
+
+
+
 
 
 app = Nominatim(user_agent="tutorial")
@@ -124,6 +129,9 @@ class IndexListView(ListView):
                 password1 = self.request.POST['password1']
                 password2 = self.request.POST['password2']
                 user_type = self.request.POST['user_type']
+                image=self.request.Files.get("image")
+                state=self.request.POST.get("state")
+                lga=self.request.POST.get("lga")
                 if password1 == password2:
                     if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
 
@@ -134,7 +142,7 @@ class IndexListView(ListView):
                         user.set_password(user.password)
                         user.save()
                         slug=name.replace(" ","")
-                        profile = UserProfile.objects.create(user=user,name=name,website=email,phone=phone,user_type=user_type,slug=slug)
+                        profile = UserProfile.objects.create(user=user,name=name,website=email,phone=phone,user_type=user_type,lga=lga,image=image,state=state,slug=slug)
                         profile.save()
                         user.is_active = False
                         self.request.session['user'] = str(user.username)
@@ -1168,65 +1176,71 @@ def cars_for_sale(request):
 def sell_car(request):
     return render(request,"sell-car.html")
 def sell_car_1(request):
-    try:
-        global value
-        value=request.GET.get("category")
-        if request.GET.get("category") and request.GET.get("title") is False:
-            return render(request,"sell-car-1.html")
-        elif request.method=="POST":
-            category=value
-            print(value);
-            image=request.FILES.getlist("image")
+    global value
+    value=request.GET.get("category")
+    if request.GET.get("category") and request.GET.get("title") is False:
+        return render(request,"sell-car-1.html")
+    elif request.method=="POST":
+        category=value
+        print(value);
+        image=request.FILES.getlist("image")
+        title=request.POST.get("title")
+        if title:
             title=request.POST.get("title")
-            if title:
-                title=request.POST.get("title")
-            else:
-                return redirect("sell-car-1.html")
-            subtitle=request.POST.get("subtitle")
-            pump_size=request.POST.get("pump_size")
-            body_style=request.POST.get("body_style")
-            color=request.POST.get("color")
-            engine=request.POST.get("engine")
-            drive_train=request.POST.get("drive_train")
-            interior_color=request.POST.get("interior_color")
-            no_of_seats=request.POST.get("no_of_seats")
-            overview=request.POST.get("overview")
-            owner_review=request.POST.get("owner_review")
-            phone=request.POST.get("phone")
-            condition=request.POST.get("condition")
-            make=request.POST.get("make")
-            model=request.POST.get("model")
-            features=request.POST.get("features")
-            model_year=request.POST.get("year")
-            transmission=request.POST.get("transmission")
-            fuel_type=request.POST.get("fuel_type")
-            location=request.POST.get("location")
-            state=request.POST.get("state")
-            country=request.POST.get("country")
+        else:
+            return redirect("sell-car-1.html")
+        subtitle=request.POST.get("subtitle")
+        pump_size=request.POST.get("pump_size")
+        body_style=request.POST.get("body_style")
+        color=request.POST.get("color")
+        engine=request.POST.get("engine")
+        drive_train=request.POST.get("drive_train")
+        interior_color=request.POST.get("interior_color")
+        no_of_seats=request.POST.get("no_of_seats")
+        overview=request.POST.get("overview")
+        owner_review=request.POST.get("owner_review")
+        phone=request.POST.get("phone")
+        condition=request.POST.get("condition")
+        make=request.POST.get("make")
+        model=request.POST.get("model")
+        features=request.POST.get("features")
+        model_year=request.POST.get("year")
+        transmission=request.POST.get("transmission")
+        fuel_type=request.POST.get("fuel_type")
+        location=request.POST.get("location")
+        state=request.POST.get("state")
+        country=request.POST.get("country")
+        if location:
             if state:
                 address=location+" "+state
             elif country:
                 address=location+" "+country
             else:
                 address=location
-            mileage=request.POST.get("mileage")
-            price_new=request.POST.get("price")
-            price_old=price_new.replace(",","")
-            price=price_old.replace("$","")
-            price_1=request.POST.get("total_price")
-            first_price=price_1.replace(",","")
-            total_price=price.replace("$","")
-            seller_note=request.POST.get("seller_note")
-            package=request.POST.get("package")
-            global slug
-            slug=title.replace(" ","")
-            if Car.objects.filter(slug=slug):
-                context={"message":"title already exist"}
-                return render(request,"sell-car-1.html",context)
-            else:
-                if request.user.is_authenticated :
-                    car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,slug=slug)
+        else:
+            address=state
+        mileage=request.POST.get("mileage")
+        price_new=request.POST.get("price")
+        price_old=price_new.replace(",","")
+        price=price_old.replace("$","")
+        price_1=request.POST.get("total_price")
+        first_price=price_1.replace(",","")
+        total_price=price.replace("$","")
+        seller_note=request.POST.get("seller_note")
+        package=request.POST.get("package")
+        global slug
+        slug=title.replace(" ","")+request.user.username
+        if Car.objects.filter(slug=slug):
+            context={"message":"title already exist"}
+            return render(request,"sell-car-1.html",context)
+        else:
+            if request.user.is_authenticated :
+                if (request.user.profile.premium is True and request.user.profile.trials>0 and datetime.datetime.now(timezone.utc)<request.user.profile.premium_expire) or (request.user.profile.dealer is True and datetime.datetime.now(timezone.utc)<request.user.profile.dealer_expire ) or (request.user.profile.user_type=="Seller" and user.profile.trials>0) or (request.user.is_staff is True ):
+                    car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="sell",user=request.user,state=True,slug=slug)
                     car.save()
+                    trial_check=UserProfile.objects.get(user=request.user)
+                    trial_check.trials=trial_check.trials-1
+                    trial_check.save()
                     for x in image:
                         new_image=Images.objects.create(title=title,image=x)
                         new_image.save()
@@ -1235,50 +1249,50 @@ def sell_car_1(request):
                         analytic.save()
                     return redirect("sell-car-3.html")
                 else:
-                    context={"message":"please login to submit"}
-                    return render(request,"sell-car-2.html",context)
-        elif request.GET.get('sub')=="true":
-            email=request.GET.get('email')
-            check_email=NewsLetter.objects.filter(email=email)
-            if check_email.exists():
-                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-                page_number = request.GET.get('page')
-                page_obj = paginator.get_page(page_number)
-                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-                return render(request,"cars-for-sale.html",context)
+                    context={"message":"Your package is not valid anymore or has expired please visit pricing page to renew"}
+                    return render(request,"sell-car-1.html",context)
             else:
-                news=NewsLetter.objects.create(email=email)
-                news.save()
-                paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
-                page_number = request.GET.get('page')
-                page_obj = paginator.get_page(page_number)
-                context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-                return render(request,"cars-for-sale.html",context)
-                fromaddr = "housing-send@advancescholar.com"
-                toaddr = email
-                subject="Newsletter Subscription"
-                msg = MIMEMultipart()
-                msg['From'] = fromaddr
-                msg['To'] = toaddr
-                msg['Subject'] = subject
-
-
-                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
-                msg.attach(MIMEText(body, 'plain'))
-
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
-                server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
-                text = msg.as_string()
-                server.sendmail(fromaddr, toaddr, text)
+                context={"message":"please login to submit"}
                 return render(request,"sell-car-1.html",context)
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
         else:
-            return render(request,"sell-car-1.html")
-    except:
-        return redirect("sell-car-1.html")
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
 
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"sell-car-1.html",context)
+    else:
+        return render(request,"sell-car-1.html")
 
 def sell_car_2(request):
     return render(request,"sell-car-2.html")
@@ -1289,10 +1303,25 @@ def sell_car_3(request):
         car=Car.objects.get(slug=slug)
         package=request.GET.get("package")
         car.package=package
-        car.state=True
         car.featured=True
-        car.save()
-        return redirect("sell-car.html")
+        current_time=datetime.datetime.now(timezone.utc)
+        if package=="199999":
+            car.feature_expire=current_time+datetime.timedelta(days=7)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"sell-car-3.html",context)
+        elif package=="799999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"sell-car-3.html",context)
+        elif package=="1499999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"sell-car-3.html",context)
+        else:
+            return redirect("sell-car-3.html")
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1372,12 +1401,15 @@ def swap2(request):
             location=request.POST.get("location")
             state=request.POST.get("state")
             country=request.POST.get("country")
-            if state:
-                address=location+" "+state
-            elif country:
-                address=location+" "+country
+            if location:
+                if state:
+                    address=location+" "+state
+                elif country:
+                    address=location+" "+country
+                else:
+                    address=location
             else:
-                address=location
+                address=state
             mileage=request.POST.get("mileage")
             price_new=request.POST.get("price")
             price_old=price_new.replace(",","")
@@ -1394,15 +1426,22 @@ def swap2(request):
                 return render(request,"swap2.html",context)
             else:
                 if request.user.is_authenticated :
-                    car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="swap",user=request.user,slug=slug)
-                    car.save()
-                    for x in image:
-                        new_image=Images.objects.create(title=title,image=x)
-                        new_image.save()
-                        car.image.add(new_image)
-                        analytic=Analytics.objects.create(user=self.request.user,title="Swap Car",type="Submitted to")
-                        analytic.save()
-                    return redirect("swap3.html")
+                    if (request.user.profile.premium is True and request.user.profile.trials>0 and datetime.datetime.now(timezone.utc)<request.user.profile.premium_expire) or (request.user.profile.dealer is True and datetime.datetime.now(timezone.utc)<request.user.profile.dealer_expire ) or (request.user.profile.user_type=="Seller" and user.profile.trials>0) or (request.user.is_staff is True ):
+                        car=Car.objects.create(title=title,subtitle=subtitle,features=features,owner_review=owner_review,overview=overview,no_of_seats=no_of_seats,interior_color=interior_color,drive_train=drive_train,engine=engine,color=color,body_style=body_style,category=category,condition=condition,make=make,model=model,model_year=model_year,transmission=transmission,fuel_type=fuel_type,address=address,mileage=mileage,price=price,email=request.user.email,phone=phone,total_price=total_price,seller_note=seller_note,package=package,type="swap",state=True,user=request.user,slug=slug)
+                        car.save()
+                        trial_check=UserProfile.objects.get(user=request.user)
+                        trial_check.trials=trial_check.trials-1
+                        trial_check.save()
+                        for x in image:
+                            new_image=Images.objects.create(title=title,image=x)
+                            new_image.save()
+                            car.image.add(new_image)
+                            analytic=Analytics.objects.create(user=self.request.user,title="Swap Car",type="Submitted to")
+                            analytic.save()
+                        return redirect("swap3.html")
+                    else:
+                        context={"message":"Your package is not valid anymore or has expired please visit pricing page to renew"}
+                        return render(request,"swap2.html",context)
                 else:
                     context={"message":"please login to submit"}
                     return render(request,"swap2.html",context)
@@ -1449,16 +1488,29 @@ def swap2(request):
         return redirect("swap2.html")
 def swap3(request):
     global slug
-    print(slug)
     if request.GET.get("package"):
         car=Car.objects.get(slug=slug)
         package=request.GET.get("package")
         car.package=package
-        car.state=True
         car.featured=True
-        car.save()
-        context={"message":"Added Successfully"}
-        return redirect("swap3.html")
+        current_time=datetime.datetime.now(timezone.utc)
+        if package=="199999":
+            car.feature_expire=current_time+datetime.timedelta(days=7)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"swap3.html",context)
+        elif package=="799999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"swap3.html",context)
+        elif package=="1499999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car"}
+            return render(request,"swap3.html",context)
+        else:
+            return redirect("swap3.html")
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1796,7 +1848,7 @@ def user(request):
                 user.is_active = False
                 request.session['user'] = str(user.username)
                 user.save()
-                profile = UserProfile.objects.create(user=user, name=username,trials=3,user_type=user_type)
+                profile = UserProfile.objects.create(user=user, name=username,trials=5,user_type=user_type)
                 profile.save()
                 current_site = get_current_site(request)
                 subject = 'Activate Your AutoBuy Account'
@@ -1849,6 +1901,7 @@ def user_login(request):
 def become_dealer(request):
     return redirect("user.html")
 
+@login_required
 def dashboard(request):
     context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"message_count":Message.objects.filter(user=request.user).count(),"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.filter(creator=request.user),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
     if request.GET.get("remove")=="true":
@@ -2039,3 +2092,44 @@ def car_upgrade(request):
 
 def car_shipping(request):
     return render(request,"car-shipping.html")
+
+def car_tracking(request):
+    return render(request,"car-shipping.html")
+
+@login_required
+def pricing(request):
+    if request.method=="POST":
+        if request.POST.get("seller")=="true":
+            package=request.POST.get("package")
+            change_package=UserProfile.objects.get(user=request.user)
+            current_time=datetime.datetime.now()
+            expire=current_time+datetime.timedelta(days=30)
+            if package=="35":
+                change_package.premium=True
+                change_package.trials=30
+                change_package.premium_expire=expire
+                change_package.save()
+                context={"message":"You are now on the Standard Package"}
+                return render(request,"pricing.html",context)
+            elif package=="45":
+                change_package.premium=True
+                change_package.trials=60
+                change_package.premium_expire=expire
+                change_package.save()
+                context={"message":"You are now on the Premium Package"}
+                return render(request,"pricing.html",context)
+            else:
+                return render(request,"pricing.html")
+        elif request.POST.get("dealer")=="true":
+            current_time=datetime.datetime.now()
+            dealer_expire=current_time+datetime.timedelta(days=364)
+            change_package=UserProfile.objects.get(user=request.user)
+            change_package.dealer=True
+            change_package.dealer_expire =dealer_expire
+            change_package.save()
+            context={"message":"You are now a Dealer"}
+            return render(request,"pricing.html",context)
+        else:
+            return render(request,"pricing.html")
+    else:
+        return render(request,"pricing.html")
