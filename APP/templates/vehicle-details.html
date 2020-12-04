@@ -156,29 +156,6 @@
      </ul>
    </div>
    <header class="header">
-     <div class="top-bar">
-           <div class="container-fluid">
-             <div class="row justify-content-between align-items-center">
-               <div class="col-auto">
-                 <div class="top-bar__item"><i class="ic fas fa-map-marker-alt text-primary"></i>
-                    Call Us 24/7!<a class="top-bar__link" href="tel:+2348116441634"> +234 811 644 1634</a>
-                 </div>
-                 <div class="top-bar__item"><i class="ic fas fa-envelope text-primary"></i> Email<a class="top-bar__link" href="mailto:sales@autobuy.ng"> support@autobuy.ng</a></div>
-                 <div class="top-bar__item"><i class="ic fas fa-clock text-primary"></i> Opening Hours
-
-                   <span class="top-bar__link">Mon  to Fri : 9:00am to 6:00pm</span>
-                 </div>
-               </div>
-               <div class="col-auto">
-                 <ul class="header-soc list-unstyled">
-                   <li class="header-soc__item"><a class="header-soc__link" href="https://facebook.com/autobuynigeria" target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
-                   <li class="header-soc__item"><a class="header-soc__link" href="https://instagram.com/autobuynigeria" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
-                   <li class="header-soc__item"><a class="header-soc__link" href="https://linkedin.com/company/autobuynigeria" target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
-                 </ul>
-               </div>
-             </div>
-           </div>
-         </div>
     <div class="header-main">
      <div class="container-fluid">
       <div class="row align-items-center justify-content-between">
@@ -303,6 +280,7 @@
        {% else %}
        <a class="header-main__link" href="{% url 'APP:user' %}">
         <i class="ic icon-user">
+          <h6>SignUp/SignIn</h6>
         </i>
        </a>
          {% endif %}
@@ -698,9 +676,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <div class="b-seller__name">
             {{object.user}}
             </div>
-            Dealer Name: {{object.user.profile.name}}
-            LGA:{{object.user.profile.lga}}
-            State:{{object.user.profile.state}}
+             {{object.user.profile.name}}
+            {{object.user.profile.lga}}
+            {{object.user.profile.state}}
             <div class="b-seller__category">
              Member Since {{object.user.profile.created_at}}
             </div>
@@ -713,9 +691,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <span class="d-block">
              Contact Seller
             </span>
+            {% if user.is_authenticated %}
             <a class="b-seller__phone" href="{{object.phone}}">
              {{object.phone}}
             </a>
+            {% else %}
+            <a class="b-seller__phone" href="{{object.phone}}">
+             +234XXXXXXXXXX
+            </a>
+            {% endif %}
            </div>
            <ul class="b-seller-soc list-unstyled">
            </ul>

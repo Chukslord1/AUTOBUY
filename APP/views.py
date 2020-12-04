@@ -271,7 +271,7 @@ class CarDetailView(DetailView):
                 analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Sent A Question to Owner of: ")
                 analytic.save()
         elif self.request.GET.get('third_check')=="three":
-            if self.request.user.is_authenticated.is_authenticated:
+            if self.request.user.is_authenticated:
                 item=self.request.GET.get('item')
                 favorite=Car.objects.get(slug=item)
                 if favorite:
@@ -393,12 +393,12 @@ class SearchListView(ListView):
             if query:
                 query= self.request.GET.get('search')
             else:
-                query="a"
+                query=""
             state= self.request.GET.get('state')
             if state:
                 pass
             else:
-                state="a"
+                state=""
             category= self.request.GET.get('category')
             if category:
                 category= self.request.GET.get('category')
@@ -408,12 +408,12 @@ class SearchListView(ListView):
             if model:
                 model= self.request.GET.get('model')
             else:
-                model=''
+                model=""
             make= self.request.GET.get('make')
             if make:
                 make= self.request.GET.get('make')
             else:
-                make=''
+                make=""
             year_min=self.request.GET.get('year_min')
             if year_min:
                 new_year_min=int(year_min)
@@ -443,12 +443,12 @@ class SearchListView(ListView):
             if fuel_type:
                 fuel_type= self.request.GET.get('fuel_type')
             else:
-                fuel_type='e'
+                fuel_type=""
             condition=self.request.GET.get('condition')
             if condition:
                 condition= self.request.GET.get('condition')
             else:
-                condition='e'
+                condition=""
             transmission=self.request.GET.get('transmission')
             if transmission:
                 transmission=self.request.GET.get('transmission')
@@ -458,9 +458,9 @@ class SearchListView(ListView):
             if radius:
                 radius=self.request.GET.get('radius')
             else:
-                radius="300"
+                radius=""
             if second_check=="two":
-                search = self.model.objects.filter(Q(title__icontains=query),Q(use_state__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
+                search = self.model.objects.filter(Q(title__icontains=query),Q(condition__icontains=condition),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(radius__icontains=radius),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
                 context['search'] = search
                 if self.request.user.is_authenticated :
                     analytic=Analytics.objects.create(user=self.request.user,title=query,type="Searched")
@@ -1037,14 +1037,14 @@ def booking(request):
     return render(request,"booking-system.html")
 
 def cars_for_sale(request):
-    search=''
+    search=""
     if request.GET.get('second_check')=="two":
         second_check="two"
         query= request.GET.get('search')
         if query:
             query= request.GET.get('search')
         else:
-            query="a"
+            query=""
         print(query)
         category= request.GET.get('category')
         if category:
@@ -1055,12 +1055,12 @@ def cars_for_sale(request):
         if model:
             model= request.GET.get('model')
         else:
-            model=''
+            model=""
         make= request.GET.get('make')
         if make:
             make= request.GET.get('make')
         else:
-            make=''
+            make=""
         year_min=request.GET.get('year_min')
         if year_min:
             new_year_min=int(year_min)
@@ -1085,17 +1085,16 @@ def cars_for_sale(request):
             new_price_max=int(price_max)
         else:
             new_price_max=1000000
-        print(new_price_max)
         fuel_type=request.GET.get('fuel_type')
         if fuel_type:
             fuel_type= self.request.GET.get('fuel_type')
         else:
-            fuel_type='e'
+            fuel_type=""
         condition=request.GET.get('condition')
         if condition:
             condition= self.request.GET.get('condition')
         else:
-            condition='e'
+            condition=""
         transmission=request.GET.get('transmission')
         if transmission:
             transmission=request.GET.get('transmission')
@@ -1105,7 +1104,7 @@ def cars_for_sale(request):
         if radius:
             radius=request.GET.get('radius')
         else:
-            radius="300"
+            radius=""
         arrange=request.GET.get("arrange")
         if arrange:
             pass
@@ -1229,7 +1228,8 @@ def sell_car_1(request):
         seller_note=request.POST.get("seller_note")
         package=request.POST.get("package")
         global slug
-        slug=title.replace(" ","")+request.user.username
+        title_new=title.replace("-","")
+        slug=title_new.replace(" ","")+request.user.username
         if Car.objects.filter(slug=slug):
             context={"message":"title already exist"}
             return render(request,"sell-car-1.html",context)
@@ -1372,7 +1372,6 @@ def swap2(request):
             return render(request,"swap2.html")
         elif request.method=="POST":
             category=value
-            print(value);
             image=request.FILES.getlist("image")
             title=request.POST.get("title")
             if title:
@@ -1420,7 +1419,8 @@ def swap2(request):
             seller_note=request.POST.get("seller_note")
             package=request.POST.get("package")
             global slug
-            slug=title.replace(" ","")
+            title_new=title.replace("-","")
+            slug=title_new.replace(" ","")+request.user.username
             if Car.objects.filter(slug=slug):
                 context={"message":"title already exist"}
                 return render(request,"swap2.html",context)
@@ -1917,6 +1917,28 @@ def dashboard(request):
         item=Car.objects.get(title=title)
         item.delete()
         return render(request,"dashboard.html",context)
+    elif request.GET.get("edit")=="true":
+        slug=request.GET.get("slug")
+        if Car.objects.filter(user=request.user,slug=slug):
+            title=request.GET.get("title")
+            model=request.GET.get("model")
+            exterior=request.GET.get("exterior")
+            interior=request.GET.get("interior")
+            location=request.GET.get("location")
+            mileage=request.GET.get("mileage")
+            item=Car.objects.get(user=request.user,slug=slug)
+            item.title = title
+            item.mdoel = mdoel
+            item.color = exterior
+            item.interior_color= interior
+            item.address = location
+            item.mileage = mileage
+            title_new=title.replace(" ","")
+            item.slug = title_new+request.user.username
+            item.save()
+            return render(request,"dashboard.html")
+        else:
+            return render(request,"dashboard.html")
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)

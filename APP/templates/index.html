@@ -42,6 +42,7 @@
       </div>
      </div>
     </div>
+
     <button class="search-close close" type="button">
      <i class="fa fa-times">
      </i>
@@ -52,6 +53,13 @@
    <!-- ==========================-->
    <div data-off-canvas="mobile-slidebar left overlay">
      <ul class="navbar-nav">
+       {% if user.is_authenticated %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'APP:dashboard' %}">
+         Dashboard
+        </a>
+       </li>
+       {% endif %}
       <li class="nav-item">
        <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
         Cars For Sale
@@ -190,6 +198,13 @@
        <div class="col-xl d-none d-xl-block">
         <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
          <ul class="yamm main-menu navbar-nav">
+            {% if user.is_authenticated %}
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'APP:dashboard' %}">
+             Dashboard
+            </a>
+           </li>
+           {% endif %}
            <li class="nav-item">
             <a class="nav-link" href="{% url 'APP:cars-for-sale' %}">
              Cars For Sale
@@ -280,6 +295,7 @@
        {% else %}
        <a class="header-main__link" href="{% url 'APP:user' %}">
         <i class="ic icon-user">
+          <h6>Sign In/ Signup</h6>
         </i>
        </a>
          {% endif %}
@@ -343,7 +359,7 @@ function showOutput () {
 
 
   var paid="two";
-  var queryString = "?second_check=" +paid + "&category=" + value_4 + "&use_state=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
+  var queryString = "?second_check=" +paid + "&category=" + value_4 + "&condition=" + value_5 + "&make=" + value_3 + "&model=" + value_2 + "&price_min=" + value_1 + "&price_max=" + value;
   window.location.href="search" + queryString;
 }
 
@@ -471,14 +487,14 @@ function date () {
        <ul class="b-main-filter-nav nav nav-tabs" id="findTab" role="tablist">
         <li class="b-main-filter-nav__item nav-item">
          <label  class="b-main-filter-nav__link nav-link active">
-           <input name="tab" value="" type="radio"/>
+           <input name="tab" value="" type="radio" checked/>
           </i>
           All
         </label>
         </li>
         <li class="b-main-filter-nav__item nav-item">
          <label class="b-main-filter-nav__link nav-link">
-           <input id="use1"  name="tab" value="new" type="radio"/>
+           <input id="use1"  name="tab" value="new" type="radio" />
           New
         </label>
         </li>
