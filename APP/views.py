@@ -85,10 +85,8 @@ class IndexListView(ListView):
             if check_email.exists():
                 context['message']=' This Email is Subscribed Already'
             else:
-                news=NewsLetter.objects.create(email=email)
-                news.save()
                 context['message']='Subscribed Successfully'
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -97,16 +95,16 @@ class IndexListView(ListView):
                 msg['Subject'] = subject
 
 
-                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+                body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.autobuy.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
+                news=NewsLetter.objects.create(email=email)
+                news.save()
         elif self.request.method == 'POST':
             if self.request.POST.get("login")=="true":
                 email = self.request.POST['email']
@@ -154,7 +152,7 @@ class IndexListView(ListView):
                         'uid': user.pk,
                         'token': account_activation_token.make_token(user),
                         })
-                        fromaddr = "housing-send@advancescholar.com"
+                        fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                         toaddr = email
                         msg = MIMEMultipart()
                         msg['From'] = fromaddr
@@ -165,11 +163,9 @@ class IndexListView(ListView):
                         body = message
                         msg.attach(MIMEText(body, 'plain'))
 
-                        server = smtplib.SMTP('mail.advancescholar.com',  26)
+                        server = smtplib.SMTP('smtp.sendgrid.net',  25)
                         server.ehlo()
-                        server.starttls()
-                        server.ehlo()
-                        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                        server.login("apikey", "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")
                         text = msg.as_string()
                         server.sendmail(fromaddr, toaddr, text)
                         context["message_confirm"]="Please Confirm your email to complete registration."
@@ -247,8 +243,8 @@ class CarDetailView(DetailView):
             email=self.request.GET.get("email")
             address=self.request.GET.get("address")
             message=self.request.GET.get("message")
-            message="Inspection Request From A Buyer Regarding A Car You Have Assigned To You On autobuy.com "+message+" ."
-            fromaddr = "housing-send@advancescholar.com"
+            message1="Inspection Request From A Buyer Regarding A Car You Have Assigned To You On autobuy.com "+message+" ."
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = UserProfile.objects.get(user=obj.user).website
             msg = MIMEMultipart()
             msg['From'] = fromaddr
@@ -256,17 +252,17 @@ class CarDetailView(DetailView):
             msg['Subject'] ="Inspection Of Car"
 
 
-            body = message+ "My contacts are"  + " phone " + phone
+            body = "You have a message on www.autobuy.ng"
+            content=message1+ "My contacts are"  + " phone " + phone
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
-            text = msg.as_string()
+            server.login("apikey", "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")
             server.sendmail(fromaddr, toaddr, text)
             context['message']="Question Sent Successfully"
+            message=Message.objects.create(user=obj.user,content=content)
+            message.save()
             if self.request.user.is_authenticated :
                 analytic=Analytics.objects.create(user=self.request.user,title=obj.title,type="Sent A Question to Owner of: ")
                 analytic.save()
@@ -304,24 +300,22 @@ class CarDetailView(DetailView):
             name=self.request.POST.get("name")
             email=self.request.POST.get("email")
             message=self.request.POST.get("message")
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Car Request"
             msg = MIMEMultipart()
             msg['From'] = fromaddr
             msg['To'] = toaddr
             msg['Subject'] = "A request for a Car Valuation"
-            body = message
+            body = "You have a request for car valuation on www.autobuy.ng"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
-            message=Message.objects.create(user=User.objects.get(email=email))
+            message=Message.objects.create(user=obj.user, content=message)
             message.save()
             context["message"]="Successfully Submitted  Request"
             if self.request.user.is_authenticated :
@@ -345,7 +339,7 @@ class CarDetailView(DetailView):
                 news=NewsLetter.objects.create(email=email)
                 news.save()
                 context['message']='Subscribed Successfully'
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -357,11 +351,9 @@ class CarDetailView(DetailView):
                 body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         context['cars'] = Car.objects.all()
@@ -551,7 +543,7 @@ class CategoryListView(ListView):
                 news=NewsLetter.objects.create(email=email)
                 news.save()
                 context['message']='Subscribed Successfully'
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -563,11 +555,9 @@ class CategoryListView(ListView):
                 body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         if search:
@@ -713,7 +703,7 @@ class ArticleListView(ListView):
                 news=NewsLetter.objects.create(email=email)
                 news.save()
                 context['message']='Subscribed Successfully'
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -725,11 +715,9 @@ class ArticleListView(ListView):
                 body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
@@ -770,7 +758,7 @@ class ArticleDetailView(DetailView):
                 news=NewsLetter.objects.create(email=email)
                 news.save()
                 context['message']='Subscribed Successfully'
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -782,11 +770,9 @@ class ArticleDetailView(DetailView):
                 body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
@@ -828,7 +814,7 @@ class DealerDetailView(DetailView):
             tour=Question.objects.create(phone=phone,name=name,question=question)
             tour.save()
             message="Questions From A Buyer Regarding A Car You Have Assigned To You On autobuy.com "+question+" ."
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = "chukslord1@gmail.com"
             msg = MIMEMultipart()
             msg['From'] = fromaddr
@@ -839,11 +825,9 @@ class DealerDetailView(DetailView):
             body = message+ "My contacts are"  + " phone " + phone
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             context['message']="Question Sent Successfully"
@@ -883,7 +867,7 @@ def contact(request):
         email=request.POST['email']
         phone=request.POST['phone']
         message=request.POST['message']
-        fromaddr = "housing-send@advancescholar.com"
+        fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
         toaddr = "chukslord1@gmail.com"
         subject=request.POST['subject']
         msg = MIMEMultipart()
@@ -895,11 +879,9 @@ def contact(request):
         body = message +"-"+"email" + email
         msg.attach(MIMEText(body, 'plain'))
 
-        server = smtplib.SMTP('mail.advancescholar.com',  26)
+        server = smtplib.SMTP('smtp.sendgrid.net',  25)
         server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+        server.login("apikey", "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")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         context={'message':'Your message has been sent sucessfully','featured':Car.objects.filter(featured=True)[:3]}
@@ -962,7 +944,7 @@ def reservation(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -974,11 +956,9 @@ def reservation(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"reservation-grid.html",context)
@@ -1136,7 +1116,7 @@ def cars_for_sale(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already"}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1148,11 +1128,9 @@ def cars_for_sale(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"cars-for-sale.html",context)
@@ -1271,7 +1249,7 @@ def sell_car_1(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1283,11 +1261,9 @@ def sell_car_1(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"sell-car-1.html",context)
@@ -1339,7 +1315,7 @@ def sell_car_3(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1351,11 +1327,9 @@ def sell_car_3(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"sell-car-3.html",context)
@@ -1462,7 +1436,7 @@ def swap2(request):
                 page_obj = paginator.get_page(page_number)
                 context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
                 return render(request,"cars-for-sale.html",context)
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 subject="Newsletter Subscription"
                 msg = MIMEMultipart()
@@ -1474,11 +1448,9 @@ def swap2(request):
                 body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
                 return render(request,"swap2.html",context)
@@ -1528,7 +1500,7 @@ def swap3(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1540,11 +1512,9 @@ def swap3(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"swap3.html",context)
@@ -1582,7 +1552,7 @@ def car_loan(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1594,11 +1564,9 @@ def car_loan(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-loan.html",context)
@@ -1633,7 +1601,7 @@ def car_insurance(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1645,11 +1613,9 @@ def car_insurance(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-insurance.html",context)
@@ -1691,7 +1657,7 @@ def clearing(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1703,11 +1669,9 @@ def clearing(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"clearing.html",context)
@@ -1748,7 +1712,7 @@ def car_registration(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1760,11 +1724,9 @@ def car_registration(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"cars-registration.html",context)
@@ -1806,7 +1768,7 @@ def car_delivery(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1818,11 +1780,9 @@ def car_delivery(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-delivery.html",context)
@@ -1858,7 +1818,7 @@ def user(request):
                     'uid': user.pk,
                     'token': account_activation_token.make_token(user),
                     })
-                fromaddr = "housing-send@advancescholar.com"
+                fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
                 toaddr = email
                 msg = MIMEMultipart()
                 msg['From'] = fromaddr
@@ -1869,11 +1829,9 @@ def user(request):
                 body = message
                 msg.attach(MIMEText(body, 'plain'))
 
-                server = smtplib.SMTP('mail.advancescholar.com',  26)
+                server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.starttls()
-                server.ehlo()
-                server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                server.login("apikey", "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")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
                 context = {'profile':profile,"message_confirm": "Please Check Your Mail  to complete registration."}
@@ -1903,7 +1861,7 @@ def become_dealer(request):
 
 @login_required
 def dashboard(request):
-    context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"message_count":Message.objects.filter(user=request.user).count(),"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.filter(creator=request.user),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
+    context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"message_count":Message.objects.filter(user=request.user).count(),"new_message_count":Message.objects.filter(user=request.user,created_at__range=(datetime.datetime.now(),datetime.datetime.now()+ datetime.timedelta(days=10))).count(),"no_of_car":Car.objects.filter(user=request.user).count(),"cars":Car.objects.filter(user=request.user),"favorites":Bookmark.objects.filter(creator=request.user),"dealer":UserProfile.objects.filter(user=request.user,user_type="Dealer")}
     if request.GET.get("remove")=="true":
         title=request.GET.get("title")
         item=Bookmark.objects.get(title=title)
@@ -1936,9 +1894,9 @@ def dashboard(request):
             title_new=title.replace(" ","")
             item.slug = title_new+request.user.username
             item.save()
-            return render(request,"dashboard.html")
+            return render(request,"dashboard.html",context)
         else:
-            return render(request,"dashboard.html")
+            return render(request,"dashboard.html",context)
     elif request.GET.get('sub')=="true":
         email=request.GET.get('email')
         check_email=NewsLetter.objects.filter(email=email)
@@ -1946,7 +1904,7 @@ def dashboard(request):
             paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-            context={"analytics":Analytics.objects.filter(user=request.user).order_by("id")[0:10],"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
+            context={"analytics":Analytics.objects.filter(user=request.user).order_by("id")[0:10],"page_obj":page_obj,"message_count":Message.objects.filter(user=request.user).count(),"new_message_count":Message.objects.filter(user=request.user,created_at__range=(datetime.datetime.now(),datetime.datetime.now()+ datetime.timedelta(days=10))).count(),"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
         else:
             news=NewsLetter.objects.create(email=email)
@@ -1954,8 +1912,8 @@ def dashboard(request):
             paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-            context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
-            fromaddr = "housing-send@advancescholar.com"
+            context={"analytics":Analytics.objects.filter(user=request.user).order_by("-id")[0:10],"page_obj":page_obj,"message":" This Email is Subscribed Already","message_count":Message.objects.filter(user=request.user).count(),"new_message_count":Message.objects.filter(user=request.user,created_at__range=(datetime.datetime.now(),datetime.datetime.now()+ datetime.timedelta(days=10))).count(),"image":Images.objects.all()[0:10]}
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -1967,11 +1925,9 @@ def dashboard(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"dashboard.html",context)
@@ -2008,7 +1964,7 @@ def about(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -2020,11 +1976,9 @@ def about(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"about.html",context)
@@ -2038,7 +1992,7 @@ def contact(request):
         name=request.POST.get("name")
         email=request.POST.get("email")
         message=request.POST.get("message")
-        fromaddr = "housing-send@advancescholar.com"
+        fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
         toaddr = "housing@advancescholar.com"
         subject=request.POST.get('subject')
         msg = MIMEMultipart()
@@ -2050,11 +2004,9 @@ def contact(request):
         body = message +"-"+"email" + email
         msg.attach(MIMEText(body, 'plain'))
 
-        server = smtplib.SMTP('mail.advancescholar.com',  26)
+        server = smtplib.SMTP('smtp.sendgrid.net',  25)
         server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+        server.login("apikey", "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")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         context={"message":"Sent successfully"}
@@ -2076,7 +2028,7 @@ def contact(request):
             page_obj = paginator.get_page(page_number)
             context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10]}
             return render(request,"cars-for-sale.html",context)
-            fromaddr = "housing-send@advancescholar.com"
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
             toaddr = email
             subject="Newsletter Subscription"
             msg = MIMEMultipart()
@@ -2088,11 +2040,9 @@ def contact(request):
             body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
             msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            server.login("apikey", "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")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"contacts.html",context)

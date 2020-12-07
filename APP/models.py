@@ -93,6 +93,8 @@ class Featured(models.Model):
 
 class Message(models.Model):
     user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
+    content= models.TextField(blank=True, null=True)
+    created_at=models.DateField(auto_now_add=True)
 
 class Bookmark(models.Model):
     title=models.TextField(blank=True, null=True)
