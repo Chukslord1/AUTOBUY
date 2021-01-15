@@ -51,6 +51,7 @@ urlpatterns = [
     path("car-upgrade.html",views.car_upgrade,name="car-upgrade"),
     path("car-shipping.html",views.car_shipping,name="car-shipping"),
     path("car-tracking.html",views.car_tracking,name="car-tracking"),
+    path("boost.html",views.boost,name="boost"),
     path("pricing.html",views.pricing,name="pricing"),
 
 

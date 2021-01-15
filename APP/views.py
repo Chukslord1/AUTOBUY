@@ -100,7 +100,7 @@ class IndexListView(ListView):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
                 news=NewsLetter.objects.create(email=email)
@@ -165,7 +165,7 @@ class IndexListView(ListView):
 
                         server = smtplib.SMTP('smtp.sendgrid.net',  25)
                         server.ehlo()
-                        server.login("apikey", "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")
+                        server.login("apikey", "secret_key")
                         text = msg.as_string()
                         server.sendmail(fromaddr, toaddr, text)
                         context["message_confirm"]="Please Confirm your email to complete registration."
@@ -258,7 +258,7 @@ class CarDetailView(DetailView):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             server.sendmail(fromaddr, toaddr, text)
             context['message']="Question Sent Successfully"
             message=Message.objects.create(user=obj.user,content=content)
@@ -312,7 +312,7 @@ class CarDetailView(DetailView):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             message=Message.objects.create(user=obj.user, content=message)
@@ -353,7 +353,7 @@ class CarDetailView(DetailView):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         context['cars'] = Car.objects.all()
@@ -557,7 +557,7 @@ class CategoryListView(ListView):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         if search:
@@ -717,7 +717,7 @@ class ArticleListView(ListView):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
@@ -772,7 +772,7 @@ class ArticleDetailView(DetailView):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
         check_login=self.request.user
@@ -827,7 +827,7 @@ class DealerDetailView(DetailView):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             context['message']="Question Sent Successfully"
@@ -881,7 +881,7 @@ def contact(request):
 
         server = smtplib.SMTP('smtp.sendgrid.net',  25)
         server.ehlo()
-        server.login("apikey", "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")
+        server.login("apikey", "secret_key")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         context={'message':'Your message has been sent sucessfully','featured':Car.objects.filter(featured=True)[:3]}
@@ -958,7 +958,7 @@ def reservation(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"reservation-grid.html",context)
@@ -1130,7 +1130,7 @@ def cars_for_sale(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"cars-for-sale.html",context)
@@ -1263,7 +1263,7 @@ def sell_car_1(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"sell-car-1.html",context)
@@ -1329,7 +1329,7 @@ def sell_car_3(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"sell-car-3.html",context)
@@ -1450,7 +1450,7 @@ def swap2(request):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
                 return render(request,"swap2.html",context)
@@ -1514,7 +1514,7 @@ def swap3(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"swap3.html",context)
@@ -1566,7 +1566,7 @@ def car_loan(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-loan.html",context)
@@ -1615,7 +1615,7 @@ def car_insurance(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-insurance.html",context)
@@ -1671,7 +1671,7 @@ def clearing(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"clearing.html",context)
@@ -1726,7 +1726,7 @@ def car_registration(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"cars-registration.html",context)
@@ -1782,7 +1782,7 @@ def car_delivery(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"car-delivery.html",context)
@@ -1831,7 +1831,7 @@ def user(request):
 
                 server = smtplib.SMTP('smtp.sendgrid.net',  25)
                 server.ehlo()
-                server.login("apikey", "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")
+                server.login("apikey", "secret_key")
                 text = msg.as_string()
                 server.sendmail(fromaddr, toaddr, text)
                 context = {'profile':profile,"message_confirm": "Please Check Your Mail  to complete registration."}
@@ -1886,7 +1886,7 @@ def dashboard(request):
             mileage=request.GET.get("mileage")
             item=Car.objects.get(user=request.user,slug=slug)
             item.title = title
-            item.mdoel = mdoel
+            item.model = model
             item.color = exterior
             item.interior_color= interior
             item.address = location
@@ -1927,7 +1927,7 @@ def dashboard(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"dashboard.html",context)
@@ -1978,7 +1978,7 @@ def about(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"about.html",context)
@@ -2006,7 +2006,7 @@ def contact(request):
 
         server = smtplib.SMTP('smtp.sendgrid.net',  25)
         server.ehlo()
-        server.login("apikey", "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")
+        server.login("apikey", "secret_key")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         context={"message":"Sent successfully"}
@@ -2042,7 +2042,7 @@ def contact(request):
 
             server = smtplib.SMTP('smtp.sendgrid.net',  25)
             server.ehlo()
-            server.login("apikey", "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")
+            server.login("apikey", "secret_key")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             return render(request,"contacts.html",context)
@@ -2105,3 +2105,67 @@ def pricing(request):
             return render(request,"pricing.html")
     else:
         return render(request,"pricing.html")
+
+def boost(request):
+    context={"mycars":Car.objects.filter(user=request.user)}
+    if request.GET.get("package"):
+        slug=request.GET.get("car")
+        car=Car.objects.get(slug=slug)
+        package=request.GET.get("package")
+        car.package=package
+        car.featured=True
+        current_time=datetime.datetime.now(timezone.utc)
+        if package=="199999":
+            car.feature_expire=current_time+datetime.timedelta(days=7)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car","mycars":Car.objects.filter(user=request.user)}
+            return render(request,"boost.html",context)
+        elif package=="799999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car","mycars":Car.objects.filter(user=request.user)}
+            return render(request,"boost.html",context)
+        elif package=="1499999":
+            car.feature_expire=current_time+datetime.timedelta(days=30)
+            car.save()
+            context={"message_boost":"The Boost has been applied to your car","mycars":Car.objects.filter(user=request.user)}
+            return render(request,"boost.html",context)
+        else:
+            return redirect("boost.html")
+    elif request.GET.get('sub')=="true":
+        email=request.GET.get('email')
+        check_email=NewsLetter.objects.filter(email=email)
+        if check_email.exists():
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10],"mycars":Car.objects.filter(user=request.user)}
+            return render(request,"boost.html",context)
+        else:
+            news=NewsLetter.objects.create(email=email)
+            news.save()
+            paginator= Paginator(Car.objects.filter(state=True,type="sell"),10)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context={"page_obj":page_obj,"message":" This Email is Subscribed Already","image":Images.objects.all()[0:10],"mycars":Car.objects.filter(user=request.user)}
+            return render(request,"cars-for-sale.html",context)
+            fromaddr = "AUTOBUY SUPPORT  <support@autobuy.ng>"
+            toaddr = email
+            subject="Newsletter Subscription"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] = subject
+
+
+            body = "You have successfully subscribed to our Newsletter..Look Up our website @ www.afriCar.com.ng and look through our properties"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('smtp.sendgrid.net',  25)
+            server.ehlo()
+            server.login("apikey", "secret_key")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            return render(request,"boost.html",context)
+    else:
+        return render(request,"boost.html",context)

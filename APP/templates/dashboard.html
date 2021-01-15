@@ -265,6 +265,11 @@
            Logout
           </a>
          </button>
+         <button class="header-main__btn btn btn-secondary" onclick="window.location.href='boost.html'">
+          <a href="boost.html">
+           Boost a Vehicle
+          </a>
+         </button>
         </nav>
        </div>
       </div>
@@ -559,7 +564,7 @@
               <label for="email">
                 Seller's Note
               </label>
-              <textarea  id="seller_note" placeholder="sellers note" name="seller_note" value="{{item.seller_note}}" required></textarea>
+              <textarea  id="seller_note" placeholder="{{item.seller_note}}" name="seller_note" value="{{item.seller_note}}" cols="30" rows="5" required></textarea>
               <button class="btn"  type="submit" >Submit</button>
               <button type="button" class="btn cancel" onclick="closeForm{{item.slug}}()">Close</button>
             </form>

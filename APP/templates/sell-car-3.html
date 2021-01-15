@@ -406,7 +406,7 @@ metadata: {
       {
           display_name: "{{user.username}}",
           variable_name: "Afriproperty Basic Subscription Package",
-          value: "+2348012345678"
+          value: "{{user.profile.phone}}"
       }
    ]
 },
@@ -430,7 +430,7 @@ jQuery("#" + jQuery(this).val()).show();
 });
          </script>
          <div class="col-lg-8">
-          <form id="theform" class="b-booking-main" action="{% url 'APP:swap3' %}" method="POST">
+          <form id="theform" class="b-booking-main" action="{% url 'APP:sell-car-3' %}" method="POST">
             {% csrf_token %}
            <div class="b-booking-main__section">
             <h2>{{message}}</h2>
